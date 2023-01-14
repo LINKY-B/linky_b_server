@@ -1,0 +1,23 @@
+#server:
+#port: 8080
+spring:
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/linkyB?serverTimezone=UTC&characterEncoding=UTF-8
+    username: gitak
+    password: lkt1030325
+
+  jpa:
+    database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: false
+
+  thymeleaf:
+    cache: false
+
