@@ -1,0 +1,10 @@
+/.gradle/
+/build/
+/build/classes/java/main/
+
+#/src/main/resources/application.yml
+
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
