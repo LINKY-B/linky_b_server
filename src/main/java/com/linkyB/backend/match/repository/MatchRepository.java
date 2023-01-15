@@ -12,6 +12,5 @@ import java.util.Optional;
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long>  {
 
-    @Query(value = "select m.id from Match m where m.userGetMatched = :userGetMatched and m.userMatching = :userMatching")
-    Match getByUserGetMatchedAndUserMatching(@Param("userGetMatched") Long userGetMatched, @Param("userMatching") Long userMatching);
+
 }

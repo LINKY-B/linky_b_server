@@ -1,10 +1,15 @@
 package com.linkyB.backend.match.service;
 
+import com.linkyB.backend.block.converter.Blockconverter;
+import com.linkyB.backend.block.entity.Block;
+import com.linkyB.backend.block.repository.BlockRepostiory;
 import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.match.converter.MatchConverter;
+import com.linkyB.backend.match.dto.MatchNoResDto;
 import com.linkyB.backend.match.dto.MatchOkResDto;
 import com.linkyB.backend.match.dto.MatchingCreateResDto;
 import com.linkyB.backend.match.entity.Match;
+import com.linkyB.backend.match.entity.status;
 import com.linkyB.backend.match.entity.userMatchStatus;
 import com.linkyB.backend.match.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +25,8 @@ public class MatchServiceImpl implements MatchService {
 
     private final MatchRepository matchRepository;
     private final MatchConverter matchConverter;
+    private final BlockRepostiory blockRepostiory;
+    private final Blockconverter blockconverter;
 
     @Transactional
     public MatchingCreateResDto matching(final Long userMatching, final Long userGetMatched) {
@@ -36,5 +43,16 @@ public class MatchServiceImpl implements MatchService {
         match.update(userMatchStatus.ACTIVE);
         return matchConverter.ResMatchOkDto(match);
 
+    }
+
+    @Transactional
+    public MatchNoResDto matchNo(Long id) {
+
+
+        Match match = matchRepository.getById(id);
+        match.updateMatch(status.INACTIVE);
+        Block block = blockRepostiory.save(blockconverter.ReqMatchNoDto(match.getUserGetMatched(), match.getUserMatching()));
+
+        return blockconverter.ResMatchNoDto(block);
     }
 }

@@ -1,5 +1,6 @@
 package com.linkyB.backend.match.controller;
 
+import com.linkyB.backend.match.dto.MatchNoResDto;
 import com.linkyB.backend.match.dto.MatchOkResDto;
 import com.linkyB.backend.match.dto.MatchingCreateResDto;
 import com.linkyB.backend.match.service.MatchService;
@@ -30,5 +31,12 @@ public class MatchController {
         final MatchOkResDto response = matchService.matchOk(id);
         return ResponseEntity.ok().body(response);
 
+    }
+
+    // 매칭 거절
+    @PostMapping("/{id}")
+    public ResponseEntity<MatchNoResDto> matchNo(@PathVariable("id")Long id) {
+        final MatchNoResDto response = matchService.matchNo(id);
+        return ResponseEntity.ok().body(response);
     }
 }

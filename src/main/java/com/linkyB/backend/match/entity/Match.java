@@ -30,8 +30,12 @@ public class Match {
     private status status;
 
     public void update(userMatchStatus userMatchStatus) {
+
         this.userMatchStatus = userMatchStatus;
     }
 
-
+    public void updateMatch(status status){
+        this.status = status;
+    }
 }
+

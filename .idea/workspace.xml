@@ -5,28 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d7cb271-1d01-4bf1-b4f5-4ab90ea6c9ed" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/MatchOkResDto$MatchOkResDtoBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/MatchOkResDto.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/MatchOkResDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/block/converter/Blockconverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/block/entity/Block.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/block/entity/userBlockStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/block/repository/BlockRepostiory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/MatchNoResDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/de195137-9986-4fb7-b0fc-470294ab7090.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/de195137-9986-4fb7-b0fc-470294ab7090.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/controller/MatchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/controller/MatchController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/converter/MatchConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/converter/MatchConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/MatchingCreateResDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/MatchingCreateResDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/userMatchDto$userMatchDtoBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/userMatchDto$userMatchDtoBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/userMatchDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/userMatchDto.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/entity/Match.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/entity/Match.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/repository/MatchRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/repository/MatchRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/converter/MatchConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/converter/MatchConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/userMatchDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/userMatchDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/Match.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/Match.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/repository/MatchRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/repository/MatchRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +154,7 @@
       <workItem from="1673675297723" duration="346000" />
       <workItem from="1673675662394" duration="1176000" />
       <workItem from="1673704217869" duration="7157000" />
-      <workItem from="1673766927015" duration="2829000" />
+      <workItem from="1673766927015" duration="5825000" />
     </task>
     <servers />
   </component>
