@@ -56,4 +56,13 @@ public class MatchServiceImpl implements MatchService {
         matchRepository.updateMatchStatusByUserGetMatched(userGetMatched);
         return matchConverter.ResMatchAllOkDto(userGetMatched);
     }
+
+    @Transactional
+    public MatchNoResDto matchDelete(Long id) {
+        Match match = matchRepository.getById(id);
+        match.updateMatch(status.INACTIVE);
+        match.update(userMatchStatus.INACTIVE);
+        Block block = blockRepostiory.save(blockconverter.ReqMatchdeleteDto(match.getUserMatching(), match.getUserGetMatched()));
+        return blockconverter.ResMatchNoDto(block);
+    }
 }

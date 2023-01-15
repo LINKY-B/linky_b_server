@@ -11,4 +11,5 @@ public interface MatchService {
     MatchOkResDto matchOk(Long id);
     MatchNoResDto matchNo(Long id);
     MatchAllOkResDto matchAllOk(Long userGetMatched);
+    MatchNoResDto matchDelete(Long id);
 }

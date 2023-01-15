@@ -21,4 +21,12 @@ public class Blockconverter {
                 .id(block.getId())
                 .build();
     }
+
+    public Block ReqMatchdeleteDto(Long userMatching, Long userGetMatched) {
+        return Block.builder()
+                .userGiveBlock(userMatching)
+                .userGetBlocked(userGetMatched)
+                .status(userBlockStatus.ACTIVE)
+                .build();
+    }
 }
