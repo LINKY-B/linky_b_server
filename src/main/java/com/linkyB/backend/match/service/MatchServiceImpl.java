@@ -1,10 +1,14 @@
 package com.linkyB.backend.match.service;
 
+import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.match.converter.MatchConverter;
+import com.linkyB.backend.match.dto.MatchOkResDto;
 import com.linkyB.backend.match.dto.MatchingCreateResDto;
 import com.linkyB.backend.match.entity.Match;
+import com.linkyB.backend.match.entity.userMatchStatus;
 import com.linkyB.backend.match.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +27,14 @@ public class MatchServiceImpl implements MatchService {
                 .save(matchConverter.ReqCreateMatchDto(userMatching, userGetMatched));
 
         return matchConverter.ResCreateMatchDto(match);
+    }
+
+    @Transactional
+    public MatchOkResDto matchOk(Long id) {
+
+        Match match = matchRepository.getById(id);
+        match.update(userMatchStatus.ACTIVE);
+        return matchConverter.ResMatchOkDto(match);
+
     }
 }

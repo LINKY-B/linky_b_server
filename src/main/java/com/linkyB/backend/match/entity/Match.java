@@ -29,7 +29,7 @@ public class Match {
     @Enumerated(EnumType.STRING)
     private status status;
 
-    public void updateMatchStatus(userMatchStatus userMatchStatus) {
+    public void update(userMatchStatus userMatchStatus) {
         this.userMatchStatus = userMatchStatus;
     }
 

@@ -1,5 +1,6 @@
 package com.linkyB.backend.match.dto;
 
+import com.linkyB.backend.match.entity.status;
 import com.linkyB.backend.match.entity.userMatchStatus;
 import lombok.*;
 
@@ -13,5 +14,6 @@ public class userMatchDto {
     private Long userGetMatched;
     private Long userMatching;
     private userMatchStatus userMatchStatus;
+    private status status;
 
 }

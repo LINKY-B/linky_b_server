@@ -5,21 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d7cb271-1d01-4bf1-b4f5-4ab90ea6c9ed" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/converter/MatchConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/MatchingCreateResDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/userMatchDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/Match.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/userMatchStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/repository/MatchRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/MatchOkResDto$MatchOkResDtoBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/MatchOkResDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/MatchOkResDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/controller/MatchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/controller/MatchController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/converter/MatchConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/converter/MatchConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/MatchingCreateResDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/MatchingCreateResDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/userMatchDto$userMatchDtoBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/userMatchDto$userMatchDtoBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/userMatchDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/dto/userMatchDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/entity/Match.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/entity/Match.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/repository/MatchRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/repository/MatchRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/converter/MatchConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/converter/MatchConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/userMatchDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/dto/userMatchDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/Match.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/Match.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/repository/MatchRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/repository/MatchRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,30 +99,30 @@
     <option name="compactDirectories" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/82102/Desktop/Springboot-Jpa-Instagram-v2",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "spring.configuration.checksum": "3241ca6184e7e06d7e2313367e60913a"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/82102/Desktop/Springboot-Jpa-Instagram-v2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;3241ca6184e7e06d7e2313367e60913a&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="linkyB" />
@@ -153,6 +159,7 @@
       <workItem from="1673675297723" duration="346000" />
       <workItem from="1673675662394" duration="1176000" />
       <workItem from="1673704217869" duration="7157000" />
+      <workItem from="1673766927015" duration="2829000" />
     </task>
     <servers />
   </component>
