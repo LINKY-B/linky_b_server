@@ -4,16 +4,16 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/linkyB?serverTimezone=UTC&characterEncoding=UTF-8
-    username: gitak
-    password: lkt1030325
+    url: jdbc:mysql://jpadb.c8zpd4vnux8w.ap-northeast-2.rds.amazonaws.com/jpadb?useSSL=false
+    username: admin
+    password: 20190976sswu
 
   jpa:
     database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
     open-in-view: false
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: false
