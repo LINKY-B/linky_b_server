@@ -1,5 +1,6 @@
 package com.linkyB.backend.match.controller;
 
+import com.linkyB.backend.match.dto.MatchAllOkResDto;
 import com.linkyB.backend.match.dto.MatchNoResDto;
 import com.linkyB.backend.match.dto.MatchOkResDto;
 import com.linkyB.backend.match.dto.MatchingCreateResDto;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,6 +40,13 @@ public class MatchController {
     @PostMapping("/{id}")
     public ResponseEntity<MatchNoResDto> matchNo(@PathVariable("id")Long id) {
         final MatchNoResDto response = matchService.matchNo(id);
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 모든 매칭 수락
+    @PatchMapping("/{userGetMatched}/all")
+    public ResponseEntity<MatchAllOkResDto> matckAllOk(@PathVariable("userGetMatched")Long userGetMatched) {
+        final MatchAllOkResDto response = matchService.matchAllOk(userGetMatched);
         return ResponseEntity.ok().body(response);
     }
 }

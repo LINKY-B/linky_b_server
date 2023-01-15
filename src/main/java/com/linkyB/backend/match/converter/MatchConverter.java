@@ -1,5 +1,6 @@
 package com.linkyB.backend.match.converter;
 
+import com.linkyB.backend.match.dto.MatchAllOkResDto;
 import com.linkyB.backend.match.dto.MatchOkResDto;
 import com.linkyB.backend.match.dto.MatchingCreateResDto;
 import com.linkyB.backend.match.dto.userMatchDto;
@@ -29,6 +30,12 @@ public class MatchConverter {
     public MatchOkResDto ResMatchOkDto(Match match) {
         return MatchOkResDto.builder()
                 .id(match.getId())
+                .build();
+    }
+
+    public MatchAllOkResDto ResMatchAllOkDto(Long userGetMatched) {
+        return MatchAllOkResDto.builder()
+                .userGetMatched(userGetMatched)
                 .build();
     }
 
