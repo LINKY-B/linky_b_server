@@ -8,6 +8,7 @@ import com.linkyB.backend.report.entity.Report;
 import com.linkyB.backend.report.service.ReportService;
 import com.linkyB.backend.user.application.UserService;
 import com.linkyB.backend.user.presentation.dto.UserDetailDto;
+import com.linkyB.backend.user.presentation.dto.UserDto;
 import com.linkyB.backend.user.presentation.dto.UserSignupResponseDto;
 import com.linkyB.backend.user.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,20 @@ public class UserController {
     public ResponseEntity<LikeDto> userLikes(@PathVariable("userGetLikes")long userGetLikes) {
         long userId = SecurityUtil.getCurrentUserId();
         LikeDto response = likeService.userLikes(userGetLikes, userId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 알림 활성화
+    @PatchMapping("/alaram")
+    public ResponseEntity<UserDto> activeAlaram() {
+        UserDto response = userService.activeAlaram(SecurityUtil.getCurrentUserId());
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 알림 비활성화
+    @PatchMapping("/alaram/inactive")
+    public ResponseEntity<UserDto> inactiveAlaram() {
+        UserDto response = userService.inactiveAlaram(SecurityUtil.getCurrentUserId());
         return ResponseEntity.ok().body(response);
     }
 }

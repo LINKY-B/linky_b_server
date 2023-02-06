@@ -7,10 +7,14 @@
     <list default="true" id="6d7cb271-1d01-4bf1-b4f5-4ab90ea6c9ed" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/672b2ff1-e199-4fc1-ae29-5e5084008ff4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/672b2ff1-e199-4fc1-ae29-5e5084008ff4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/like/converter/LikeConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/like/converter/LikeConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/like/mapper/LikeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/like/mapper/LikeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/like/repository/LikeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/like/repository/LikeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/mapper/UserMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/mapper/UserMapperImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/presentation/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/presentation/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/user/mapper/UserMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/user/mapper/UserMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/mapper/UserMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

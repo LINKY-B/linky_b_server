@@ -5,6 +5,8 @@ import com.linkyB.backend.user.domain.Personality;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.presentation.dto.UserDetailDto;
 import com.linkyB.backend.user.presentation.dto.UserDetailDto.UserDetailDtoBuilder;
+import com.linkyB.backend.user.presentation.dto.UserDto;
+import com.linkyB.backend.user.presentation.dto.UserDto.UserDtoBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -12,11 +14,24 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-07T00:52:34+0900",
+    date = "2023-02-07T01:03:52+0900",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
+
+    @Override
+    public UserDto entityToDto(User entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        UserDtoBuilder userDto = UserDto.builder();
+
+        userDto.userId( entity.getUserId() );
+
+        return userDto.build();
+    }
 
     @Override
     public UserDetailDto UserdetaildtoToEntity(User entity) {
