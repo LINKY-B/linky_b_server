@@ -67,7 +67,7 @@ public class UserService {
     }
 
     // 정보 활성화
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public UserDto activeUser(long userId) {
         User users = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
@@ -79,7 +79,7 @@ public class UserService {
     }
 
     // 정보 비활성화
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public UserDto inactiveUser(long userId) {
         User users = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
