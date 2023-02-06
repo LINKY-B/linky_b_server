@@ -5,8 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d7cb271-1d01-4bf1-b4f5-4ab90ea6c9ed" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/de195137-9986-4fb7-b0fc-470294ab7090.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/de195137-9986-4fb7-b0fc-470294ab7090.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/dto/UserDetailDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/CustomUserDetailsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/CustomUserDetailsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/domain/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/domain/User$UserBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/presentation/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/presentation/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,12 +53,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-<<<<<<< HEAD
-        <option value="Kotlin Class" />
-        <option value="Enum" />
-=======
         <option value="Interface" />
->>>>>>> d7465d6e45f9c48b300f42dff83c74c6e0cf8520
         <option value="Class" />
         <option value="Enum" />
       </list>
@@ -76,9 +86,6 @@
       </map>
     </option>
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
   <component name="ProjectId" id="2KGKZvwzam4gHMtIJUJeUEOE6Yf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -87,54 +94,20 @@
     <option name="compactDirectories" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/82102/Desktop/LinkyB/linky_b_server/build.gradle&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;3241ca6184e7e06d7e2313367e60913a&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "node.js.selected.package.tslint": "(autodetect)"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
-=======
-  <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="java.sql.Driver&#10;mysql" />
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.linkyB.backend.user.domain" />
@@ -146,7 +119,6 @@
       <recent name="com.linkyB.backend.user" />
     </key>
   </component>
->>>>>>> d7465d6e45f9c48b300f42dff83c74c6e0cf8520
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="linkyB" />
@@ -181,16 +153,6 @@
       <workItem from="1673602518514" duration="44000" />
       <workItem from="1673602653691" duration="9676000" />
       <workItem from="1673675297723" duration="346000" />
-<<<<<<< HEAD
-      <workItem from="1673675662394" duration="1176000" />
-      <workItem from="1673704217869" duration="7157000" />
-      <workItem from="1673766927015" duration="16221000" />
-      <workItem from="1673870638309" duration="1177000" />
-      <workItem from="1673944686271" duration="642000" />
-      <workItem from="1674011846216" duration="396000" />
-      <workItem from="1675079843975" duration="891000" />
-      <workItem from="1675082492677" duration="91000" />
-=======
       <workItem from="1673675662394" duration="11148000" />
       <workItem from="1673932694034" duration="16000" />
       <workItem from="1673945331742" duration="1208000" />
@@ -203,7 +165,6 @@
       <workItem from="1675150245998" duration="7099000" />
       <workItem from="1675157517981" duration="30412000" />
       <workItem from="1675484417585" duration="21428000" />
->>>>>>> d7465d6e45f9c48b300f42dff83c74c6e0cf8520
     </task>
     <servers />
   </component>

@@ -1,5 +1,6 @@
 package com.linkyB.backend.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linkyB.backend.common.domain.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class Personality extends BaseEntity {
     @Column(name = "Personality")
     private String userPersonality;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;

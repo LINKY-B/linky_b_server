@@ -1,6 +1,7 @@
 package com.linkyB.backend.user.presentation;
 
 import com.linkyB.backend.user.application.UserService;
+import com.linkyB.backend.user.presentation.dto.UserDetailDto;
 import com.linkyB.backend.user.presentation.dto.UserSignupResponseDto;
 import com.linkyB.backend.user.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,14 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserSignupResponseDto> findUserById(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.findUserById(SecurityUtil.getCurrentUserId()));
+    }
+
+
+    // 유저 상세 정보 조회
+    @GetMapping("")
+    public ResponseEntity<UserDetailDto> findUser() {
+        UserDetailDto response = userService.findUser(SecurityUtil.getCurrentUserId());
+        return ResponseEntity.ok().body(response);
     }
 
 }
