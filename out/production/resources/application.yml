@@ -1,7 +1,8 @@
 #server:
 #port: 8080
-spring:
+  spring:
 
+<<<<<<< HEAD
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://jpadb.c8zpd4vnux8w.ap-northeast-2.rds.amazonaws.com/jpadb?useSSL=false
@@ -15,9 +16,31 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
+=======
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/linkyB?serverTimezone=UTC&characterEncoding=UTF-8
+      username: gitak
+      password: lkt1030325
+
+    jpa:
+      database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
+      open-in-view: false
+      show-sql: true
+>>>>>>> d7465d6e45f9c48b300f42dff83c74c6e0cf8520
       hibernate:
-        format_sql: false
+        ddl-auto: update
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      properties:
+        hibernate:
+          format_sql: false
 
-  thymeleaf:
-    cache: false
+    thymeleaf:
+      cache: false
 
+  jwt:
+    header: Authorization
+      #HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
+    secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+    token-validity-in-seconds: 86400
