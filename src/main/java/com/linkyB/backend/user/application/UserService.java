@@ -1,5 +1,7 @@
 package com.linkyB.backend.user.application;
 
+import com.linkyB.backend.block.dto.PatchBlockReq;
+import com.linkyB.backend.block.repository.BlockRepository;
 import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.domain.UserNotification;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -21,6 +24,7 @@ import javax.transaction.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+
 
     public UserSignupResponseDto findUserById(Long userId) {
         return userRepository.findById(userId)
@@ -89,4 +93,5 @@ public class UserService {
 
         return dto;
     }
+
 }

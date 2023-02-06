@@ -29,4 +29,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u FROM User u JOIN Match m ON m.userGetMatched.userId = u.userId " +
             "WHERE m.userMatching.userId = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE'")
     List<User> findTop4ByUserMatching(@Param("userId") long userId);
+
+    @Query(value = "SELECT u FROM User u JOIN Block b ON b.userGetBlocked.userId = u.userId " +
+            "WHERE b.userGiveBlock.userId = :userId AND b.blockStatus = 'ACTIVE'")
+    List<User> findAllByUserGiveBlock(@Param("userId") long userId);
 }
