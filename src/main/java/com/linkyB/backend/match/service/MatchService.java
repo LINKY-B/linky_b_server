@@ -152,4 +152,20 @@ public class MatchService {
         return dto;
     }
 
+    // 나에게 연결을 시도한 회원 -> getMatched == 나
+    public List<UserListDto> homeGetMatchedList(long userId) {
+        List<User> userList = userRepository.findTop4ByUserGetMatched(userId);
+        List<UserListDto> listdto = UserMapper.INSTANCE.entityToDtoList(userList);
+
+        return listdto;
+    }
+
+    // 내가 연결을 시도한 회원 -> Matching == 나
+    public List<UserListDto> homeMatchingList(long userId) {
+        List<User> userList = userRepository.findTop4ByUserMatching(userId);
+        List<UserListDto> listdto = UserMapper.INSTANCE.entityToDtoList(userList);
+
+        return listdto;
+    }
+
 }

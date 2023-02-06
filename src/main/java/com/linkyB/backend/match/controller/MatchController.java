@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -68,6 +70,17 @@ public class MatchController {
     @GetMapping("/Matching/all")
     public ResponseEntity<List<UserListDto>> MatchingList() {
         List<UserListDto> response = matchService.MatchingList(SecurityUtil.getCurrentUserId());
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 매칭 내역 리스트 조회 (매칭 홈)
+    @GetMapping("/main")
+    public ResponseEntity<Map<String, List<UserListDto>>> getDoubleList() {
+        Map<String, List<UserListDto>> response = new HashMap<>();
+        long userId = SecurityUtil.getCurrentUserId();
+        response.put("나에게 연결을 시도한 회원", matchService.homeGetMatchedList(userId));
+        response.put("내가 연결을 시도한 회원", matchService.homeMatchingList(userId));
+
         return ResponseEntity.ok().body(response);
     }
 }
