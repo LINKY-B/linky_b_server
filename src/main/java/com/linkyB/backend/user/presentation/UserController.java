@@ -67,4 +67,17 @@ public class UserController {
         UserDto response = userService.inactiveAlaram(SecurityUtil.getCurrentUserId());
         return ResponseEntity.ok().body(response);
     }
+
+    @PatchMapping("/active")
+    public ResponseEntity<UserDto> activeUser() {
+        UserDto response = userService.activeUser(SecurityUtil.getCurrentUserId());
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 정보 비활성화
+    @PatchMapping("/inactive")
+    public ResponseEntity<UserDto> inactiveUser() {
+        UserDto response = userService.inactiveUser(SecurityUtil.getCurrentUserId());
+        return ResponseEntity.ok().body(response);
+    }
 }

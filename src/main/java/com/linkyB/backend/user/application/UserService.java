@@ -3,6 +3,7 @@ package com.linkyB.backend.user.application;
 import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.domain.UserNotification;
+import com.linkyB.backend.user.domain.UserStatusForMyInfo;
 import com.linkyB.backend.user.mapper.UserMapper;
 import com.linkyB.backend.user.presentation.dto.UserDetailDto;
 import com.linkyB.backend.user.presentation.dto.UserDto;
@@ -60,6 +61,30 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
 
         users.updateUserNotification(UserNotification.INACTIVE);
+        UserDto dto = UserMapper.INSTANCE.entityToDto(users);
+
+        return dto;
+    }
+
+    // 정보 활성화
+    @org.springframework.transaction.annotation.Transactional
+    public UserDto activeUser(long userId) {
+        User users = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+
+        users.updateStatusForMyInfo(UserStatusForMyInfo.ACTIVE);
+        UserDto dto = UserMapper.INSTANCE.entityToDto(users);
+
+        return dto;
+    }
+
+    // 정보 비활성화
+    @org.springframework.transaction.annotation.Transactional
+    public UserDto inactiveUser(long userId) {
+        User users = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+
+        users.updateStatusForMyInfo(UserStatusForMyInfo.INACTIVE);
         UserDto dto = UserMapper.INSTANCE.entityToDto(users);
 
         return dto;
