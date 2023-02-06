@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d7cb271-1d01-4bf1-b4f5-4ab90ea6c9ed" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/672b2ff1-e199-4fc1-ae29-5e5084008ff4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/672b2ff1-e199-4fc1-ae29-5e5084008ff4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/controller/MatchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/controller/MatchController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/entity/status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +44,7 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
+        <option value="package-info" />
         <option value="Class" />
       </list>
     </option>
@@ -106,6 +109,8 @@
       <recent name="com.linkyB.backend.user" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.linkyB.backend.block.entity" />
+      <recent name="com.linkyB.backend.block.mapper" />
       <recent name="com.linkyB.backend.match.mapper" />
       <recent name="com.linkyB.backend.like.repository" />
     </key>
