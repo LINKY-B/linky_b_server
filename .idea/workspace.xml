@@ -35,7 +35,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -60,13 +62,16 @@
     </option>
     <option name="myId2Visible">
       <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
         <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
   </component>
   <component name="ProjectId" id="2KGKZvwzam4gHMtIJUJeUEOE6Yf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="compactDirectories" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -90,7 +95,19 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.linkyB.backend.user.domain" />
+      <recent name="com.linkyB.backend.user.presentation.dto" />
+      <recent name="com.linkyB.backend.user.domain.repository" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.linkyB.backend.user.domain" />
+      <recent name="com.linkyB.backend.user" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
@@ -126,7 +143,18 @@
       <workItem from="1673602518514" duration="44000" />
       <workItem from="1673602653691" duration="9676000" />
       <workItem from="1673675297723" duration="346000" />
-      <workItem from="1673675662394" duration="1176000" />
+      <workItem from="1673675662394" duration="11148000" />
+      <workItem from="1673932694034" duration="16000" />
+      <workItem from="1673945331742" duration="1208000" />
+      <workItem from="1674139189974" duration="4236000" />
+      <workItem from="1674460071579" duration="1430000" />
+      <workItem from="1674545771233" duration="222000" />
+      <workItem from="1674550927644" duration="31403000" />
+      <workItem from="1674812328767" duration="10833000" />
+      <workItem from="1675070791833" duration="13680000" />
+      <workItem from="1675150245998" duration="7099000" />
+      <workItem from="1675157517981" duration="30412000" />
+      <workItem from="1675484417585" duration="21428000" />
     </task>
     <servers />
   </component>
