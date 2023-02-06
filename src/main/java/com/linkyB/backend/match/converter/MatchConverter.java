@@ -1,5 +1,6 @@
 package com.linkyB.backend.match.converter;
 
+import com.linkyB.backend.match.dto.MatchListDto;
 import com.linkyB.backend.match.entity.Match;
 import com.linkyB.backend.match.entity.MatchStatus;
 import com.linkyB.backend.match.entity.status;
@@ -14,6 +15,12 @@ public class MatchConverter {
                 .userGetMatched(userGetMatched)
                 .userMatchStatus(MatchStatus.INACTIVE)
                 .status(status.ACTIVE)
+                .build();
+    }
+
+    public MatchListDto MatchAllokResponseDto(long userId) {
+        return MatchListDto.builder()
+                .userGetMatched(userId)
                 .build();
     }
 }

@@ -7,6 +7,7 @@ import com.linkyB.backend.block.mapper.BlockMapper;
 import com.linkyB.backend.block.repository.BlockRepository;
 import com.linkyB.backend.match.converter.MatchConverter;
 import com.linkyB.backend.match.dto.MatchDto;
+import com.linkyB.backend.match.dto.MatchListDto;
 import com.linkyB.backend.match.entity.Match;
 import com.linkyB.backend.match.entity.MatchStatus;
 import com.linkyB.backend.match.entity.status;
@@ -87,5 +88,18 @@ public class MatchService {
             return dto;
         } else
             throw new RuntimeException("거절 권한 없습니다.");
+    }
+
+    // 매칭 모두 수락
+    @Transactional
+    public MatchListDto all(long userId) {
+
+        userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+
+        matchRepository.updateUserByUserGetMatched(userId);
+        MatchListDto match = matchConverter.MatchAllokResponseDto(userId);
+
+        return match;
     }
 }

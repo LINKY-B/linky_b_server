@@ -2,6 +2,7 @@ package com.linkyB.backend.match.controller;
 
 import com.linkyB.backend.block.dto.BlockDto;
 import com.linkyB.backend.match.dto.MatchDto;
+import com.linkyB.backend.match.dto.MatchListDto;
 import com.linkyB.backend.match.service.MatchService;
 import com.linkyB.backend.user.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,13 @@ public class MatchController {
     @PostMapping("/refuse/{matchId}")
     public ResponseEntity<BlockDto> refuse(@PathVariable("matchId") long matchId) {
         BlockDto response = matchService.refuse(matchId, SecurityUtil.getCurrentUserId());
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 모든 매칭 수락
+    @PatchMapping("/all")
+    public ResponseEntity<MatchListDto> matckAllOk() {
+        MatchListDto response = matchService.all(SecurityUtil.getCurrentUserId());
         return ResponseEntity.ok().body(response);
     }
 }
