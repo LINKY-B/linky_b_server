@@ -72,6 +72,10 @@ public class User extends BaseEntity {
     @Column(name = "authority")
     private Authority authority;
 
+    private int userLikeCount;
+    public void UserLikeCount() {
+        this.userLikeCount++;
+    }
     public void updatePassword(String newPassword) {
         this.userPassword = newPassword;
     }

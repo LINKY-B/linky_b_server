@@ -1,5 +1,7 @@
 package com.linkyB.backend.user.presentation;
 
+import com.linkyB.backend.like.dto.LikeDto;
+import com.linkyB.backend.like.service.LikeService;
 import com.linkyB.backend.report.dto.PostReportReq;
 import com.linkyB.backend.report.dto.ReportDto;
 import com.linkyB.backend.report.entity.Report;
@@ -19,6 +21,7 @@ public class UserController {
 
     private final UserService userService;
     private final ReportService reportService;
+    private final LikeService likeService;
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserSignupResponseDto> findUserById(@PathVariable Long userId) {
@@ -42,4 +45,11 @@ public class UserController {
         return ResponseEntity.ok().body(response);
     }
 
+    // 유저 좋아요 등록
+    @PostMapping("likes/{userGetLikes}")
+    public ResponseEntity<LikeDto> userLikes(@PathVariable("userGetLikes")long userGetLikes) {
+        long userId = SecurityUtil.getCurrentUserId();
+        LikeDto response = likeService.userLikes(userGetLikes, userId);
+        return ResponseEntity.ok().body(response);
+    }
 }
