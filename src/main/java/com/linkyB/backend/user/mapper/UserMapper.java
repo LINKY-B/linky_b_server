@@ -3,6 +3,7 @@ package com.linkyB.backend.user.mapper;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.presentation.dto.UserDetailDto;
 import com.linkyB.backend.user.presentation.dto.UserDto;
+import com.linkyB.backend.user.presentation.dto.UserListDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -17,7 +18,7 @@ public interface UserMapper {
 //
     UserDto entityToDto(User entity);
 
-    //List<UserListDto> entityToDtoList(List<User> entity);
+    List<UserListDto> entityToDtoList(List<User> entity);
 
     UserDetailDto UserdetaildtoToEntity(User entity);
 

@@ -14,11 +14,15 @@ import com.linkyB.backend.match.entity.status;
 import com.linkyB.backend.match.mapper.MatchMapper;
 import com.linkyB.backend.match.repository.MatchRepository;
 import com.linkyB.backend.user.domain.User;
+import com.linkyB.backend.user.mapper.UserMapper;
+import com.linkyB.backend.user.presentation.dto.UserListDto;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -123,4 +127,29 @@ public class MatchService {
         }
         throw new RuntimeException("삭제 권한 없습니다.");
     }
+
+    // 나에게 매칭 시도한 유저 전체 조회
+    public List<UserListDto> GetMatchedList(long userId) {
+
+        userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+
+        List<User> users = userRepository.findAllByUserGetMatched(userId);
+        List<UserListDto> dto = UserMapper.INSTANCE.entityToDtoList(users);
+
+        return dto;
+    }
+
+    // 내가 매칭 시도한 유저 전체 조회
+    public List<UserListDto> MatchingList(long userId) {
+
+        userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+
+        List<User> users = userRepository.findAllByUserMatching(userId);
+        List<UserListDto> dto = UserMapper.INSTANCE.entityToDtoList(users);
+
+        return dto;
+    }
+
 }

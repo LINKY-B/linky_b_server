@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d7cb271-1d01-4bf1-b4f5-4ab90ea6c9ed" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/block/converter/BlockConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/block/converter/BlockConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/controller/MatchController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/repository/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
