@@ -14,4 +14,12 @@ public class BlockConverter {
                 .blockStatus(BlockStatus.ACTIVE)
                 .build();
     }
+
+    public Block blockGetMatched(User userMatching, User userGetMatched) {
+        return Block.builder()
+                .userGiveBlock(userMatching)
+                .userGetBlocked(userGetMatched)
+                .blockStatus(BlockStatus.ACTIVE)
+                .build();
+    }
 }

@@ -102,4 +102,25 @@ public class MatchService {
 
         return match;
     }
+
+    // 내가 매칭 시도한 내역 삭제
+    @Transactional
+    public BlockDto blockMatch(long matchId, long userId) {
+
+        Match match = matchRepository.findById(matchId)
+                .orElseThrow(() -> new RuntimeException("해당 연결내역이 존재하지 않습니다."));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+
+        if(match.getUserMatching().getUserId() == user.getUserId()) {
+            match.updateMatch(status.INACTIVE);
+            match.update(MatchStatus.INACTIVE);
+
+            Block block = blockRepository.save(blockConverter.blockGetMatched(match.getUserMatching(), match.getUserGetMatched()));
+            BlockDto dto = BlockMapper.INSTANCE.entityToDto(block);
+            return dto;
+        }
+        throw new RuntimeException("삭제 권한 없습니다.");
+    }
 }
