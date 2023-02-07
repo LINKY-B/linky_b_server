@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6d7cb271-1d01-4bf1-b4f5-4ab90ea6c9ed" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/presentation/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/presentation/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/block/repository/BlockRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/block/repository/BlockRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +104,7 @@
       <recent name="com.linkyB.backend.user" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.linkyB.backend.home.repository" />
       <recent name="com.linkyB.backend.block.entity" />
       <recent name="com.linkyB.backend.block.mapper" />
       <recent name="com.linkyB.backend.match.mapper" />
