@@ -2,6 +2,10 @@ package com.linkyB.backend.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linkyB.backend.common.domain.BaseEntity;
+import com.linkyB.backend.filter.entity.GenderForFilter;
+import com.linkyB.backend.filter.entity.GradeForFilter;
+import com.linkyB.backend.filter.entity.MajorForFilter;
+import com.linkyB.backend.filter.entity.MbtiForFilter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +15,8 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,7 +29,7 @@ public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
-    private Long id;
+    private Long userId;
     @Column(name = "userPhoneNum")
     private String userPhone;
     @Column(name = "userName")
@@ -44,9 +50,9 @@ public class User extends BaseEntity {
     private String gradStatus;
     @Column(name = "userProfileImg")
     private String userProfileImg;
-    @Column(name = "userGender")
+    @Column(name = "userSex")
     private String userSex;
-    @Column(name = "userMbti")
+    @Column(name = "userMBTI")
     private String userMBTI;
 
     @Enumerated(EnumType.STRING)
@@ -64,14 +70,44 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Interest> userInterest;
-    @Column(name = "userInfo")
+
+    @Column(name = "userSelfIntroduction")
     private String userSelfIntroduction;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<GradeForFilter> userGradeForFilters;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<MajorForFilter> userMajorForFilters;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<MbtiForFilter> userMbtiForFilters;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<GenderForFilter> userGenderForFilters;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
     private Authority authority;
 
+    private int userLikeCount;
+    public void UserLikeCount() {
+        this.userLikeCount++;
+    }
     public void updatePassword(String newPassword) {
         this.userPassword = newPassword;
+    }
+
+    public void updateStatusForMyInfo(UserStatusForMyInfo userStatusForMyInfo) {
+        this.userStatusForMyInfo = userStatusForMyInfo;
+    }
+
+    public void updateUserNotification(UserNotification userNotification) {
+        this.userNotification = userNotification;
     }
 }
