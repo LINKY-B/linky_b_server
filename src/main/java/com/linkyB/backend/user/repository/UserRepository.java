@@ -55,4 +55,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "join MbtiForFilter M ON u.userId = M.user.userId\n" +
             "where u.userId= :userId")
     User findFilterByUserId(@Param("userId")long userId);
+
+    List<User> findByuserNickNameContaining(String nickName);
 }
