@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUserPhone(String userPhone);
+
     boolean existsByUserPhone(String userPhone);
 
     @Query(value = "SELECT u FROM User u JOIN Match m ON m.userMatching.userId = u.userId " +
@@ -33,4 +34,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u FROM User u JOIN Block b ON b.userGetBlocked.userId = u.userId " +
             "WHERE b.userGiveBlock.userId = :userId AND b.blockStatus = 'ACTIVE'")
     List<User> findAllByUserGiveBlock(@Param("userId") long userId);
+
+    @Query(value = "SELECT * FROM User u WHERE userMajorName NOT IN (SELECT umff.blockedMajor FROM MajorForFilter umff WHERE umff.userId = ?)\n" +
+            "                       AND userStudentNum IN (SELECT ugff.Grade FROM GradeForFilter ugff )\n" +
+            "                       AND userMBTI NOT IN(SELECT umff2.blockedMbti FROM MbtiForFilter umff2)\n" +
+            "                       AND userSex IN (SELECT uf.Gender FROM GenderForFilter uf)\n" +
+            "                       AND u.gradeStatus = 'true'", nativeQuery = true)
+    List<User> findTrueStudentByFilter(@Param("userId") long userId);
+
+    @Query(value = "SELECT * FROM User u WHERE userMajorName NOT IN (SELECT umff.blockedMajor FROM MajorForFilter umff WHERE umff.userId = ?)\n" +
+            "                       AND userStudentNum IN (SELECT ugff.Grade FROM GradeForFilter ugff )\n" +
+            "                       AND userMBTI NOT IN(SELECT umff2.blockedMbti FROM MbtiForFilter umff2)\n" +
+            "                       AND userSex IN (SELECT uf.Gender FROM GenderForFilter uf)\n" +
+            "                       AND u.gradeStatus = 'false'", nativeQuery = true)
+    List<User> findFalseStudentByFilter(@Param("userId") long userId);
 }

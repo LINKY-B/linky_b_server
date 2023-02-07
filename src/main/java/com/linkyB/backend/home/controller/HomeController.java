@@ -1,5 +1,7 @@
 package com.linkyB.backend.home.controller;
 
+import com.linkyB.backend.filter.dto.PostFilterReq;
+import com.linkyB.backend.filter.service.FilterService;
 import com.linkyB.backend.home.service.HomeService;
 import com.linkyB.backend.user.presentation.dto.UserListDto;
 import com.linkyB.backend.user.util.SecurityUtil;
@@ -17,6 +19,7 @@ import java.util.Map;
 public class HomeController {
 
     private final HomeService homeService;
+    private final FilterService filterService;
 
     /*
      * 재학생, 졸업생 유저 리스트 2개 조회
@@ -30,6 +33,18 @@ public class HomeController {
         long userId = SecurityUtil.getCurrentUserId();
         response.put("재학생 유저 리스트", homeService.TrueList(offset, limit, userId));
         response.put("졸업생 유저 리스트", homeService.FalseList(offset, limit, userId));
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 필터 지정 후 필터 적용된 리스트 2개 반환
+    @PostMapping("/filter/save")
+    public ResponseEntity<Map<String, List<UserListDto>>> saveFilter(@RequestBody PostFilterReq dto) {
+
+        Map<String, List<UserListDto>> response = new HashMap<>();
+        long userId = SecurityUtil.getCurrentUserId();
+        response.put("재학생 유저 리스트", filterService.TrueList(userId, dto));
+        response.put("졸업생 유저 리스트", filterService.FalseList(userId));
 
         return ResponseEntity.ok().body(response);
     }
