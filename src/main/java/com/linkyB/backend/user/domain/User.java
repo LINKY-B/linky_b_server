@@ -2,6 +2,10 @@ package com.linkyB.backend.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linkyB.backend.common.domain.BaseEntity;
+import com.linkyB.backend.filter.entity.GenderForFilter;
+import com.linkyB.backend.filter.entity.GradeForFilter;
+import com.linkyB.backend.filter.entity.MajorForFilter;
+import com.linkyB.backend.filter.entity.MbtiForFilter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +15,8 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -67,6 +73,23 @@ public class User extends BaseEntity {
 
     @Column(name = "userSelfIntroduction")
     private String userSelfIntroduction;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<GradeForFilter> userGradeForFilters;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<MajorForFilter> userMajorForFilters;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<MbtiForFilter> userMbtiForFilters;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<GenderForFilter> userGenderForFilters;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")

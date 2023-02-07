@@ -1,5 +1,6 @@
 package com.linkyB.backend.user.mapper;
 
+import com.linkyB.backend.filter.dto.UserFilterDto;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.presentation.dto.UserDetailDto;
 import com.linkyB.backend.user.presentation.dto.UserDto;
@@ -22,5 +23,5 @@ public interface UserMapper {
 
     UserDetailDto UserdetaildtoToEntity(User entity);
 
-    //UserFilterDto entityToFilterDto(User entity);
+    UserFilterDto entityToFilterDto(User entity);
 }

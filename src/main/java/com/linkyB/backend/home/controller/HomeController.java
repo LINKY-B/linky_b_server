@@ -1,5 +1,6 @@
 package com.linkyB.backend.home.controller;
 
+import com.linkyB.backend.filter.dto.UserFilterDto;
 import com.linkyB.backend.filter.dto.PostFilterReq;
 import com.linkyB.backend.filter.service.FilterService;
 import com.linkyB.backend.home.service.HomeService;
@@ -48,5 +49,13 @@ public class HomeController {
 
         return ResponseEntity.ok().body(response);
     }
+
+    // 기존에 지정한 필터 내용 조회
+    @GetMapping("/filter")
+    public ResponseEntity<UserFilterDto> selectFilter() {
+        UserFilterDto response = filterService.selectFilter(SecurityUtil.getCurrentUserId());
+        return ResponseEntity.ok().body(response);
+    }
+
 
 }

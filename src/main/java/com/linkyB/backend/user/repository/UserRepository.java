@@ -48,4 +48,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "                       AND userSex IN (SELECT uf.Gender FROM GenderForFilter uf)\n" +
             "                       AND u.gradeStatus = 'false'", nativeQuery = true)
     List<User> findFalseStudentByFilter(@Param("userId") long userId);
+
+    @Query(value = "select u from User u join GenderForFilter g on g.user.userId = u.userId\n" +
+            "join GradeForFilter GFF ON u.userId = GFF.user.userId\n" +
+            "join MajorForFilter MFF ON u.userId = MFF.user.userId\n" +
+            "join MbtiForFilter M ON u.userId = M.user.userId\n" +
+            "where u.userId= :userId")
+    User findFilterByUserId(@Param("userId")long userId);
 }

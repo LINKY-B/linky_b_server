@@ -1,5 +1,11 @@
 package com.linkyB.backend.user.mapper;
 
+import com.linkyB.backend.filter.dto.UserFilterDto;
+import com.linkyB.backend.filter.dto.UserFilterDto.UserFilterDtoBuilder;
+import com.linkyB.backend.filter.entity.GenderForFilter;
+import com.linkyB.backend.filter.entity.GradeForFilter;
+import com.linkyB.backend.filter.entity.MajorForFilter;
+import com.linkyB.backend.filter.entity.MbtiForFilter;
 import com.linkyB.backend.user.domain.Interest;
 import com.linkyB.backend.user.domain.Personality;
 import com.linkyB.backend.user.domain.User;
@@ -16,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-07T02:41:27+0900",
+    date = "2023-02-07T13:50:09+0900",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -77,6 +83,34 @@ public class UserMapperImpl implements UserMapper {
         userDetailDto.userLikeCount( entity.getUserLikeCount() );
 
         return userDetailDto.build();
+    }
+
+    @Override
+    public UserFilterDto entityToFilterDto(User entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        UserFilterDtoBuilder userFilterDto = UserFilterDto.builder();
+
+        List<GenderForFilter> list = entity.getUserGenderForFilters();
+        if ( list != null ) {
+            userFilterDto.userGenderForFilters( new ArrayList<GenderForFilter>( list ) );
+        }
+        List<GradeForFilter> list1 = entity.getUserGradeForFilters();
+        if ( list1 != null ) {
+            userFilterDto.userGradeForFilters( new ArrayList<GradeForFilter>( list1 ) );
+        }
+        List<MajorForFilter> list2 = entity.getUserMajorForFilters();
+        if ( list2 != null ) {
+            userFilterDto.userMajorForFilters( new ArrayList<MajorForFilter>( list2 ) );
+        }
+        List<MbtiForFilter> list3 = entity.getUserMbtiForFilters();
+        if ( list3 != null ) {
+            userFilterDto.userMbtiForFilters( new ArrayList<MbtiForFilter>( list3 ) );
+        }
+
+        return userFilterDto.build();
     }
 
     protected UserListDto userToUserListDto(User user) {
