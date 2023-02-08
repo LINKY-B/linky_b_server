@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@jpadb.c8zpd4vnux8w.ap-northeast-2.rds.amazonaws.com" uuid="672b2ff1-e199-4fc1-ae29-5e5084008ff4">
+    <data-source source="LOCAL" name="linkyB" uuid="bbe9b4b6-9acd-45d3-a5e8-24ff01773999">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://jpadb.c8zpd4vnux8w.ap-northeast-2.rds.amazonaws.com:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/linkyB</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="aws" uuid="eff0299f-82b6-4c3d-b4d0-0be863558efd">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://linkyb.csnhnz4hejhb.ap-northeast-2.rds.amazonaws.com:3306/LinkyB</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

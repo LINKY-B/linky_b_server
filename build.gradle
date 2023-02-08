@@ -42,9 +42,11 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
-	//Redis
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.3.1.RELEASE'
-
+	//S3
+	//implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.2'
+	//ec2에서 실행
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+	implementation 'com.amazonaws:aws-java-sdk-s3'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
