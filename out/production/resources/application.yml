@@ -4,8 +4,8 @@ server:
 cloud:
   aws:
     credentials:
-      access-key: AKIA4GTPWBDNZ45XCSHB
-      secret-key: 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
+      access-key: AKIA4GTPWBDN72ZHGM3X
+      secret-key: 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
     s3:
       bucket: linkyb-bucket
     region:

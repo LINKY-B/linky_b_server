@@ -5,22 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b33dc4d-113a-4c25-a712-4c0ba14cf2d2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bbe9b4b6-9acd-45d3-a5e8-24ff01773999.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bbe9b4b6-9acd-45d3-a5e8-24ff01773999.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eff0299f-82b6-4c3d-b4d0-0be863558efd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/eff0299f-82b6-4c3d-b4d0-0be863558efd.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/presentation/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/presentation/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/block/mapper/BlockMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/block/mapper/BlockMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/like/mapper/LikeMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/like/mapper/LikeMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/match/mapper/MatchMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/match/mapper/MatchMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/report/mapper/ReportMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/report/mapper/ReportMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/user/mapper/UserMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/user/mapper/UserMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/repository/UserInterestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/repository/UserInterestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/repository/UserPersonalityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/repository/UserPersonalityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
