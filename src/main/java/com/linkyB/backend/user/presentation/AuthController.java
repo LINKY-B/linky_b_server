@@ -5,8 +5,10 @@ import com.linkyB.backend.user.presentation.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,8 +18,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserSignupResponseDto> signup(@Valid @RequestBody UserSignupRequestDto userSignupRequestDto) {
-        return ResponseEntity.ok(authService.signup(userSignupRequestDto));
+    public ResponseEntity<UserSignupResponseDto> signup(@Valid @RequestPart(value = "UserSignupReq") UserSignupRequestDto userSignupRequestDto,
+                                                        @RequestPart(value = "profileImg")MultipartFile multipartFile) throws IOException {
+        return ResponseEntity.ok(authService.signup(userSignupRequestDto,multipartFile));
     }
 
     @PostMapping("/login")

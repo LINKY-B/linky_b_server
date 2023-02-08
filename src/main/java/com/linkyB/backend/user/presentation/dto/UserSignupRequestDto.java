@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -42,8 +44,7 @@ public class UserSignupRequestDto {
     private String userStudentNum;
 
     private String gradeStatus;
-    @NotBlank
-    private String userProfileImg;
+
     @NotBlank
     private String userSex;
     @NotBlank
@@ -54,7 +55,7 @@ public class UserSignupRequestDto {
 
     private String userSelfIntroduction;
 
-    public User toUser(PasswordEncoder passwordEncoder, List<Interest> userInterests, List<Personality> userPersonalities) {
+    public User toUser(PasswordEncoder passwordEncoder, List<Interest> userInterests, List<Personality> userPersonalities, String file) {
         return User.builder()
                 .userPhone(userPhone)
                 .userPassword(passwordEncoder.encode(userPassword))
@@ -64,7 +65,7 @@ public class UserSignupRequestDto {
                 .userSchoolName(userSchoolName)
                 .userMajorName(userMajorName)
                 .userSex(userSex)
-                .userProfileImg(userProfileImg)
+                .userProfileImg(file)
                 .gradStatus(gradeStatus)
                 .userMBTI(userMBTI)
                 .userStudentNum(userStudentNum)

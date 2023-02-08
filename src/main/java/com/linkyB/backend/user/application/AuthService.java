@@ -18,7 +18,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,9 +36,10 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final S3Uploader s3Uploader;
 
     @Transactional
-    public UserSignupResponseDto signup(UserSignupRequestDto userSignupRequestDto) {
+    public UserSignupResponseDto signup(UserSignupRequestDto userSignupRequestDto, MultipartFile multipartFile) throws IOException {
         if (userRepository.existsByUserPhone(userSignupRequestDto.getUserPhone())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
@@ -44,7 +47,9 @@ public class AuthService {
         List<Interest> userInterests = userSignupRequestDto.getUserInterests();
         List<Personality> userPersonalities = userSignupRequestDto.getUserPersonalities();
 
-        User user = userSignupRequestDto.toUser(passwordEncoder, userInterests, userPersonalities);
+        String storedFileName = s3Uploader.upload(multipartFile,"images/");
+
+        User user = userSignupRequestDto.toUser(passwordEncoder, userInterests, userPersonalities,storedFileName);
         userRepository.save(user);
 
         //저장한 유저의 id를 관심사와 성격을 외래키로 저장

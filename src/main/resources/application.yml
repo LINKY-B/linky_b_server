@@ -1,12 +1,30 @@
 server:
   port: 8001
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA4GTPWBDNZ45XCSHB
+      secret-key: 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
+    s3:
+      bucket: linkyb-bucket
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
 spring:
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://jpadb.c8zpd4vnux8w.ap-northeast-2.rds.amazonaws.com/jpadb?useSSL=false
+    url: jdbc:mysql://linkyb.csnhnz4hejhb.ap-northeast-2.rds.amazonaws.com :3306/LinkyB?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: admin
-    password: 20190976sswu
+    password: 1q2w3e4r!
 
   jpa:
     database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
