@@ -5,6 +5,9 @@ import com.linkyB.backend.block.dto.BlockDto;
 import com.linkyB.backend.block.entity.Block;
 import com.linkyB.backend.block.mapper.BlockMapper;
 import com.linkyB.backend.block.repository.BlockRepository;
+import com.linkyB.backend.chat.converter.ChattingConverter;
+import com.linkyB.backend.chat.entity.ChattingRoom;
+import com.linkyB.backend.chat.repository.ChattingRoomRepository;
 import com.linkyB.backend.match.converter.MatchConverter;
 import com.linkyB.backend.match.dto.MatchDto;
 import com.linkyB.backend.match.dto.MatchListDto;
@@ -18,7 +21,6 @@ import com.linkyB.backend.user.mapper.UserMapper;
 import com.linkyB.backend.user.presentation.dto.UserListDto;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,8 @@ public class MatchService {
     private final UserRepository userRepository;
     private final MatchRepository matchRepository;
     private final BlockRepository blockRepository;
+    private final ChattingRoomRepository chattingRoomRepository;
+    private final ChattingConverter chattingConverter;
     private final MatchConverter matchConverter;
     private final BlockConverter blockConverter;
 
@@ -64,6 +68,9 @@ public class MatchService {
         if (entity.getUserMatching().getUserId() == user.getUserId()) {
             entity.update(MatchStatus.ACTIVE);
             MatchDto dto = MatchMapper.INSTANCE.entityToDto(entity);
+
+            // 채팅 테이블 입력
+            ChattingRoom chat = chattingRoomRepository.save(chattingConverter.createChat(entity.getUserGetMatched(), entity.getUserMatching()));
 
             return dto;
 
