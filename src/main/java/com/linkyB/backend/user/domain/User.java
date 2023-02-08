@@ -6,12 +6,16 @@ import com.linkyB.backend.filter.entity.GenderForFilter;
 import com.linkyB.backend.filter.entity.GradeForFilter;
 import com.linkyB.backend.filter.entity.MajorForFilter;
 import com.linkyB.backend.filter.entity.MbtiForFilter;
+import com.linkyB.backend.user.presentation.dto.PatchUserReq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -109,5 +113,17 @@ public class User extends BaseEntity {
 
     public void updateUserNotification(UserNotification userNotification) {
         this.userNotification = userNotification;
+    }
+
+    public void updateInfo(PatchUserReq dto, String multipartFile) {
+        if (ObjectUtils.isEmpty(dto))
+            throw new RuntimeException("요청 파라미터가 NULL입니다.");
+
+        this.userMajorName = dto.getUserMajorName();
+        this.userMBTI = dto.getUserMbti();
+        this.userSelfIntroduction = dto.getUserSelfIntroduction();
+        this.userInterest = dto.getInterestList();
+        this.userPersonality = dto.getPersonalities();
+        this.userProfileImg = multipartFile;
     }
 }

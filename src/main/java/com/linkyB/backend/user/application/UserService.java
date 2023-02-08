@@ -3,20 +3,22 @@ package com.linkyB.backend.user.application;
 import com.linkyB.backend.block.dto.PatchBlockReq;
 import com.linkyB.backend.block.repository.BlockRepository;
 import com.linkyB.backend.common.exception.LInkyBussinessException;
-import com.linkyB.backend.user.domain.User;
-import com.linkyB.backend.user.domain.UserNotification;
-import com.linkyB.backend.user.domain.UserStatusForMyInfo;
+import com.linkyB.backend.user.converter.UserConverter;
+import com.linkyB.backend.user.domain.*;
 import com.linkyB.backend.user.mapper.UserMapper;
-import com.linkyB.backend.user.presentation.dto.UserDetailDto;
-import com.linkyB.backend.user.presentation.dto.UserDto;
-import com.linkyB.backend.user.presentation.dto.UserSignupResponseDto;
+import com.linkyB.backend.user.presentation.dto.*;
+import com.linkyB.backend.user.repository.UserInterestRepository;
+import com.linkyB.backend.user.repository.UserPersonalityRepository;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,6 +26,10 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserInterestRepository interestRepository;
+    private final UserPersonalityRepository personalityRepository;
+    private final UserConverter userConverter;
+    private final S3Uploader s3Uploader;
 
 
     public UserSignupResponseDto findUserById(Long userId) {
@@ -94,4 +100,43 @@ public class UserService {
         return dto;
     }
 
+    // 유저 프로필 수정
+    @Transactional
+    public UserDto modifyProfile(long userId, PatchUserReq dto, MultipartFile multipartFile)throws IOException {
+        User users = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+
+
+//        List<Interest> userInterestList = dto.getInterestList();
+//        List<Personality> userPersonalities = dto.getPersonalities();
+
+        String storedFileName = s3Uploader.upload(multipartFile, "images/");
+        users.updateInfo(dto, storedFileName);
+
+        Optional<User> findUser = userRepository.findById(userId);
+        UserInterestDto interestDto = new UserInterestDto(findUser.get(), findUser.get().getUserInterest());
+        UserPersonalityDto personalityDto = new UserPersonalityDto(findUser.get(), findUser.get().getUserPersonality());
+
+        if(!interestRepository.findAllByUser(userId).isEmpty()){
+            interestRepository.deleteAllByUserId(userId);
+        }
+        List<Interest> interestList = dto.getInterestList();
+        for(Interest n : interestList)
+            interestRepository.save(userConverter.interestSave(users, n));
+
+
+        if(!personalityRepository.findAllByUser(userId).isEmpty()){
+            personalityRepository.deleteAllByUserId(userId);
+        }
+        List<Personality> personalityList = dto.getPersonalities();
+        for(Personality i : personalityList)
+            personalityRepository.save(userConverter.personalitySave(users, i));
+
+
+
+        UserDto res = UserMapper.INSTANCE.entityToDto(users);
+
+        return res;
+
+    }
 }

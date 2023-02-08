@@ -10,16 +10,15 @@ import com.linkyB.backend.report.dto.ReportDto;
 import com.linkyB.backend.report.entity.Report;
 import com.linkyB.backend.report.service.ReportService;
 import com.linkyB.backend.user.application.UserService;
-import com.linkyB.backend.user.presentation.dto.UserDetailDto;
-import com.linkyB.backend.user.presentation.dto.UserDto;
-import com.linkyB.backend.user.presentation.dto.UserListDto;
-import com.linkyB.backend.user.presentation.dto.UserSignupResponseDto;
+import com.linkyB.backend.user.presentation.dto.*;
 import com.linkyB.backend.user.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -108,6 +107,14 @@ public class UserController {
     @GetMapping("/block")
     public ResponseEntity<List<UserListDto>> GetBlockedList() {
         List<UserListDto> response = blockService.BlockList(SecurityUtil.getCurrentUserId());
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 유저 프로필 수정
+    @PatchMapping("/modifyProfile")
+    public ResponseEntity<UserDto> modifyProfile(@RequestPart (value = "PatchUserReq") PatchUserReq dto,
+                                                 @RequestPart(value = "profileImg") MultipartFile multipartFile) throws IOException {
+        UserDto response = userService.modifyProfile(SecurityUtil.getCurrentUserId(), dto, multipartFile);
         return ResponseEntity.ok().body(response);
     }
 }
