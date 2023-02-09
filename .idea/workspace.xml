@@ -5,12 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b33dc4d-113a-4c25-a712-4c0ba14cf2d2" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/jwt/JwtTokenProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/jwt/JwtTokenProvider.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/jwt/JwtTokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/jwt/JwtTokenProvider.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bbe9b4b6-9acd-45d3-a5e8-24ff01773999.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bbe9b4b6-9acd-45d3-a5e8-24ff01773999.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/eff0299f-82b6-4c3d-b4d0-0be863558efd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/eff0299f-82b6-4c3d-b4d0-0be863558efd.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" afterDir="false" />
+>>>>>>> 1aa0219c9fdc3d254cecba8887ccdea36cf7a6bc
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,11 +108,19 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< HEAD
     "last_opened_file_path": "C:/Users/82102/Desktop/LinkyB/linky_b_server/build.gradle",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "spring.configuration.checksum": "3241ca6184e7e06d7e2313367e60913a"
+=======
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "spring.configuration.checksum": "3241ca6184e7e06d7e2313367e60913a",
+    "vue.rearranger.settings.migration": "true"
+>>>>>>> 1aa0219c9fdc3d254cecba8887ccdea36cf7a6bc
   }
 }]]></component>
   <component name="RecentsManager">
@@ -174,7 +192,11 @@
       <workItem from="1675484417585" duration="32807000" />
       <workItem from="1675828508530" duration="2751000" />
       <workItem from="1675831439396" duration="6988000" />
+<<<<<<< HEAD
       <workItem from="1675905226209" duration="5270000" />
+=======
+      <workItem from="1675864224894" duration="2370000" />
+>>>>>>> 1aa0219c9fdc3d254cecba8887ccdea36cf7a6bc
     </task>
     <servers />
   </component>
