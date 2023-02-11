@@ -25,5 +25,6 @@ public class UserDetailDto {
     private List<Interest> userInterest;
     private List<Personality> userPersonality;
     private int userLikeCount;
+    private int userMatchingCount;
 
 }
