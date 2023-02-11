@@ -100,8 +100,12 @@ public class User extends BaseEntity {
     private Authority authority;
 
     private int userLikeCount;
+    private int userMatchingCount;
     public void UserLikeCount() {
         this.userLikeCount++;
+    }
+    public void UserMatchingCount() {
+        this.userMatchingCount++;
     }
     public void updatePassword(String newPassword) {
         this.userPassword = newPassword;

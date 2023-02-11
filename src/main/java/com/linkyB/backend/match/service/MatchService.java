@@ -69,6 +69,10 @@ public class MatchService {
             entity.update(MatchStatus.ACTIVE);
             MatchDto dto = MatchMapper.INSTANCE.entityToDto(entity);
 
+            user.UserMatchingCount();
+            User getMatchedUser = entity.getUserGetMatched();
+            getMatchedUser.UserMatchingCount();
+
             // 채팅 테이블 입력
             ChattingRoom chat = chattingRoomRepository.save(chattingConverter.createChat(entity.getUserGetMatched(), entity.getUserMatching()));
 
