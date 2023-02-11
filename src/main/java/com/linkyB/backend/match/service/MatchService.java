@@ -95,7 +95,7 @@ public class MatchService {
                 .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
 
         // userId와 매칭을 받은 유저의 인덱스가 같다면 수락 처리
-        if (entity.getUserMatching().getUserId() == user.getUserId()) {
+        if (entity.getUserGetMatched().getUserId() == user.getUserId()) {
             entity.updateMatch(status.INACTIVE);
 
             Block block = blockRepository.save(blockConverter.block(entity.getUserGetMatched(), entity.getUserMatching()));
