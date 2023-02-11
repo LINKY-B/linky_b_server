@@ -28,13 +28,13 @@ public class ReportService {
     @Transactional
     public ReportDto reportUser(long userGetReported, long userId, PostReportReq dto) {
         User Report = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
         User GetReported = userRepository.findById(userGetReported)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
         if (dto.getReportDetail().isEmpty()) {
-            throw new RuntimeException("신고 사유를 작성해주세요. ");
+            throw new LInkyBussinessException("신고 사유를 작성해주세요.", HttpStatus.BAD_REQUEST);
         }
 
         Report entity = reportRepository.save(reportConverter.Report(Report, GetReported, dto));
