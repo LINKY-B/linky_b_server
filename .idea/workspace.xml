@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f0d7b7-78a2-4e33-ba29-1334a6a8fa6f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/match/service/MatchService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/block/mapper/BlockMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/block/mapper/BlockMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/like/mapper/LikeMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/like/mapper/LikeMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/match/mapper/MatchMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/match/mapper/MatchMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/report/mapper/ReportMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/report/mapper/ReportMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/user/mapper/UserMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/linkyB/backend/user/mapper/UserMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/dto/UserDetailDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/presentation/dto/UserDetailDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/linkyB/backend/user/application/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/common/exception/LInkyBussinessException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/common/exception/LInkyBussinessException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/like/service/LikeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/like/service/LikeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/match/service/MatchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/report/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/report/service/ReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/linkyB/backend/user/application/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

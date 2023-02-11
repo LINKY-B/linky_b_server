@@ -1,5 +1,6 @@
 package com.linkyB.backend.user.application;
 
+import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.user.domain.Interest;
 import com.linkyB.backend.user.domain.Personality;
 import com.linkyB.backend.user.domain.RefreshToken;
@@ -12,6 +13,7 @@ import com.linkyB.backend.user.repository.UserRepository;
 import com.linkyB.backend.user.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -41,7 +43,7 @@ public class AuthService {
     @Transactional
     public UserSignupResponseDto signup(UserSignupRequestDto userSignupRequestDto, MultipartFile multipartFile) throws IOException {
         if (userRepository.existsByUserPhone(userSignupRequestDto.getUserPhone())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+            throw new LInkyBussinessException("이미 가입되어 있는 유저입니다.", HttpStatus.BAD_REQUEST);
         }
         //유저 성격, 관시사 정보를 리스트로 반환
         List<Interest> userInterests = userSignupRequestDto.getUserInterests();
@@ -91,7 +93,7 @@ public class AuthService {
     public TokenDto reissue(TokenRequestDto tokenRequestDto) {
         // 1. Refresh Token 검증
         if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
-            throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
+            throw new LInkyBussinessException("Refresh Token이 유효하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
 
         // 2. Access Token 에서 User ID 가져오기
@@ -99,11 +101,11 @@ public class AuthService {
 
         // 3. 저장소에서 User ID 를 기반으로 Refresh Token 값 가져옴
         RefreshToken refreshToken = refreshTokenRepository.findByUserId(authentication.getName())
-                .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
+                .orElseThrow(() -> new LInkyBussinessException("로그아웃된 사용자입니다.", HttpStatus.BAD_REQUEST));
 
         // 4. Refresh Token 일치하는지 검사
         if (!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())) {
-            throw new RuntimeException("토큰의 유저 정보가 일치하지 않습니다.");
+            throw new LInkyBussinessException("토큰의 유저 정보가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
 
         // 5. 새로운 토큰 생성
@@ -121,14 +123,14 @@ public class AuthService {
     public UserPasswordDto updatePassword(UserPasswordDto passwordRequestDto) {
         // db에서 해당 핸드폰으로 저장된 유저정보 가져오기
         if (!userRepository.existsByUserPhone(passwordRequestDto.getPhone())) {
-            throw new RuntimeException("회원가입된 유저가 아닙니다.");
+            throw new LInkyBussinessException("회원가입된 유저가 아닙니다.", HttpStatus.BAD_REQUEST);
         }
 
         User findPhone = userRepository.findByUserPhone(passwordRequestDto.getPhone()).get();
 
         //기존 비밀번호와 같은지 확인하기
         if (passwordEncoder.matches(passwordRequestDto.getPassword(), findPhone.getUserPassword())) {
-            throw new RuntimeException("이전 비밀번호와 동일합니다.");
+            throw new LInkyBussinessException("이전 비밀번호와 동일합니다.", HttpStatus.BAD_REQUEST);
         }
 
         //비밀번호 변경후 db에 저장

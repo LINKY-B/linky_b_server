@@ -35,19 +35,19 @@ public class UserService {
     public UserSignupResponseDto findUserById(Long userId) {
         return userRepository.findById(userId)
                 .map(UserSignupResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
     }
 
     public UserSignupResponseDto findUserByPhone(String phone) {
         return userRepository.findByUserPhone(phone)
                 .map(UserSignupResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
     }
 
     // 유저 정보 상세 조회
     public UserDetailDto findUser(Long userId) {
         User users = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
         UserDetailDto dto = UserMapper.INSTANCE.UserdetaildtoToEntity(users);
         return dto;
     }
@@ -56,7 +56,7 @@ public class UserService {
     // 알림 활성화
     public UserDto activeAlaram(long userId) {
         User users = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
         users.updateUserNotification(UserNotification.ACTIVE);
         UserDto dto = UserMapper.INSTANCE.entityToDto(users);
@@ -68,7 +68,7 @@ public class UserService {
     // 알림 비활성화
     public UserDto inactiveAlaram(long userId) {
         User users = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
         users.updateUserNotification(UserNotification.INACTIVE);
         UserDto dto = UserMapper.INSTANCE.entityToDto(users);
@@ -80,7 +80,7 @@ public class UserService {
     @Transactional
     public UserDto activeUser(long userId) {
         User users = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
         users.updateStatusForMyInfo(UserStatusForMyInfo.ACTIVE);
         UserDto dto = UserMapper.INSTANCE.entityToDto(users);
@@ -92,7 +92,7 @@ public class UserService {
     @Transactional
     public UserDto inactiveUser(long userId) {
         User users = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
         users.updateStatusForMyInfo(UserStatusForMyInfo.INACTIVE);
         UserDto dto = UserMapper.INSTANCE.entityToDto(users);
@@ -104,11 +104,8 @@ public class UserService {
     @Transactional
     public UserDto modifyProfile(long userId, PatchUserReq dto, MultipartFile multipartFile)throws IOException {
         User users = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
-
-//        List<Interest> userInterestList = dto.getInterestList();
-//        List<Personality> userPersonalities = dto.getPersonalities();
 
         String storedFileName = s3Uploader.upload(multipartFile, "images/");
         users.updateInfo(dto, storedFileName);
