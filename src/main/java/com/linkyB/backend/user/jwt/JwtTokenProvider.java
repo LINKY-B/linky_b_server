@@ -1,11 +1,13 @@
 package com.linkyB.backend.user.jwt;
 
+import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.user.presentation.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +29,7 @@ public class JwtTokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            // 30분
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;            // 30분
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
 
     private final Key key;
@@ -73,7 +75,7 @@ public class JwtTokenProvider {
         Claims claims = parseClaims(accessToken);
 
         if (claims.get(AUTHORITIES_KEY) == null) {
-            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+            throw new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
 
         // 클레임에서 권한 정보 가져오기
@@ -93,13 +95,13 @@ public class JwtTokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            log.info("잘못된 JWT 서명입니다.");
+            new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
         } catch (ExpiredJwtException e) {
-            log.info("만료된 JWT 토큰입니다.");
+            new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
         } catch (UnsupportedJwtException e) {
-            log.info("지원되지 않는 JWT 토큰입니다.");
+            new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
         } catch (IllegalArgumentException e) {
-            log.info("JWT 토큰이 잘못되었습니다.");
+            new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
         return false;
     }

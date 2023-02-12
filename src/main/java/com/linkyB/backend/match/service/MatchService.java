@@ -46,9 +46,9 @@ public class MatchService {
     public MatchDto matching(long userId, long userGetMatched) {
 
         User Matching = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
         User GetMatched = userRepository.findById(userGetMatched)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
 
         Match entity = matchRepository.save(matchConverter.tryMatching(Matching, GetMatched));
         MatchDto dto = MatchMapper.INSTANCE.entityToDto(entity);
