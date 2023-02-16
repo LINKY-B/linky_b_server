@@ -41,7 +41,7 @@ public class AuthService {
     private final S3Uploader s3Uploader;
 
     @Transactional
-    public UserSignupResponseDto signup(UserSignupRequestDto userSignupRequestDto, MultipartFile multipartFile) throws IOException {
+    public UserSignupResponseDto signup(UserSignupRequestDto userSignupRequestDto) throws IOException {
         if (userRepository.existsByUserPhone(userSignupRequestDto.getUserPhone())) {
             throw new LInkyBussinessException("이미 가입되어 있는 유저입니다.", HttpStatus.BAD_REQUEST);
         }
@@ -49,9 +49,9 @@ public class AuthService {
         List<Interest> userInterests = userSignupRequestDto.getUserInterests();
         List<Personality> userPersonalities = userSignupRequestDto.getUserPersonalities();
 
-        String storedFileName = s3Uploader.upload(multipartFile,"images/");
 
-        User user = userSignupRequestDto.toUser(passwordEncoder, userInterests, userPersonalities,storedFileName);
+
+        User user = userSignupRequestDto.toUser(passwordEncoder, userInterests, userPersonalities);
         userRepository.save(user);
 
         //저장한 유저의 id를 관심사와 성격을 외래키로 저장

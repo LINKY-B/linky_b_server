@@ -112,9 +112,9 @@ public class UserController {
 
     // 유저 프로필 수정
     @PatchMapping("/modifyProfile")
-    public ResponseEntity<UserDto> modifyProfile(@RequestPart (value = "PatchUserReq") PatchUserReq dto,
-                                                 @RequestPart(value = "profileImg") MultipartFile multipartFile) throws IOException {
-        UserDto response = userService.modifyProfile(SecurityUtil.getCurrentUserId(), dto, multipartFile);
+    public ResponseEntity<UserDto> modifyProfile(@RequestBody PatchUserReq dto
+                                                 ) throws IOException {
+        UserDto response = userService.modifyProfile(SecurityUtil.getCurrentUserId(), dto);
         return ResponseEntity.ok().body(response);
     }
 }
