@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -50,12 +51,14 @@ public class UserSignupRequestDto {
     @NotBlank
     private String userMBTI;
 
+    private int profileImg;
+
     private List<Interest> userInterests;
     private List<Personality> userPersonalities;
 
     private String userSelfIntroduction;
 
-    public User toUser(PasswordEncoder passwordEncoder, List<Interest> userInterests, List<Personality> userPersonalities, String file) {
+    public User toUser(PasswordEncoder passwordEncoder, List<Interest> userInterests, List<Personality> userPersonalities) {
         return User.builder()
                 .userPhone(userPhone)
                 .userPassword(passwordEncoder.encode(userPassword))
@@ -65,7 +68,7 @@ public class UserSignupRequestDto {
                 .userSchoolName(userSchoolName)
                 .userMajorName(userMajorName)
                 .userSex(userSex)
-                .userProfileImg(file)
+                .userProfileImg(profileImg)
                 .gradStatus(gradeStatus)
                 .userMBTI(userMBTI)
                 .userStudentNum(userStudentNum)

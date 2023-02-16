@@ -18,6 +18,7 @@ public class PatchUserReq {
     private String userMajorName;
     private String userMbti;
     private String userSelfIntroduction;
+    private int profileImg;
     private List<Interest> interestList;
     private List<Personality> personalities;
 

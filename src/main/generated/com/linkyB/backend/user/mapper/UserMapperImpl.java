@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-11T17:51:31+0900",
+    date = "2023-02-16T18:32:24+0900",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -70,7 +70,7 @@ public class UserMapperImpl implements UserMapper {
         userDetailDto.userBirth( entity.getUserBirth() );
         userDetailDto.userSex( entity.getUserSex() );
         userDetailDto.userSelfIntroduction( entity.getUserSelfIntroduction() );
-        userDetailDto.userProfileImg( entity.getUserProfileImg() );
+        userDetailDto.userProfileImg( String.valueOf( entity.getUserProfileImg() ) );
         userDetailDto.userMBTI( entity.getUserMBTI() );
         List<Interest> list = entity.getUserInterest();
         if ( list != null ) {
@@ -124,7 +124,7 @@ public class UserMapperImpl implements UserMapper {
         userListDto.userNickName( user.getUserNickName() );
         userListDto.userMajorName( user.getUserMajorName() );
         userListDto.userStudentNum( user.getUserStudentNum() );
-        userListDto.userProfileImg( user.getUserProfileImg() );
+        userListDto.userProfileImg( String.valueOf( user.getUserProfileImg() ) );
         userListDto.userLikeCount( user.getUserLikeCount() );
         List<Interest> list = user.getUserInterest();
         if ( list != null ) {

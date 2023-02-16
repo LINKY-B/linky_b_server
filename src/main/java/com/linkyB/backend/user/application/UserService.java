@@ -102,13 +102,12 @@ public class UserService {
 
     // 유저 프로필 수정
     @Transactional
-    public UserDto modifyProfile(long userId, PatchUserReq dto, MultipartFile multipartFile)throws IOException {
+    public UserDto modifyProfile(long userId, PatchUserReq dto)throws IOException {
         User users = userRepository.findById(userId)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
 
-        String storedFileName = s3Uploader.upload(multipartFile, "images/");
-        users.updateInfo(dto, storedFileName);
+        users.updateInfo(dto);
 
         Optional<User> findUser = userRepository.findById(userId);
         UserInterestDto interestDto = new UserInterestDto(findUser.get(), findUser.get().getUserInterest());
