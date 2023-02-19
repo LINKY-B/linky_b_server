@@ -102,12 +102,12 @@ public class UserService {
 
     // 유저 프로필 수정
     @Transactional
-    public UserDto modifyProfile(long userId, PatchUserReq dto)throws IOException {
+    public UserDto modifyProfile(long userId, PatchUserReq dto, MultipartFile multipartFile)throws IOException {
         User users = userRepository.findById(userId)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
-
-        users.updateInfo(dto);
+        String storedFileName = s3Uploader.upload(multipartFile, "images/");
+        users.updateInfo(dto, storedFileName);
 
         Optional<User> findUser = userRepository.findById(userId);
         UserInterestDto interestDto = new UserInterestDto(findUser.get(), findUser.get().getUserInterest());
@@ -127,8 +127,6 @@ public class UserService {
         List<Personality> personalityList = dto.getPersonalities();
         for(Personality i : personalityList)
             personalityRepository.save(userConverter.personalitySave(users, i));
-
-
 
         UserDto res = UserMapper.INSTANCE.entityToDto(users);
 

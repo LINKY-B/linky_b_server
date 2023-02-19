@@ -53,7 +53,7 @@ public class User extends BaseEntity {
     @Column(name = "gradeStatus")
     private String gradStatus;
     @Column(name = "userProfileImg")
-    private int userProfileImg;
+    private String userProfileImg;
     @Column(name = "userSex")
     private String userSex;
     @Column(name = "userMBTI")
@@ -119,7 +119,7 @@ public class User extends BaseEntity {
         this.userNotification = userNotification;
     }
 
-    public void updateInfo(PatchUserReq dto) {
+    public void updateInfo(PatchUserReq dto, String multipartFile) {
         if (ObjectUtils.isEmpty(dto))
             throw new RuntimeException("요청 파라미터가 NULL입니다.");
 
@@ -128,6 +128,6 @@ public class User extends BaseEntity {
         this.userSelfIntroduction = dto.getUserSelfIntroduction();
         this.userInterest = dto.getInterestList();
         this.userPersonality = dto.getPersonalities();
-        this.userProfileImg = dto.getProfileImg();
+        this.userProfileImg = multipartFile;
     }
 }

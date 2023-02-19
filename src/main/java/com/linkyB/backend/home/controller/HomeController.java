@@ -32,8 +32,8 @@ public class HomeController {
                                                                    ) {
         Map<String, List<UserListDto>> response = new HashMap<>();
         long userId = SecurityUtil.getCurrentUserId();
-        response.put("재학생 유저 리스트", homeService.TrueList(offset, limit, userId));
-        response.put("졸업생 유저 리스트", homeService.FalseList(offset, limit, userId));
+        response.put("졸업생 유저 리스트", homeService.TrueList(offset, limit, userId));
+        response.put("재학생 유저 리스트", homeService.FalseList(offset, limit, userId));
 
         return ResponseEntity.ok().body(response);
     }
@@ -44,8 +44,8 @@ public class HomeController {
 
         Map<String, List<UserListDto>> response = new HashMap<>();
         long userId = SecurityUtil.getCurrentUserId();
-        response.put("재학생 유저 리스트", filterService.TrueList(userId, dto));
-        response.put("졸업생 유저 리스트", filterService.FalseList(userId));
+        response.put("졸업생 유저 리스트", filterService.TrueList(userId, dto));
+        response.put("재학생 유저 리스트", filterService.FalseList(userId));
 
         return ResponseEntity.ok().body(response);
     }

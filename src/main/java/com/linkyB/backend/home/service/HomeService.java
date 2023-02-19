@@ -19,14 +19,14 @@ public class HomeService {
     private final PagingRepository pagingRepository;
     private final UserRepository userRepository;
 
-    // 재학생 유저 리스트 조회
+    // 졸업생 유저 리스트 조회
     public List<UserListDto> TrueList(int offset, int limit, long userId) {
         List<User> users = pagingRepository.findAllByGradStatusTrue(offset, limit,userId);
         List<UserListDto> dto = UserMapper.INSTANCE.entityToDtoList(users);
         return dto;
     }
 
-    // 졸업생 유저 리스트 조회
+    // 재학생 유저 리스트 조회
     public List<UserListDto> FalseList(int offset, int limit, long userId) {
         List<User> users = pagingRepository.findAllByGradStatusFalse(offset, limit, userId);
         List<UserListDto> dto = UserMapper.INSTANCE.entityToDtoList(users);
