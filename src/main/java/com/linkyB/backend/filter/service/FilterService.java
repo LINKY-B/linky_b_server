@@ -33,7 +33,7 @@ public class FilterService {
     private final GenderForFilterRepository genderForFilterRepository;
     private final FilterConverter filterConverter;
 
-    // 필터 저장 후 필터 적용된 재학생 리스트 반환
+    // 필터 저장 후 필터 적용된 졸업생 리스트 반환
     @Transactional
     public List<UserListDto> TrueList(long userId, PostFilterReq dto) {
 
@@ -76,7 +76,7 @@ public class FilterService {
 
     }
 
-    // 필터 저장 후 필터 적용된 졸업생 리스트 반환
+    // 필터 저장 후 필터 적용된 재학생 리스트 반환
     public List<UserListDto> FalseList(long userId) {
 
         List<User> userList = userRepository.findFalseStudentByFilter(userId);

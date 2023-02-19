@@ -51,14 +51,12 @@ public class UserSignupRequestDto {
     @NotBlank
     private String userMBTI;
 
-    private int profileImg;
-
     private List<Interest> userInterests;
     private List<Personality> userPersonalities;
 
     private String userSelfIntroduction;
 
-    public User toUser(PasswordEncoder passwordEncoder, List<Interest> userInterests, List<Personality> userPersonalities) {
+    public User toUser(PasswordEncoder passwordEncoder, List<Interest> userInterests, List<Personality> userPersonalities, String file) {
         return User.builder()
                 .userPhone(userPhone)
                 .userPassword(passwordEncoder.encode(userPassword))
@@ -68,7 +66,7 @@ public class UserSignupRequestDto {
                 .userSchoolName(userSchoolName)
                 .userMajorName(userMajorName)
                 .userSex(userSex)
-                .userProfileImg(profileImg)
+                .userProfileImg(file)
                 .gradStatus(gradeStatus)
                 .userMBTI(userMBTI)
                 .userStudentNum(userStudentNum)
