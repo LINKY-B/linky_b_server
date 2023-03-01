@@ -32,16 +32,16 @@ public class MatchController {
     }
 
     // 매칭 수락
-    @PatchMapping("/accept/{matchId}")
-    public ResponseEntity<MatchDto> accept(@PathVariable("matchId") long matchId) {
-        MatchDto response = matchService.accept(matchId, SecurityUtil.getCurrentUserId());
+    @PatchMapping("/accept/{userMatching}")
+    public ResponseEntity<MatchDto> accept(@PathVariable("userMatching") long userMatching) {
+        MatchDto response = matchService.accept(userMatching, SecurityUtil.getCurrentUserId());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // 매칭 거절
-    @PostMapping("/refuse/{matchId}")
-    public ResponseEntity<BlockDto> refuse(@PathVariable("matchId") long matchId) {
-        BlockDto response = matchService.refuse(matchId, SecurityUtil.getCurrentUserId());
+    @PostMapping("/refuse/{userMatching}")
+    public ResponseEntity<BlockDto> refuse(@PathVariable("userMatching") long userMatching) {
+        BlockDto response = matchService.refuse(SecurityUtil.getCurrentUserId(),userMatching);
         return ResponseEntity.ok().body(response);
     }
 
@@ -53,9 +53,9 @@ public class MatchController {
     }
 
     // 내가 매칭 시도한 내역 삭제
-    @PostMapping("/block/{matchId}")
-    public ResponseEntity<BlockDto> matchBlock(@PathVariable("matchId") long matchId) {
-        BlockDto response = matchService.blockMatch(matchId, SecurityUtil.getCurrentUserId());
+    @PostMapping("/block/{userGetMatched}")
+    public ResponseEntity<BlockDto> matchBlock(@PathVariable("userGetMatched") long userGetMatched) {
+        BlockDto response = matchService.blockMatch(SecurityUtil.getCurrentUserId(),userGetMatched);
         return ResponseEntity.ok().body(response);
     }
 
@@ -70,7 +70,7 @@ public class MatchController {
     @GetMapping("/Matching/all")
     public ResponseEntity<List<UserListDto>> MatchingList() {
         List<UserListDto> response = matchService.MatchingList(SecurityUtil.getCurrentUserId());
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 
     // 매칭 내역 리스트 조회 (매칭 홈)

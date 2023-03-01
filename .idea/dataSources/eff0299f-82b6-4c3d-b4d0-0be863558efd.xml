@@ -1210,7 +1210,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="336" parent="288" name="userInterestIdx">
-      <AutoIncrement>71</AutoIncrement>
+      <AutoIncrement>90</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1385,7 +1385,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="373" parent="292" name="userPersonalityIdx">
-      <AutoIncrement>71</AutoIncrement>
+      <AutoIncrement>84</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1507,7 +1507,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="399" parent="295" name="userId">
-      <AutoIncrement>28</AutoIncrement>
+      <AutoIncrement>34</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1598,72 +1598,98 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>21</Position>
     </column>
-    <index id="420" parent="295" name="PRIMARY">
+    <column id="420" parent="295" name="userGetMatched">
+      <DasType>bigint|0s</DasType>
+      <Position>22</Position>
+    </column>
+    <column id="421" parent="295" name="userMatching">
+      <DasType>bigint|0s</DasType>
+      <Position>23</Position>
+    </column>
+    <foreign-key id="422" parent="295" name="FK952t9k50owjnr37kn9jg427qd">
+      <ColNames>userGetMatched</ColNames>
+      <RefColNames>MatchId</RefColNames>
+      <RefTableName>UserMatch</RefTableName>
+    </foreign-key>
+    <foreign-key id="423" parent="295" name="FKskk0hxc11wp261k4pawajnk2j">
+      <ColNames>userMatching</ColNames>
+      <RefColNames>MatchId</RefColNames>
+      <RefTableName>UserMatch</RefTableName>
+    </foreign-key>
+    <index id="424" parent="295" name="PRIMARY">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="421" parent="295" name="PRIMARY">
+    <index id="425" parent="295" name="FK952t9k50owjnr37kn9jg427qd">
+      <ColNames>userGetMatched</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="426" parent="295" name="FKskk0hxc11wp261k4pawajnk2j">
+      <ColNames>userMatching</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="427" parent="295" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="422" parent="296" name="MatchId">
+    <column id="428" parent="296" name="MatchId">
       <AutoIncrement>17</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="423" parent="296" name="CreatedAt">
+    <column id="429" parent="296" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="424" parent="296" name="updateAt">
+    <column id="430" parent="296" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="425" parent="296" name="status">
+    <column id="431" parent="296" name="status">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="426" parent="296" name="userMatchStatus">
+    <column id="432" parent="296" name="userMatchStatus">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="427" parent="296" name="userGetMatched">
+    <column id="433" parent="296" name="userGetMatched">
       <DasType>bigint|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="428" parent="296" name="userMatching">
+    <column id="434" parent="296" name="userMatching">
       <DasType>bigint|0s</DasType>
       <Position>7</Position>
     </column>
-    <foreign-key id="429" parent="296" name="FKacox6302mnv1me6bej855udly">
+    <foreign-key id="435" parent="296" name="FKacox6302mnv1me6bej855udly">
       <ColNames>userGetMatched</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="430" parent="296" name="FKhgqgm8w7lumfhk48511le7vk4">
+    <foreign-key id="436" parent="296" name="FKhgqgm8w7lumfhk48511le7vk4">
       <ColNames>userMatching</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="431" parent="296" name="PRIMARY">
+    <index id="437" parent="296" name="PRIMARY">
       <ColNames>MatchId</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="432" parent="296" name="FKacox6302mnv1me6bej855udly">
+    <index id="438" parent="296" name="FKacox6302mnv1me6bej855udly">
       <ColNames>userGetMatched</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="433" parent="296" name="FKhgqgm8w7lumfhk48511le7vk4">
+    <index id="439" parent="296" name="FKhgqgm8w7lumfhk48511le7vk4">
       <ColNames>userMatching</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="434" parent="296" name="PRIMARY">
+    <key id="440" parent="296" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
