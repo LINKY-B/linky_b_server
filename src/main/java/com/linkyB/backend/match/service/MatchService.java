@@ -21,6 +21,7 @@ import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.mapper.UserMapper;
 import com.linkyB.backend.user.presentation.dto.UserListDto;
 import com.linkyB.backend.user.repository.UserRepository;
+import jdk.swing.interop.SwingInterOpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -58,22 +59,22 @@ public class MatchService {
 
     // 매칭 수락
     @Transactional
-    public MatchDto accept(long matchId, long userId) {
+    public MatchDto accept(long userId,long userMatching) {
 
-        Match entity = matchRepository.findById(matchId)
-                .orElseThrow(() -> new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
+        Match entity = matchRepository.findByUserMatching(userId, userMatching);
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(userMatching)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
         // userId와 매칭을 받은 유저의 인덱스가 같다면 수락 처리
-        if (entity.getUserMatching().getUserId() == user.getUserId()) {
+        if (entity.getUserGetMatched().getUserId() == user.getUserId()) {
             entity.update(MatchStatus.ACTIVE);
             MatchDto dto = MatchMapper.INSTANCE.entityToDto(entity);
 
-            user.UserMatchingCount();
-            User getMatchedUser = entity.getUserGetMatched();
-            getMatchedUser.UserMatchingCount();
+            user.UserMatchingCount(); // 매칭 수락한 유저 카운트 +1
+
+            User getMatchedUser = entity.getUserMatching();
+            getMatchedUser.UserMatchingCount(); // 매칭 수락된 유저 카운트 +1
 
             // 채팅 테이블 입력
             ChattingRoom chat = chattingRoomRepository.save(chattingConverter.createChat(entity.getUserGetMatched(), entity.getUserMatching()));
@@ -88,10 +89,9 @@ public class MatchService {
 
     // 매칭 거절
     @Transactional
-    public BlockDto refuse(long matchId, long userId) {
+    public BlockDto refuse(long userId, long userMatching) {
 
-        Match entity = matchRepository.findById(matchId)
-                .orElseThrow(() -> new LInkyBussinessException("해당 연결 내역이 없습니다.", HttpStatus.BAD_REQUEST));
+        Match entity = matchRepository.findByUserMatching(userId, userMatching);
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
@@ -122,19 +122,19 @@ public class MatchService {
 
     // 내가 매칭 시도한 내역 삭제
     @Transactional
-    public BlockDto blockMatch(long matchId, long userId) {
+    public BlockDto blockMatch(long userId, long userGetMatched) {
 
-        Match match = matchRepository.findById(matchId)
-                .orElseThrow(() -> new LInkyBussinessException("해당 연결내역이 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
+        Match entity = matchRepository.findByUserGetMatched(userId, userGetMatched);
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
+        System.out.println(entity.getUserMatching().getUserId());
+        System.out.println( user.getUserId());
+        if(entity.getUserMatching().getUserId() == user.getUserId()) {
+            entity.updateMatch(status.INACTIVE);
+            entity.update(MatchStatus.INACTIVE);
 
-        if(match.getUserMatching().getUserId() == user.getUserId()) {
-            match.updateMatch(status.INACTIVE);
-            match.update(MatchStatus.INACTIVE);
-
-            Block block = blockRepository.save(blockConverter.blockGetMatched(match.getUserMatching(), match.getUserGetMatched()));
+            Block block = blockRepository.save(blockConverter.blockGetMatched(entity.getUserMatching(), entity.getUserGetMatched()));
             BlockDto dto = BlockMapper.INSTANCE.entityToDto(block);
             return dto;
         }
@@ -147,7 +147,10 @@ public class MatchService {
         userRepository.findById(userId)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
+
         List<User> users = userRepository.findAllByUserGetMatched(userId);
+
+
         List<UserListDto> dto = UserMapper.INSTANCE.entityToDtoList(users);
 
         return dto;

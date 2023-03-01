@@ -6,6 +6,7 @@ import com.linkyB.backend.filter.entity.GenderForFilter;
 import com.linkyB.backend.filter.entity.GradeForFilter;
 import com.linkyB.backend.filter.entity.MajorForFilter;
 import com.linkyB.backend.filter.entity.MbtiForFilter;
+import com.linkyB.backend.match.entity.Match;
 import com.linkyB.backend.user.presentation.dto.PatchUserReq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -78,7 +79,6 @@ public class User extends BaseEntity {
     @Column(name = "userSelfIntroduction")
     private String userSelfIntroduction;
 
-
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = LAZY)
     private List<GradeForFilter> userGradeForFilters;
@@ -94,6 +94,7 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = LAZY)
     private List<GenderForFilter> userGenderForFilters;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")

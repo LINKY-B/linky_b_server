@@ -1,5 +1,6 @@
 package com.linkyB.backend.user.presentation.dto;
 
+import com.linkyB.backend.match.entity.Match;
 import com.linkyB.backend.user.domain.Interest;
 import lombok.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class UserListDto {
+    private long userId;
     private String userNickName;
     private String userMajorName;
     private String userStudentNum;
