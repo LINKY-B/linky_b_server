@@ -3,6 +3,7 @@ package com.linkyB.backend.user.presentation;
 import com.linkyB.backend.block.dto.BlockDto;
 import com.linkyB.backend.block.dto.PatchBlockReq;
 import com.linkyB.backend.block.service.BlockService;
+import com.linkyB.backend.config.BaseResponse;
 import com.linkyB.backend.like.dto.LikeDto;
 import com.linkyB.backend.like.service.LikeService;
 import com.linkyB.backend.report.dto.PostReportReq;
@@ -39,82 +40,82 @@ public class UserController {
 
     // 유저 상세 정보 조회
     @GetMapping("")
-    public ResponseEntity<UserDetailDto> findUser() {
+    public BaseResponse<UserDetailDto> findUser() {
         UserDetailDto response = userService.findUser(SecurityUtil.getCurrentUserId());
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     // 유저 신고 등록
     @PostMapping("/report/{userGetReported}")
-    public ResponseEntity<ReportDto> reportUser(@PathVariable("userGetReported")long userGetReported,
+    public BaseResponse<ReportDto> reportUser(@PathVariable("userGetReported")long userGetReported,
                                                 @RequestBody PostReportReq dto) {
         long userId = SecurityUtil.getCurrentUserId();
         ReportDto response = reportService.reportUser(userGetReported, userId, dto);
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     // 유저 좋아요 등록
     @PostMapping("likes/{userGetLikes}")
-    public ResponseEntity<LikeDto> userLikes(@PathVariable("userGetLikes")long userGetLikes) {
+    public BaseResponse<LikeDto> userLikes(@PathVariable("userGetLikes")long userGetLikes) {
         long userId = SecurityUtil.getCurrentUserId();
         LikeDto response = likeService.userLikes(userGetLikes, userId);
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     // 알림 활성화
     @PatchMapping("/alaram")
-    public ResponseEntity<UserDto> activeAlaram() {
+    public BaseResponse<UserDto> activeAlaram() {
         UserDto response = userService.activeAlaram(SecurityUtil.getCurrentUserId());
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     // 알림 비활성화
     @PatchMapping("/alaram/inactive")
-    public ResponseEntity<UserDto> inactiveAlaram() {
+    public BaseResponse<UserDto> inactiveAlaram() {
         UserDto response = userService.inactiveAlaram(SecurityUtil.getCurrentUserId());
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     @PatchMapping("/active")
-    public ResponseEntity<UserDto> activeUser() {
+    public BaseResponse<UserDto> activeUser() {
         UserDto response = userService.activeUser(SecurityUtil.getCurrentUserId());
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     // 정보 비활성화
     @PatchMapping("/inactive")
-    public ResponseEntity<UserDto> inactiveUser() {
+    public BaseResponse<UserDto> inactiveUser() {
         UserDto response = userService.inactiveUser(SecurityUtil.getCurrentUserId());
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     // 유저 차단
     @PostMapping("/block/{userGetBlocked}")
-    public ResponseEntity<BlockDto> UserBlock(@PathVariable("userGetBlocked") long userGetBlocked) {
+    public BaseResponse<BlockDto> UserBlock(@PathVariable("userGetBlocked") long userGetBlocked) {
         long userId = SecurityUtil.getCurrentUserId();
         BlockDto response = blockService.userBlock(userId, userGetBlocked);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new BaseResponse<>(response);
     }
 
     // 차단 해제
     @PatchMapping("/block")
-    public ResponseEntity<UserDto> cancleBlock(@RequestBody PatchBlockReq dto) {
+    public BaseResponse<UserDto> cancleBlock(@RequestBody PatchBlockReq dto) {
         UserDto response = blockService.cancleBlock(SecurityUtil.getCurrentUserId(), dto);
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     // 차단 유저 리스트 조회
     @GetMapping("/block")
-    public ResponseEntity<List<UserListDto>> GetBlockedList() {
+    public BaseResponse<List<UserListDto>> GetBlockedList() {
         List<UserListDto> response = blockService.BlockList(SecurityUtil.getCurrentUserId());
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 
     // 유저 프로필 수정
     @PatchMapping("/modifyProfile")
-    public ResponseEntity<UserDto> modifyProfile(@RequestPart (value = "PatchUserReq") PatchUserReq dto,
+    public BaseResponse<UserDto> modifyProfile(@RequestPart (value = "PatchUserReq") PatchUserReq dto,
                                                  @RequestPart(value = "profileImg") MultipartFile multipartFile) throws IOException {
         UserDto response = userService.modifyProfile(SecurityUtil.getCurrentUserId(), dto, multipartFile);
-        return ResponseEntity.ok().body(response);
+        return new BaseResponse<>(response);
     }
 }
