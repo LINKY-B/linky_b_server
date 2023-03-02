@@ -2,6 +2,10 @@
 /build/
 /build/classes/java/main/
 
+#User-specific
+.idea/**/workspace.xml
+
+
 /src/main/resources/application.yml
 
 .DS_Store
