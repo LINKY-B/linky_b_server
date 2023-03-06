@@ -38,7 +38,7 @@ public class UserController {
     }
 
 
-    // 유저 상세 정보 조회
+    // 유저 상세 정보 조회 (토큰 이용)
     @GetMapping("")
     public BaseResponse<UserDetailDto> findUser() {
         UserDetailDto response = userService.findUser(SecurityUtil.getCurrentUserId());
