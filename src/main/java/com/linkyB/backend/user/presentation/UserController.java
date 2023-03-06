@@ -32,13 +32,15 @@ public class UserController {
     private final LikeService likeService;
     private final BlockService blockService;
 
+    // 유저 정보 상세 조회 (유저 인덱스 이용)
     @GetMapping("/{userId}")
-    public ResponseEntity<UserSignupResponseDto> findUserById(@PathVariable Long userId) {
-        return ResponseEntity.ok(userService.findUserById(SecurityUtil.getCurrentUserId()));
+    public BaseResponse<UserDetailDto> findUserById(@PathVariable Long userId) {
+        UserDetailDto response = userService.findUser(userId);
+        return new BaseResponse<>(response);
     }
 
 
-    // 유저 상세 정보 조회
+    // 유저 상세 정보 조회 (토큰 이용)
     @GetMapping("")
     public BaseResponse<UserDetailDto> findUser() {
         UserDetailDto response = userService.findUser(SecurityUtil.getCurrentUserId());

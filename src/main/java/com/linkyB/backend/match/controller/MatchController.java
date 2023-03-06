@@ -33,7 +33,7 @@ public class MatchController {
     // 매칭 수락
     @PatchMapping("/accept/{userMatching}")
     public BaseResponse<MatchDto> accept(@PathVariable("userMatching") long userMatching) {
-        MatchDto response = matchService.accept(userMatching, SecurityUtil.getCurrentUserId());
+        MatchDto response = matchService.accept(SecurityUtil.getCurrentUserId(), userMatching);
         return new BaseResponse<>(response);
     }
 
