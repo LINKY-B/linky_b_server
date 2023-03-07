@@ -35,8 +35,8 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
     private Long userId;
-    @Column(name = "userPhoneNum")
-    private String userPhone;
+    @Column(name = "userEmail")
+    private String userEmail;
     @Column(name = "userName")
     private String userName;
     @Column(name = "userNickName")
@@ -55,6 +55,8 @@ public class User extends BaseEntity {
     private String gradStatus;
     @Column(name = "userProfileImg")
     private String userProfileImg;
+    @Column(name = "userSchoolImg")
+    private String userSchoolImg;
     @Column(name = "userSex")
     private String userSex;
     @Column(name = "userMBTI")

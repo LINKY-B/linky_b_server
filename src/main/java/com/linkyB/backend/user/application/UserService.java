@@ -38,8 +38,8 @@ public class UserService {
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
     }
 
-    public UserSignupResponseDto findUserByPhone(String phone) {
-        return userRepository.findByUserPhone(phone)
+    public UserSignupResponseDto findUserByEmail(String email) {
+        return userRepository.findByUserEmail(email)
                 .map(UserSignupResponseDto::of)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
     }

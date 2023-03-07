@@ -23,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserSignupRequestDto {
     @NotBlank
-    private String userPhone;
+    private String userEmail;
 
     @NotBlank
     private String userName;
@@ -56,9 +56,10 @@ public class UserSignupRequestDto {
 
     private String userSelfIntroduction;
 
-    public User toUser(PasswordEncoder passwordEncoder, List<Interest> userInterests, List<Personality> userPersonalities, String file) {
+    public User toUser(PasswordEncoder passwordEncoder, List<Interest> userInterests,
+                       List<Personality> userPersonalities, String profileImg, String schoolImg) {
         return User.builder()
-                .userPhone(userPhone)
+                .userEmail(userEmail)
                 .userPassword(passwordEncoder.encode(userPassword))
                 .userName(userName)
                 .userNickName(userNickName)
@@ -66,7 +67,8 @@ public class UserSignupRequestDto {
                 .userSchoolName(userSchoolName)
                 .userMajorName(userMajorName)
                 .userSex(userSex)
-                .userProfileImg(file)
+                .userProfileImg(profileImg)
+                .userSchoolImg(schoolImg)
                 .gradStatus(gradeStatus)
                 .userMBTI(userMBTI)
                 .userStudentNum(userStudentNum)

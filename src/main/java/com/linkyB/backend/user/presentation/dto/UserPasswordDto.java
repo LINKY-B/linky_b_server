@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class UserPasswordDto {
     @NotBlank
-    private String phone;
+    private String email;
 
     @NotBlank
     //영문, 숫자, 특수문자 포함
@@ -23,6 +23,6 @@ public class UserPasswordDto {
     private String password;
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
-        return new UsernamePasswordAuthenticationToken(phone, password);
+        return new UsernamePasswordAuthenticationToken(email, password);
     }
 }

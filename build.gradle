@@ -49,6 +49,9 @@ dependencies {
 	implementation 'com.amazonaws:aws-java-sdk-s3'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	//spring email
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.3'
 }
 
 tasks.named('test') {
