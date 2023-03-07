@@ -15,5 +15,14 @@
       <jdbc-url>jdbc:mysql://linkyb.csnhnz4hejhb.ap-northeast-2.rds.amazonaws.com:3306/LinkyB</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="backend.main/Hibernate" uuid="37167952-7eff-495c-a356-f105d2e66b67">
+      <driver-ref>athena</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate</remarks>
+      <jdbc-driver>com.simba.athena.jdbc42.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://linkyb.csnhnz4hejhb.ap-northeast-2.rds.amazonaws.com :3306/LinkyB?serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

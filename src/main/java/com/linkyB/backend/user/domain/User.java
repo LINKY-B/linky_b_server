@@ -35,8 +35,8 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
     private Long userId;
-    @Column(name = "userPhoneNum")
-    private String userPhone;
+    @Column(name = "userEmail")
+    private String userEmail;
     @Column(name = "userName")
     private String userName;
     @Column(name = "userNickName")
@@ -55,10 +55,14 @@ public class User extends BaseEntity {
     private String gradStatus;
     @Column(name = "userProfileImg")
     private String userProfileImg;
+    @Column(name ="UserSchoolImg")
+    private String userSchoolImg;
     @Column(name = "userSex")
     private String userSex;
     @Column(name = "userMBTI")
     private String userMBTI;
+    @Column(name = "userSelfIntroduction")
+    private String userSelfIntroduction;
 
     @Enumerated(EnumType.STRING)
     @ColumnDefault("'ACTIVE'")
@@ -76,8 +80,6 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Interest> userInterest;
 
-    @Column(name = "userSelfIntroduction")
-    private String userSelfIntroduction;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = LAZY)

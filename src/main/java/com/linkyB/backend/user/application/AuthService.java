@@ -41,8 +41,9 @@ public class AuthService {
     private final S3Uploader s3Uploader;
 
     @Transactional
-    public UserSignupResponseDto signup(UserSignupRequestDto userSignupRequestDto, MultipartFile multipartFile) throws IOException {
-        if (userRepository.existsByUserPhone(userSignupRequestDto.getUserPhone())) {
+    public UserSignupResponseDto signup(UserSignupRequestDto userSignupRequestDto
+            , MultipartFile userProfileImg, MultipartFile userSchoolImg) throws IOException {
+        if (userRepository.existsByUserEmail(userSignupRequestDto.getUserEmail())) {
             throw new LInkyBussinessException("이미 가입되어 있는 유저입니다.", HttpStatus.BAD_REQUEST);
         }
 
@@ -50,13 +51,14 @@ public class AuthService {
         List<Interest> userInterests = userSignupRequestDto.getUserInterests();
         List<Personality> userPersonalities = userSignupRequestDto.getUserPersonalities();
 
-        String storedFileName = s3Uploader.upload(multipartFile,"images/");
+        String profileImg = s3Uploader.upload(userProfileImg,"images/profileImg");
+        String schoolImg = s3Uploader.upload(userSchoolImg,"images/school");
 
-        User user = userSignupRequestDto.toUser(passwordEncoder, userInterests, userPersonalities,storedFileName);
+        User user = userSignupRequestDto.toUser(passwordEncoder, userInterests, userPersonalities,profileImg, schoolImg);
         userRepository.save(user);
 
         //저장한 유저의 id를 관심사와 성격을 외래키로 저장
-        Optional<User> findUser = userRepository.findByUserPhone(user.getUserPhone());
+        Optional<User> findUser = userRepository.findByUserEmail(user.getUserEmail());
         UserInterestDto interestDto = new UserInterestDto(findUser.get(), findUser.get().getUserInterest());
         UserPersonalityDto personalityDto = new UserPersonalityDto(findUser.get(), findUser.get().getUserPersonality());
         interestRepository.saveAll(interestDto.toInterest());
@@ -123,11 +125,11 @@ public class AuthService {
     @Transactional
     public UserPasswordDto updatePassword(UserPasswordDto passwordRequestDto) {
         // db에서 해당 핸드폰으로 저장된 유저정보 가져오기
-        if (!userRepository.existsByUserPhone(passwordRequestDto.getPhone())) {
+        if (!userRepository.existsByUserEmail(passwordRequestDto.getEmail())) {
             throw new LInkyBussinessException("회원가입된 유저가 아닙니다.", HttpStatus.BAD_REQUEST);
         }
 
-        User findPhone = userRepository.findByUserPhone(passwordRequestDto.getPhone()).get();
+        User findPhone = userRepository.findByUserEmail(passwordRequestDto.getEmail()).get();
 
         //기존 비밀번호와 같은지 확인하기
         if (passwordEncoder.matches(passwordRequestDto.getPassword(), findPhone.getUserPassword())) {

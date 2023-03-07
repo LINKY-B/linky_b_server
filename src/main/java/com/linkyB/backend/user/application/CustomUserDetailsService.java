@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     //로그인시 유저정보를 권한정보와 같이 가져온다.
     //해당정보를 기반으로 userDetails.User 객체를 생성
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUserPhone(username)
+        return userRepository.findByUserEmail(username)
                 .map(this::createUserDetails)
                 .orElseThrow(() -> new UsernameNotFoundException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
     }
