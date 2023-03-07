@@ -19,8 +19,9 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserSignupResponseDto> signup(@Valid @RequestPart(value = "UserSignupReq") UserSignupRequestDto userSignupRequestDto,
-                                                        @RequestPart(value = "profileImg")MultipartFile multipartFile) throws IOException {
-        return ResponseEntity.ok(authService.signup(userSignupRequestDto,multipartFile));
+                                                        @RequestPart(value = "profileImg")MultipartFile profileImg,
+                                                        @RequestPart(value = "schoolImg")MultipartFile schoolImg) throws IOException {
+        return ResponseEntity.ok(authService.signup(userSignupRequestDto,profileImg, schoolImg));
     }
 
     @PostMapping("/login")
