@@ -7,13 +7,9 @@ import com.linkyB.backend.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -75,7 +71,7 @@ public class UserSignupRequestDto {
                 .userPersonality(userPersonalities)
                 .userInterest(userInterests)
                 .userSelfIntroduction(userSelfIntroduction)
-                .authority(Authority.ROLE_USER)
+                .authority(Authority.USER)
                 .build();
     }
 

@@ -6,7 +6,6 @@ import com.linkyB.backend.filter.entity.GenderForFilter;
 import com.linkyB.backend.filter.entity.GradeForFilter;
 import com.linkyB.backend.filter.entity.MajorForFilter;
 import com.linkyB.backend.filter.entity.MbtiForFilter;
-import com.linkyB.backend.match.entity.Match;
 import com.linkyB.backend.user.presentation.dto.PatchUserReq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,9 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.persistence.*;
 import java.util.List;

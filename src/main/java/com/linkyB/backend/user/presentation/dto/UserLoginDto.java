@@ -12,11 +12,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class UserLoginDto {
     @NotBlank
-    private String phone;
+    private String email;
     @NotBlank
     private String password;
-
-    public UsernamePasswordAuthenticationToken toAuthentication() {
-        return new UsernamePasswordAuthenticationToken(phone, password);
-    }
 }
