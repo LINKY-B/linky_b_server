@@ -3,10 +3,8 @@ package com.linkyB.backend.user.application;
 import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.user.domain.Interest;
 import com.linkyB.backend.user.domain.Personality;
-import com.linkyB.backend.user.domain.RefreshToken;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.presentation.dto.*;
-import com.linkyB.backend.user.repository.RefreshTokenRepository;
 import com.linkyB.backend.user.repository.UserInterestRepository;
 import com.linkyB.backend.user.repository.UserPersonalityRepository;
 import com.linkyB.backend.user.repository.UserRepository;
@@ -17,28 +15,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AuthService {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final RedisService redisService;
+
     private final UserRepository userRepository;
     private final UserInterestRepository interestRepository;
     private final UserPersonalityRepository personalityRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider tokenProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
     private final S3Uploader s3Uploader;
+
+    private final String SERVER = "Server";
 
     @Transactional
     public UserSignupResponseDto signup(UserSignupRequestDto userSignupRequestDto, MultipartFile profileImg, MultipartFile schoolImg) throws IOException {
@@ -67,58 +73,114 @@ public class AuthService {
     }
 
     @Transactional
-    public TokenDto login(UserLoginDto userLoginDto) {
+    public TokenDto login(UserLoginDto loginDto) {
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
-        UsernamePasswordAuthenticationToken authenticationToken = userLoginDto
-                .toAuthentication();
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 
         // 2. 실제로 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
         //    authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-        // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // 4. RefreshToken 저장
-        RefreshToken refreshToken = RefreshToken.builder()
-                .userId(authentication.getName())
-                .value(tokenDto.getRefreshToken())
-                .build();
+        return generateToken(SERVER, authentication.getName(), getAuthorities(authentication));
+    }
 
-        refreshTokenRepository.save(refreshToken);
+    // AT가 만료일자만 초과한 유효한 토큰인지 검사
+    public boolean validate(String requestAccessTokenInHeader) {
+        String requestAccessToken = resolveToken(requestAccessTokenInHeader);
+        return jwtTokenProvider.validateAccessTokenOnlyExpired(requestAccessToken); // true = 재발급
+    }
 
-        // 5. 토큰 발급
+    // 토큰 재발급: validate 메서드가 true 반환할 때만 사용 -> AT, RT 재발급
+    @Transactional
+    public TokenDto reissue(String requestAccessTokenInHeader, String requestRefreshToken) {
+        String requestAccessToken = resolveToken(requestAccessTokenInHeader);
+
+        Authentication authentication = jwtTokenProvider.getAuthentication(requestAccessToken);
+        String principal = getPrincipal(requestAccessToken);
+
+        String refreshTokenInRedis = redisService.getValues("RT(" + SERVER + "):" + principal);
+        if (refreshTokenInRedis == null) { // Redis에 저장되어 있는 RT가 없을 경우
+            return null; // -> 재로그인 요청
+        }
+
+        // 요청된 RT의 유효성 검사 & Redis에 저장되어 있는 RT와 같은지 비교
+        if(!jwtTokenProvider.validateRefreshToken(requestRefreshToken) || !refreshTokenInRedis.equals(requestRefreshToken)) {
+            redisService.deleteValues("RT(" + SERVER + "):" + principal); // 탈취 가능성 -> 삭제
+            return null; // -> 재로그인 요청
+        }
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String authorities = getAuthorities(authentication);
+
+        // 토큰 재발급 및 Redis 업데이트
+        redisService.deleteValues("RT(" + SERVER + "):" + principal); // 기존 RT 삭제
+        TokenDto tokenDto = jwtTokenProvider.createToken(principal, authorities);
+        saveRefreshToken(SERVER, principal, tokenDto.getRefreshToken());
         return tokenDto;
     }
 
+    // 토큰 발급
     @Transactional
-    public TokenDto reissue(TokenRequestDto tokenRequestDto) {
-        // 1. Refresh Token 검증
-        if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
-            throw new LInkyBussinessException("Refresh Token이 유효하지 않습니다.", HttpStatus.BAD_REQUEST);
+    public TokenDto generateToken(String provider, String email, String authorities) {
+        // RT가 이미 있을 경우
+        if(redisService.getValues("RT(" + provider + "):" + email) != null) {
+            redisService.deleteValues("RT(" + provider + "):" + email); // 삭제
         }
 
-        // 2. Access Token 에서 User ID 가져오기
-        Authentication authentication = tokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
-
-        // 3. 저장소에서 User ID 를 기반으로 Refresh Token 값 가져옴
-        RefreshToken refreshToken = refreshTokenRepository.findByUserId(authentication.getName())
-                .orElseThrow(() -> new LInkyBussinessException("로그아웃된 사용자입니다.", HttpStatus.BAD_REQUEST));
-
-        // 4. Refresh Token 일치하는지 검사
-        if (!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())) {
-            throw new LInkyBussinessException("토큰의 유저 정보가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
-        }
-
-        // 5. 새로운 토큰 생성
-        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
-
-        // 6. 저장소 정보 업데이트
-        RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
-        refreshTokenRepository.save(newRefreshToken);
-
-        // 토큰 발급
+        // AT, RT 생성 및 Redis에 RT 저장
+        TokenDto tokenDto = jwtTokenProvider.createToken(email, authorities);
+        saveRefreshToken(provider, email, tokenDto.getRefreshToken());
         return tokenDto;
+    }
+
+    // RT를 Redis에 저장
+    @Transactional
+    public void saveRefreshToken(String provider, String principal, String refreshToken) {
+        redisService.setValuesWithTimeout("RT(" + provider + "):" + principal, // key
+                refreshToken, // value
+                jwtTokenProvider.getTokenExpirationTime(refreshToken)); // timeout(milliseconds)
+    }
+
+    // 권한 이름 가져오기
+    public String getAuthorities(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+    }
+
+    // AT로부터 principal 추출
+    public String getPrincipal(String requestAccessToken) {
+        return jwtTokenProvider.getAuthentication(requestAccessToken).getName();
+    }
+
+    // "Bearer {AT}"에서 {AT} 추출
+    public String resolveToken(String requestAccessTokenInHeader) {
+        if (requestAccessTokenInHeader != null && requestAccessTokenInHeader.startsWith("Bearer ")) {
+            return requestAccessTokenInHeader.substring(7);
+        }
+        return null;
+    }
+
+    // 로그아웃
+    @Transactional
+    public void logout(String requestAccessTokenInHeader) {
+        String requestAccessToken = resolveToken(requestAccessTokenInHeader);
+        String principal = getPrincipal(requestAccessToken);
+
+        // Redis에 저장되어 있는 RT 삭제
+        String refreshTokenInRedis = redisService.getValues("RT(" + SERVER + "):" + principal);
+        if (refreshTokenInRedis != null) {
+            redisService.deleteValues("RT(" + SERVER + "):" + principal);
+        }
+
+        // Redis에 로그아웃 처리한 AT 저장
+        long expiration = jwtTokenProvider.getTokenExpirationTime(requestAccessToken) - new Date().getTime();
+        redisService.setValuesWithTimeout(requestAccessToken,
+                "logout",
+                expiration);
     }
 
     @Transactional
