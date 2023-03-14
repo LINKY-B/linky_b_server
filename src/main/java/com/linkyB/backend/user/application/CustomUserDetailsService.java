@@ -5,16 +5,9 @@ import com.linkyB.backend.user.domain.CustomUserDetails;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collections;
-
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +23,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             CustomUserDetails userDetails = new CustomUserDetails(findUser);
             return  userDetails;
         }
-
         return null;
     }
+
 }
 

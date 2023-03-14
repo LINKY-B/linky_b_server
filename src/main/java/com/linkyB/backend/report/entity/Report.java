@@ -23,12 +23,12 @@ public class Report {
     @Column(name = "reportId")
     private Long reportId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userReport")
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn
     private User userReport;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userGetReported")
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn
     private User userGetReported;
 
     private String reportDetail;
