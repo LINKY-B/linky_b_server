@@ -69,30 +69,30 @@ public class User extends BaseEntity {
     private UserStatusForMyInfo userStatusForMyInfo; // 유저 정보 활성화 상태 [INACTIVE, ACTIVE]
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Personality> userPersonality;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Interest> userInterest;
 
     @Column(name = "userSelfIntroduction")
     private String userSelfIntroduction;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = LAZY)
+    @OneToMany(mappedBy = "user", fetch = LAZY, cascade = CascadeType.ALL)
     private List<GradeForFilter> userGradeForFilters;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = LAZY)
+    @OneToMany(mappedBy = "user", fetch = LAZY, cascade = CascadeType.ALL)
     private List<MajorForFilter> userMajorForFilters;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = LAZY)
+    @OneToMany(mappedBy = "user", fetch = LAZY,cascade = CascadeType.ALL)
     private List<MbtiForFilter> userMbtiForFilters;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = LAZY)
+    @OneToMany(mappedBy = "user", fetch = LAZY, cascade = CascadeType.ALL)
     private List<GenderForFilter> userGenderForFilters;
 
 

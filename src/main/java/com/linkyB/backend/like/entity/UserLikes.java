@@ -19,12 +19,12 @@ public class UserLikes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userGetLikes")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn
     private User userGetLikes;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userGiveLikes")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn
     private User userGiveLikes;
 
     @Enumerated(EnumType.STRING)

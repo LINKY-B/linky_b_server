@@ -956,35 +956,77 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <user id="279" parent="1" name="admin"/>
     <user id="280" parent="1" name="mysql.infoschema">
+      <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
     <user id="281" parent="1" name="mysql.session">
+      <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
     <user id="282" parent="1" name="mysql.sys">
+      <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
     <user id="283" parent="1" name="rdsadmin">
       <Host>localhost</Host>
     </user>
-    <table id="284" parent="274" name="Block"/>
-    <table id="285" parent="274" name="ChattingRoom"/>
-    <table id="286" parent="274" name="GenderForFilter"/>
-    <table id="287" parent="274" name="GradeForFilter"/>
-    <table id="288" parent="274" name="Interest"/>
-    <table id="289" parent="274" name="Likes"/>
-    <table id="290" parent="274" name="MajorForFilter"/>
-    <table id="291" parent="274" name="MbtiForFilter"/>
-    <table id="292" parent="274" name="Personality"/>
-    <table id="293" parent="274" name="RefreshToken"/>
-    <table id="294" parent="274" name="Report"/>
-    <table id="295" parent="274" name="User"/>
-    <table id="296" parent="274" name="UserMatch"/>
+    <table id="284" parent="274" name="Block">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="285" parent="274" name="ChattingRoom">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="286" parent="274" name="GenderForFilter">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="287" parent="274" name="GradeForFilter">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="288" parent="274" name="Interest">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="289" parent="274" name="Likes">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="290" parent="274" name="MajorForFilter">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="291" parent="274" name="MbtiForFilter">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="292" parent="274" name="Personality">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="293" parent="274" name="RefreshToken">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="294" parent="274" name="Report">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="295" parent="274" name="User">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="296" parent="274" name="UserMatch">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
     <column id="297" parent="284" name="blockId">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>2</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -993,577 +1035,642 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="299" parent="284" name="userGetBlocked">
+    <column id="299" parent="284" name="userGetBlocked_userId">
       <DasType>bigint|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="300" parent="284" name="userGiveBlock">
+    <column id="300" parent="284" name="userGiveBlock_userId">
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="301" parent="284" name="FKe3gygvinti3ax1i2fmo8vorb8">
-      <ColNames>userGetBlocked</ColNames>
+    <foreign-key id="301" parent="284" name="FK83rmvbyn7uejc0ght4kapugtv">
+      <ColNames>userGetBlocked_userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="302" parent="284" name="FKogk7jyhbgomyn96vpomu8i6cu">
-      <ColNames>userGiveBlock</ColNames>
+    <foreign-key id="302" parent="284" name="FKkjtathxayw2gmrd1s2ypsnoqr">
+      <ColNames>userGiveBlock_userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="303" parent="284" name="FKe3gygvinti3ax1i2fmo8vorb8">
-      <ColNames>userGetBlocked</ColNames>
+    <index id="303" parent="284" name="PRIMARY">
+      <ColNames>blockId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="304" parent="284" name="FK83rmvbyn7uejc0ght4kapugtv">
+      <ColNames>userGetBlocked_userId</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="304" parent="284" name="FKogk7jyhbgomyn96vpomu8i6cu">
-      <ColNames>userGiveBlock</ColNames>
+    <index id="305" parent="284" name="FKkjtathxayw2gmrd1s2ypsnoqr">
+      <ColNames>userGiveBlock_userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="305" parent="284" name="PRIMARY">
+    <key id="306" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>blockId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="306" parent="285" name="ChattingRoomId">
+    <column id="307" parent="285" name="ChattingRoomId">
       <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="307" parent="285" name="CreatedAt">
+    <column id="308" parent="285" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="308" parent="285" name="updateAt">
+    <column id="309" parent="285" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="309" parent="285" name="fromUser">
+    <column id="310" parent="285" name="fromUser">
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="310" parent="285" name="toUser">
+    <column id="311" parent="285" name="toUser">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="311" parent="285" name="FKf8el4991m4nhsuqjsh4wjhdj2">
+    <foreign-key id="312" parent="285" name="FKf8el4991m4nhsuqjsh4wjhdj2">
       <ColNames>fromUser</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="312" parent="285" name="FK78qhjxia2fxa5v4fkdkv85e01">
+    <foreign-key id="313" parent="285" name="FK78qhjxia2fxa5v4fkdkv85e01">
       <ColNames>toUser</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="313" parent="285" name="FKf8el4991m4nhsuqjsh4wjhdj2">
+    <index id="314" parent="285" name="PRIMARY">
+      <ColNames>ChattingRoomId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="315" parent="285" name="FKf8el4991m4nhsuqjsh4wjhdj2">
       <ColNames>fromUser</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="314" parent="285" name="FK78qhjxia2fxa5v4fkdkv85e01">
+    <index id="316" parent="285" name="FK78qhjxia2fxa5v4fkdkv85e01">
       <ColNames>toUser</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="315" parent="285" name="PRIMARY">
+    <key id="317" parent="285" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>ChattingRoomId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="316" parent="286" name="GenderFilterId">
+    <column id="318" parent="286" name="GenderFilterId">
       <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="317" parent="286" name="CreatedAt">
+    <column id="319" parent="286" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="318" parent="286" name="updateAt">
+    <column id="320" parent="286" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="319" parent="286" name="Gender">
+    <column id="321" parent="286" name="Gender">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="320" parent="286" name="userId">
+    <column id="322" parent="286" name="userId">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="321" parent="286" name="FKoqjefj615vxkcnjfqnjljptee">
+    <foreign-key id="323" parent="286" name="FKoqjefj615vxkcnjfqnjljptee">
       <ColNames>userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="322" parent="286" name="FKoqjefj615vxkcnjfqnjljptee">
+    <index id="324" parent="286" name="PRIMARY">
+      <ColNames>GenderFilterId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="325" parent="286" name="FKoqjefj615vxkcnjfqnjljptee">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="323" parent="286" name="PRIMARY">
+    <key id="326" parent="286" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>GenderFilterId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="324" parent="287" name="userGradeId">
+    <column id="327" parent="287" name="userGradeId">
       <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="325" parent="287" name="CreatedAt">
+    <column id="328" parent="287" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="326" parent="287" name="updateAt">
+    <column id="329" parent="287" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="327" parent="287" name="Grade">
+    <column id="330" parent="287" name="Grade">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="328" parent="287" name="userId">
+    <column id="331" parent="287" name="userId">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="329" parent="287" name="FKoo2dx0vrq7k048bqw73vssjji">
+    <foreign-key id="332" parent="287" name="FKoo2dx0vrq7k048bqw73vssjji">
       <ColNames>userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="330" parent="287" name="FKoo2dx0vrq7k048bqw73vssjji">
+    <index id="333" parent="287" name="PRIMARY">
+      <ColNames>userGradeId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="334" parent="287" name="FKoo2dx0vrq7k048bqw73vssjji">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="331" parent="287" name="PRIMARY">
+    <key id="335" parent="287" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>userGradeId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="332" parent="288" name="userInterestIdx">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="336" parent="288" name="userInterestIdx">
+      <AutoIncrement>17</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="333" parent="288" name="CreatedAt">
+    <column id="337" parent="288" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="334" parent="288" name="updateAt">
+    <column id="338" parent="288" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="335" parent="288" name="Interest">
+    <column id="339" parent="288" name="Interest">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="336" parent="288" name="userId">
+    <column id="340" parent="288" name="userId">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="337" parent="288" name="FKncdoo1w7dt31ms2jfkqgt1q3">
+    <foreign-key id="341" parent="288" name="FKncdoo1w7dt31ms2jfkqgt1q3">
       <ColNames>userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="338" parent="288" name="FKncdoo1w7dt31ms2jfkqgt1q3">
+    <index id="342" parent="288" name="PRIMARY">
+      <ColNames>userInterestIdx</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="343" parent="288" name="FKncdoo1w7dt31ms2jfkqgt1q3">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="339" parent="288" name="PRIMARY">
+    <key id="344" parent="288" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>userInterestIdx</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="340" parent="289" name="likesId">
+    <column id="345" parent="289" name="likesId">
+      <AutoIncrement>2</AutoIncrement>
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="346" parent="289" name="status">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="347" parent="289" name="userGetLikes_userId">
+      <DasType>bigint|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="348" parent="289" name="userGiveLikes_userId">
+      <DasType>bigint|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="349" parent="289" name="FKamhbptkaj4maivbtpq7tkp30h">
+      <ColNames>userGetLikes_userId</ColNames>
+      <RefColNames>userId</RefColNames>
+      <RefTableName>User</RefTableName>
+    </foreign-key>
+    <foreign-key id="350" parent="289" name="FKe34woq5hhfbakhfiu318kuuxi">
+      <ColNames>userGiveLikes_userId</ColNames>
+      <RefColNames>userId</RefColNames>
+      <RefTableName>User</RefTableName>
+    </foreign-key>
+    <index id="351" parent="289" name="PRIMARY">
+      <ColNames>likesId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="352" parent="289" name="FKamhbptkaj4maivbtpq7tkp30h">
+      <ColNames>userGetLikes_userId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="353" parent="289" name="FKe34woq5hhfbakhfiu318kuuxi">
+      <ColNames>userGiveLikes_userId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="354" parent="289" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="355" parent="290" name="userMajorId">
       <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="341" parent="289" name="status">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>2</Position>
-    </column>
-    <column id="342" parent="289" name="userGetLikes">
-      <DasType>bigint|0s</DasType>
-      <Position>3</Position>
-    </column>
-    <column id="343" parent="289" name="userGiveLikes">
-      <DasType>bigint|0s</DasType>
-      <Position>4</Position>
-    </column>
-    <foreign-key id="344" parent="289" name="FKidkur7fc4xt3gkyqqaejpa207">
-      <ColNames>userGetLikes</ColNames>
-      <RefColNames>userId</RefColNames>
-      <RefTableName>User</RefTableName>
-    </foreign-key>
-    <foreign-key id="345" parent="289" name="FKhqlmhpt0ikb57e321tjnjux5r">
-      <ColNames>userGiveLikes</ColNames>
-      <RefColNames>userId</RefColNames>
-      <RefTableName>User</RefTableName>
-    </foreign-key>
-    <index id="346" parent="289" name="FKidkur7fc4xt3gkyqqaejpa207">
-      <ColNames>userGetLikes</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="347" parent="289" name="FKhqlmhpt0ikb57e321tjnjux5r">
-      <ColNames>userGiveLikes</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="348" parent="289" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexColNames>likesId</UnderlyingIndexColNames>
-    </key>
-    <column id="349" parent="290" name="userMajorId">
-      <AutoIncrement>1</AutoIncrement>
-      <DasType>bigint|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="350" parent="290" name="CreatedAt">
+    <column id="356" parent="290" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="351" parent="290" name="updateAt">
+    <column id="357" parent="290" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="352" parent="290" name="blockedMajor">
+    <column id="358" parent="290" name="blockedMajor">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="353" parent="290" name="userId">
+    <column id="359" parent="290" name="userId">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="354" parent="290" name="FKcutqkexd49x51b5a1bajx9sb">
+    <foreign-key id="360" parent="290" name="FKcutqkexd49x51b5a1bajx9sb">
       <ColNames>userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="355" parent="290" name="FKcutqkexd49x51b5a1bajx9sb">
+    <index id="361" parent="290" name="PRIMARY">
+      <ColNames>userMajorId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="362" parent="290" name="FKcutqkexd49x51b5a1bajx9sb">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="356" parent="290" name="PRIMARY">
+    <key id="363" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>userMajorId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="357" parent="291" name="userMbtiId">
+    <column id="364" parent="291" name="userMbtiId">
       <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="358" parent="291" name="CreatedAt">
+    <column id="365" parent="291" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="359" parent="291" name="updateAt">
+    <column id="366" parent="291" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="360" parent="291" name="blockedMbti">
+    <column id="367" parent="291" name="blockedMbti">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="361" parent="291" name="userId">
+    <column id="368" parent="291" name="userId">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="362" parent="291" name="FKpoqbvm0nfeh9x6mqcm5ur370x">
+    <foreign-key id="369" parent="291" name="FKpoqbvm0nfeh9x6mqcm5ur370x">
       <ColNames>userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="363" parent="291" name="FKpoqbvm0nfeh9x6mqcm5ur370x">
+    <index id="370" parent="291" name="PRIMARY">
+      <ColNames>userMbtiId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="371" parent="291" name="FKpoqbvm0nfeh9x6mqcm5ur370x">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="364" parent="291" name="PRIMARY">
+    <key id="372" parent="291" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>userMbtiId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="365" parent="292" name="userPersonalityIdx">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="373" parent="292" name="userPersonalityIdx">
+      <AutoIncrement>17</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="366" parent="292" name="CreatedAt">
+    <column id="374" parent="292" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="367" parent="292" name="updateAt">
+    <column id="375" parent="292" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="368" parent="292" name="Personality">
+    <column id="376" parent="292" name="Personality">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="369" parent="292" name="userId">
+    <column id="377" parent="292" name="userId">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="370" parent="292" name="FKs034fxjn5e2g280p4j58bi26r">
+    <foreign-key id="378" parent="292" name="FKs034fxjn5e2g280p4j58bi26r">
       <ColNames>userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="371" parent="292" name="FKs034fxjn5e2g280p4j58bi26r">
+    <index id="379" parent="292" name="PRIMARY">
+      <ColNames>userPersonalityIdx</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="380" parent="292" name="FKs034fxjn5e2g280p4j58bi26r">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="372" parent="292" name="PRIMARY">
+    <key id="381" parent="292" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>userPersonalityIdx</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="373" parent="293" name="tokenId">
+    <column id="382" parent="293" name="tokenId">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="374" parent="293" name="CreatedAt">
+    <column id="383" parent="293" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="375" parent="293" name="updateAt">
+    <column id="384" parent="293" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="376" parent="293" name="value">
+    <column id="385" parent="293" name="value">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <key id="377" parent="293" name="PRIMARY">
+    <index id="386" parent="293" name="PRIMARY">
+      <ColNames>tokenId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="387" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>tokenId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="378" parent="294" name="reportId">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="388" parent="294" name="reportId">
+      <AutoIncrement>2</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="379" parent="294" name="reportDetail">
+    <column id="389" parent="294" name="reportDetail">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="380" parent="294" name="status">
+    <column id="390" parent="294" name="status">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="381" parent="294" name="userGetReported">
+    <column id="391" parent="294" name="userGetReported_userId">
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="382" parent="294" name="userReport">
+    <column id="392" parent="294" name="userReport_userId">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="383" parent="294" name="FKsm1b5qndeo2ewlsay2l8hi3l9">
-      <ColNames>userGetReported</ColNames>
+    <foreign-key id="393" parent="294" name="FKchgevcdjr8avacmwjx2q1yjq7">
+      <ColNames>userGetReported_userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="384" parent="294" name="FKpy5wm52xleeugci8tqpu22d5k">
-      <ColNames>userReport</ColNames>
+    <foreign-key id="394" parent="294" name="FKsyhmlycu7n3er6s2vhnm6dqgg">
+      <ColNames>userReport_userId</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="385" parent="294" name="FKsm1b5qndeo2ewlsay2l8hi3l9">
-      <ColNames>userGetReported</ColNames>
+    <index id="395" parent="294" name="PRIMARY">
+      <ColNames>reportId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="396" parent="294" name="FKchgevcdjr8avacmwjx2q1yjq7">
+      <ColNames>userGetReported_userId</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="386" parent="294" name="FKpy5wm52xleeugci8tqpu22d5k">
-      <ColNames>userReport</ColNames>
+    <index id="397" parent="294" name="FKsyhmlycu7n3er6s2vhnm6dqgg">
+      <ColNames>userReport_userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="387" parent="294" name="PRIMARY">
+    <key id="398" parent="294" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>reportId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="388" parent="295" name="userId">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="399" parent="295" name="userId">
+      <AutoIncrement>8</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="389" parent="295" name="CreatedAt">
+    <column id="400" parent="295" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="390" parent="295" name="updateAt">
+    <column id="401" parent="295" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="391" parent="295" name="authority">
+    <column id="402" parent="295" name="authority">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="392" parent="295" name="gradeStatus">
+    <column id="403" parent="295" name="gradeStatus">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="393" parent="295" name="userBirth">
+    <column id="404" parent="295" name="userBirth">
       <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="394" parent="295" name="userEmail">
+    <column id="405" parent="295" name="userEmail">
       <DasType>varchar(255)|0s</DasType>
       <Position>7</Position>
     </column>
-    <column id="395" parent="295" name="userLikeCount">
+    <column id="406" parent="295" name="userLikeCount">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="396" parent="295" name="userMBTI">
+    <column id="407" parent="295" name="userMBTI">
       <DasType>varchar(255)|0s</DasType>
       <Position>9</Position>
     </column>
-    <column id="397" parent="295" name="userMajorName">
+    <column id="408" parent="295" name="userMajorName">
       <DasType>varchar(255)|0s</DasType>
       <Position>10</Position>
     </column>
-    <column id="398" parent="295" name="userMatchingCount">
+    <column id="409" parent="295" name="userMatchingCount">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>11</Position>
     </column>
-    <column id="399" parent="295" name="userName">
+    <column id="410" parent="295" name="userName">
       <DasType>varchar(255)|0s</DasType>
       <Position>12</Position>
     </column>
-    <column id="400" parent="295" name="userNickName">
+    <column id="411" parent="295" name="userNickName">
       <DasType>varchar(255)|0s</DasType>
       <Position>13</Position>
     </column>
-    <column id="401" parent="295" name="userNotification">
+    <column id="412" parent="295" name="userNotification">
       <DasType>varchar(255)|0s</DasType>
       <DefaultExpression>&apos;ACTIVE&apos;</DefaultExpression>
       <Position>14</Position>
     </column>
-    <column id="402" parent="295" name="userPassword">
+    <column id="413" parent="295" name="userPassword">
       <DasType>varchar(255)|0s</DasType>
       <Position>15</Position>
     </column>
-    <column id="403" parent="295" name="userProfileImg">
+    <column id="414" parent="295" name="userProfileImg">
       <DasType>varchar(255)|0s</DasType>
       <Position>16</Position>
     </column>
-    <column id="404" parent="295" name="userSchoolImg">
+    <column id="415" parent="295" name="userSchoolImg">
       <DasType>varchar(255)|0s</DasType>
       <Position>17</Position>
     </column>
-    <column id="405" parent="295" name="SchoolName">
+    <column id="416" parent="295" name="SchoolName">
       <DasType>varchar(255)|0s</DasType>
       <Position>18</Position>
     </column>
-    <column id="406" parent="295" name="userSelfIntroduction">
+    <column id="417" parent="295" name="userSelfIntroduction">
       <DasType>varchar(255)|0s</DasType>
       <Position>19</Position>
     </column>
-    <column id="407" parent="295" name="userSex">
+    <column id="418" parent="295" name="userSex">
       <DasType>varchar(255)|0s</DasType>
       <Position>20</Position>
     </column>
-    <column id="408" parent="295" name="userStatusForMyInfo">
+    <column id="419" parent="295" name="userStatusForMyInfo">
       <DasType>varchar(255)|0s</DasType>
       <DefaultExpression>&apos;ACTIVE&apos;</DefaultExpression>
       <Position>21</Position>
     </column>
-    <column id="409" parent="295" name="userStudentNum">
+    <column id="420" parent="295" name="userStudentNum">
       <DasType>varchar(255)|0s</DasType>
       <Position>22</Position>
     </column>
-    <key id="410" parent="295" name="PRIMARY">
+    <index id="421" parent="295" name="PRIMARY">
+      <ColNames>userId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="422" parent="295" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>userId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="411" parent="296" name="MatchId">
+    <column id="423" parent="296" name="MatchId">
       <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="412" parent="296" name="CreatedAt">
+    <column id="424" parent="296" name="CreatedAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="413" parent="296" name="updateAt">
+    <column id="425" parent="296" name="updateAt">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="414" parent="296" name="status">
+    <column id="426" parent="296" name="status">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="415" parent="296" name="userMatchStatus">
+    <column id="427" parent="296" name="userMatchStatus">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="416" parent="296" name="userGetMatched">
+    <column id="428" parent="296" name="userGetMatched">
       <DasType>bigint|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="417" parent="296" name="userMatching">
+    <column id="429" parent="296" name="userMatching">
       <DasType>bigint|0s</DasType>
       <Position>7</Position>
     </column>
-    <foreign-key id="418" parent="296" name="FKacox6302mnv1me6bej855udly">
+    <foreign-key id="430" parent="296" name="FKacox6302mnv1me6bej855udly">
       <ColNames>userGetMatched</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="419" parent="296" name="FKhgqgm8w7lumfhk48511le7vk4">
+    <foreign-key id="431" parent="296" name="FKhgqgm8w7lumfhk48511le7vk4">
       <ColNames>userMatching</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <index id="420" parent="296" name="FKacox6302mnv1me6bej855udly">
+    <index id="432" parent="296" name="PRIMARY">
+      <ColNames>MatchId</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="433" parent="296" name="FKacox6302mnv1me6bej855udly">
       <ColNames>userGetMatched</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="421" parent="296" name="FKhgqgm8w7lumfhk48511le7vk4">
+    <index id="434" parent="296" name="FKhgqgm8w7lumfhk48511le7vk4">
       <ColNames>userMatching</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="422" parent="296" name="PRIMARY">
+    <key id="435" parent="296" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
-      <UnderlyingIndexColNames>MatchId</UnderlyingIndexColNames>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>
