@@ -42,7 +42,8 @@ public class UserController {
     // 유저 상세 정보 조회 (토큰 이용)
     @GetMapping("")
     public BaseResponse<UserDetailDto> findUser() {
-        UserDetailDto response = userService.findUser(SecurityUtil.getCurrentUserId());
+        long TokenUser = jwtTokenProvider.getUser();
+        UserDetailDto response = userService.findUser(TokenUser);
         return new BaseResponse<>(response);
     }
 
@@ -50,65 +51,72 @@ public class UserController {
     @PostMapping("/report/{userGetReported}")
     public BaseResponse<ReportDto> reportUser(@PathVariable("userGetReported")long userGetReported,
                                                 @RequestBody PostReportReq dto) {
-        long userId = SecurityUtil.getCurrentUserId();
-        ReportDto response = reportService.reportUser(userGetReported, userId, dto);
+        long TokenUser = jwtTokenProvider.getUser();
+        ReportDto response = reportService.reportUser(userGetReported, TokenUser, dto);
         return new BaseResponse<>(response);
     }
 
     // 유저 좋아요 등록
     @PostMapping("likes/{userGetLikes}")
     public BaseResponse<LikeDto> userLikes(@PathVariable("userGetLikes")long userGetLikes) {
-        long userId = SecurityUtil.getCurrentUserId();
-        LikeDto response = likeService.userLikes(userGetLikes, userId);
+        long TokenUser = jwtTokenProvider.getUser();
+        LikeDto response = likeService.userLikes(userGetLikes, TokenUser);
         return new BaseResponse<>(response);
     }
 
     // 알림 활성화
     @PatchMapping("/alaram")
     public BaseResponse<UserDto> activeAlaram() {
-        UserDto response = userService.activeAlaram(SecurityUtil.getCurrentUserId());
+        long TokenUser = jwtTokenProvider.getUser();
+        UserDto response = userService.activeAlaram(TokenUser);
         return new BaseResponse<>(response);
     }
 
     // 알림 비활성화
     @PatchMapping("/alaram/inactive")
     public BaseResponse<UserDto> inactiveAlaram() {
-        UserDto response = userService.inactiveAlaram(SecurityUtil.getCurrentUserId());
+        long TokenUser = jwtTokenProvider.getUser();
+        UserDto response = userService.inactiveAlaram(TokenUser);
         return new BaseResponse<>(response);
     }
 
+    // 정보 활성화
     @PatchMapping("/active")
     public BaseResponse<UserDto> activeUser() {
-        UserDto response = userService.activeUser(SecurityUtil.getCurrentUserId());
+        long TokenUser = jwtTokenProvider.getUser();
+        UserDto response = userService.activeUser(TokenUser);
         return new BaseResponse<>(response);
     }
 
     // 정보 비활성화
     @PatchMapping("/inactive")
     public BaseResponse<UserDto> inactiveUser() {
-        UserDto response = userService.inactiveUser(SecurityUtil.getCurrentUserId());
+        long TokenUser = jwtTokenProvider.getUser();
+        UserDto response = userService.inactiveUser(TokenUser);
         return new BaseResponse<>(response);
     }
 
     // 유저 차단
     @PostMapping("/block/{userGetBlocked}")
     public BaseResponse<BlockDto> UserBlock(@PathVariable("userGetBlocked") long userGetBlocked) {
-        long userId = SecurityUtil.getCurrentUserId();
-        BlockDto response = blockService.userBlock(userId, userGetBlocked);
+        long TokenUser = jwtTokenProvider.getUser();
+        BlockDto response = blockService.userBlock(TokenUser, userGetBlocked);
         return new BaseResponse<>(response);
     }
 
     // 차단 해제
     @PatchMapping("/block")
     public BaseResponse<UserDto> cancleBlock(@RequestBody PatchBlockReq dto) {
-        UserDto response = blockService.cancleBlock(SecurityUtil.getCurrentUserId(), dto);
+        long TokenUser = jwtTokenProvider.getUser();
+        UserDto response = blockService.cancleBlock(TokenUser, dto);
         return new BaseResponse<>(response);
     }
 
     // 차단 유저 리스트 조회
     @GetMapping("/block")
     public BaseResponse<List<UserListDto>> GetBlockedList() {
-        List<UserListDto> response = blockService.BlockList(SecurityUtil.getCurrentUserId());
+        long TokenUser = jwtTokenProvider.getUser();
+        List<UserListDto> response = blockService.BlockList(TokenUser);
         return new BaseResponse<>(response);
     }
 
@@ -116,7 +124,8 @@ public class UserController {
     @PatchMapping("/modifyProfile")
     public BaseResponse<UserDto> modifyProfile(@RequestPart (value = "PatchUserReq") PatchUserReq dto,
                                                  @RequestPart(value = "profileImg") MultipartFile multipartFile) throws IOException {
-        UserDto response = userService.modifyProfile(SecurityUtil.getCurrentUserId(), dto, multipartFile);
+        long TokenUser = jwtTokenProvider.getUser();
+        UserDto response = userService.modifyProfile(TokenUser, dto, multipartFile);
         return new BaseResponse<>(response);
     }
 
