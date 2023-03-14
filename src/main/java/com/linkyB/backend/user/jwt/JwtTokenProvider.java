@@ -94,7 +94,7 @@ public class JwtTokenProvider implements InitializingBean {
      */
     public String getJwt(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        return request.getHeader("Bearer");
+        return request.getHeader("Authorization");
     }
 
 
