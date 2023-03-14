@@ -84,7 +84,9 @@ public class AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return generateToken(SERVER, authentication.getName(), getAuthorities(authentication));
+        User dto = userRepository.findByUserEmail(loginDto.getEmail())
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
+        return generateToken(SERVER, authentication.getName(), dto.getUserId(), getAuthorities(authentication));
     }
 
     // AT가 만료일자만 초과한 유효한 토큰인지 검사
@@ -115,23 +117,27 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String authorities = getAuthorities(authentication);
 
+        long users = jwtTokenProvider.getClaims(requestAccessToken).size();
+        User user = userRepository.findById(users)
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
+
         // 토큰 재발급 및 Redis 업데이트
         redisService.deleteValues("RT(" + SERVER + "):" + principal); // 기존 RT 삭제
-        TokenDto tokenDto = jwtTokenProvider.createToken(principal, authorities);
+        TokenDto tokenDto = jwtTokenProvider.createToken(principal, user.getUserId(), authorities);
         saveRefreshToken(SERVER, principal, tokenDto.getRefreshToken());
         return tokenDto;
     }
 
     // 토큰 발급
     @Transactional
-    public TokenDto generateToken(String provider, String email, String authorities) {
+    public TokenDto generateToken(String provider, String email, long user, String authorities) {
         // RT가 이미 있을 경우
-        if(redisService.getValues("RT(" + provider + "):" + email) != null) {
-            redisService.deleteValues("RT(" + provider + "):" + email); // 삭제
+        if(redisService.getValues("RT(" + provider + "):" + user) != null) {
+            redisService.deleteValues("RT(" + provider + "):" + user); // 삭제
         }
 
         // AT, RT 생성 및 Redis에 RT 저장
-        TokenDto tokenDto = jwtTokenProvider.createToken(email, authorities);
+        TokenDto tokenDto = jwtTokenProvider.createToken(email, user, authorities);
         saveRefreshToken(provider, email, tokenDto.getRefreshToken());
         return tokenDto;
     }

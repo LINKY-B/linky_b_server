@@ -1,7 +1,5 @@
 package com.linkyB.backend.user.application;
 
-import com.linkyB.backend.block.dto.PatchBlockReq;
-import com.linkyB.backend.block.repository.BlockRepository;
 import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.user.converter.UserConverter;
 import com.linkyB.backend.user.domain.*;
@@ -29,6 +27,7 @@ public class UserService {
     private final UserInterestRepository interestRepository;
     private final UserPersonalityRepository personalityRepository;
     private final UserConverter userConverter;
+    private final AuthService authService;
     private final S3Uploader s3Uploader;
 
 
@@ -110,27 +109,40 @@ public class UserService {
         users.updateInfo(dto, storedFileName);
 
         Optional<User> findUser = userRepository.findById(userId);
-        UserInterestDto interestDto = new UserInterestDto(findUser.get(), findUser.get().getUserInterest());
-        UserPersonalityDto personalityDto = new UserPersonalityDto(findUser.get(), findUser.get().getUserPersonality());
 
-        if(!interestRepository.findAllByUser(userId).isEmpty()){
+        if (!interestRepository.findAllByUser(userId).isEmpty()) {
             interestRepository.deleteAllByUserId(userId);
         }
         List<Interest> interestList = dto.getInterestList();
-        for(Interest n : interestList)
+        for (Interest n : interestList)
             interestRepository.save(userConverter.interestSave(users, n));
 
 
-        if(!personalityRepository.findAllByUser(userId).isEmpty()){
+        if (!personalityRepository.findAllByUser(userId).isEmpty()) {
             personalityRepository.deleteAllByUserId(userId);
         }
         List<Personality> personalityList = dto.getPersonalities();
-        for(Personality i : personalityList)
+        for (Personality i : personalityList)
             personalityRepository.save(userConverter.personalitySave(users, i));
 
         UserDto res = UserMapper.INSTANCE.entityToDto(users);
 
         return res;
 
+    }
+
+    // 유저 탈퇴
+    @Transactional
+    public UserDto deleteUser(long TokenUser, long userId) {
+
+        User users = userRepository.findById(userId)
+                .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
+
+        if (users.getUserId() == TokenUser) {
+            userRepository.delete(users);
+            UserDto dto = UserMapper.INSTANCE.entityToDto(users);
+            return dto;
+        } else
+            throw new LInkyBussinessException("탈퇴 권한이 없습니다.", HttpStatus.BAD_REQUEST);
     }
 }

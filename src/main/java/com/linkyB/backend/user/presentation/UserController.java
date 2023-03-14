@@ -8,14 +8,12 @@ import com.linkyB.backend.like.dto.LikeDto;
 import com.linkyB.backend.like.service.LikeService;
 import com.linkyB.backend.report.dto.PostReportReq;
 import com.linkyB.backend.report.dto.ReportDto;
-import com.linkyB.backend.report.entity.Report;
 import com.linkyB.backend.report.service.ReportService;
 import com.linkyB.backend.user.application.UserService;
+import com.linkyB.backend.user.jwt.JwtTokenProvider;
 import com.linkyB.backend.user.presentation.dto.*;
 import com.linkyB.backend.user.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +29,7 @@ public class UserController {
     private final ReportService reportService;
     private final LikeService likeService;
     private final BlockService blockService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     // 유저 정보 상세 조회 (유저 인덱스 이용)
     @GetMapping("/{userId}")
@@ -118,6 +117,14 @@ public class UserController {
     public BaseResponse<UserDto> modifyProfile(@RequestPart (value = "PatchUserReq") PatchUserReq dto,
                                                  @RequestPart(value = "profileImg") MultipartFile multipartFile) throws IOException {
         UserDto response = userService.modifyProfile(SecurityUtil.getCurrentUserId(), dto, multipartFile);
+        return new BaseResponse<>(response);
+    }
+
+    // 유저 탈퇴
+    @DeleteMapping("/{userId}")
+    public BaseResponse<UserDto> deleteUser(@PathVariable("userId")int userId) {
+        long TokenUser = jwtTokenProvider.getUser();
+        UserDto response = userService.deleteUser(TokenUser, userId);
         return new BaseResponse<>(response);
     }
 }

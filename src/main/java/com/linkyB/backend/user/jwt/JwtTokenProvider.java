@@ -1,6 +1,6 @@
 package com.linkyB.backend.user.jwt;
 
-
+import com.linkyB.backend.common.exception.LInkyBussinessException;
 import com.linkyB.backend.user.application.CustomUserDetailsService;
 import com.linkyB.backend.user.application.RedisService;
 import com.linkyB.backend.user.domain.CustomUserDetails;
@@ -12,14 +12,17 @@ import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.Date;
-
 
 @Slf4j
 @Component
@@ -28,7 +31,6 @@ import java.util.Date;
 public class JwtTokenProvider implements InitializingBean {
     private final CustomUserDetailsService userDetailsService;
     private final RedisService redisService;
-
     private static final String AUTHORITIES_KEY = "role";
     private static final String EMAIL_KEY = "email";
     private static final String url = "https://localhost:8001";
@@ -61,7 +63,7 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     @Transactional
-    public TokenDto createToken(String email, String authorities){
+    public TokenDto createToken(String email, long user, String authorities){
         Long now = System.currentTimeMillis();
 
         String accessToken = Jwts.builder()
@@ -70,6 +72,7 @@ public class JwtTokenProvider implements InitializingBean {
                 .setExpiration(new Date(now + accessTokenValidityInMilliseconds))
                 .setSubject("access-token")
                 .claim(url, true)
+                .claim("user", user)
                 .claim(EMAIL_KEY, email)
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(signingKey, SignatureAlgorithm.HS512)
@@ -86,9 +89,34 @@ public class JwtTokenProvider implements InitializingBean {
         return new TokenDto(accessToken, refreshToken);
     }
 
+    /*
+    Header에서 AccessToken JWT 추출
+     */
+    public String getJwt(){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        return request.getHeader("Bearer");
+    }
+
 
     // == 토큰으로부터 정보 추출 == //
+    public Long getUser() {
+        String accessToken = getJwt();
+        if (accessToken == null || accessToken.length() == 0){
+            throw new LInkyBussinessException("토큰이 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+        Jws<Claims> claims;
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(signingKey)
+                    .parseClaimsJws(accessToken);
 
+        }catch (ExpiredJwtException ignored) {
+            throw new LInkyBussinessException("유효하지 않는 jwt입니다.", HttpStatus.BAD_REQUEST);
+        }
+        return claims.getBody().get("user", Long.class);
+    }
+
+    // == 토큰으로부터 정보 추출 == //
     public Claims getClaims(String token) {
         try {
             return Jwts.parserBuilder()
@@ -103,6 +131,7 @@ public class JwtTokenProvider implements InitializingBean {
 
     public Authentication getAuthentication(String token) {
         String email = getClaims(token).get(EMAIL_KEY).toString();
+
         CustomUserDetails userDetails = userDetailsService.loadUserByUsername(email);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
