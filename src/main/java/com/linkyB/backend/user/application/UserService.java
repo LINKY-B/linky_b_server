@@ -108,8 +108,6 @@ public class UserService {
         String storedFileName = s3Uploader.upload(multipartFile, "images/");
         users.updateInfo(dto, storedFileName);
 
-        Optional<User> findUser = userRepository.findById(userId);
-
         if (!interestRepository.findAllByUser(userId).isEmpty()) {
             interestRepository.deleteAllByUserId(userId);
         }
