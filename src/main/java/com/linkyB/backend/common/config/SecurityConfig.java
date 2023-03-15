@@ -73,7 +73,7 @@ public class SecurityConfig  {
                 // 로그인, 회원가입, 이메일 인증 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeRequests() // 인증이 필요
-                .antMatchers("/users/auth/**", "/mail/**").authenticated() //마이펭이지 인증 필요
+                .antMatchers("/users/**").authenticated() //마이펭이지 인증 필요
                 .antMatchers("/users/admin/**").hasRole("ADMIN") //관리자 페이지
                 .anyRequest().permitAll()
 

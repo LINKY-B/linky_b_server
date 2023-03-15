@@ -1,6 +1,12 @@
 package com.linkyB.backend.user.application;
 
+import com.linkyB.backend.common.exception.LInkyBussinessException;
+import com.linkyB.backend.config.BaseResponse;
+import com.linkyB.backend.config.BaseResponseStatus;
+import com.linkyB.backend.user.presentation.dto.AuthCodeDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
