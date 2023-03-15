@@ -96,7 +96,7 @@ public class MatchService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
 
-        // userId와 매칭을 받은 유저의 인덱스가 같다면 수락 처리
+        // userId와 매칭을 받은 유저의 인덱스가 같다면 거절 처리
         if (entity.getUserGetMatched().getUserId() == user.getUserId()) {
             entity.updateMatch(status.INACTIVE);
 

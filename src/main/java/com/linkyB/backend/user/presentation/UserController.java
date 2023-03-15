@@ -133,6 +133,7 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public BaseResponse<UserDto> deleteUser(@PathVariable("userId")int userId) {
         long TokenUser = jwtTokenProvider.getUser();
+        System.out.println(TokenUser);
         UserDto response = userService.deleteUser(TokenUser, userId);
         return new BaseResponse<>(response);
     }

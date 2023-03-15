@@ -15,9 +15,9 @@ public class PagingRepository {
 
     public List<User> findAllByGradStatusTrue(int offset, int limit, long userId) {
         return em.createNativeQuery(
-                        "SELECT * FROM User u WHERE u.userId NOT IN (SELECT b.userGetBlocked " +
+                        "SELECT * FROM User u WHERE u.userId NOT IN (SELECT b.userGetBlocked_userId " +
                                 "FROM Block b WHERE b.blockStatus = 'ACTIVE'" +
-                                "AND b.userGiveBlock =:userId )" +
+                                "AND b.userGiveBlock_userId =:userId )" +
                                 "AND u.gradeStatus = 'true' ", User.class)
                 .setParameter("userId", userId)
                 .setFirstResult(offset)
@@ -27,9 +27,9 @@ public class PagingRepository {
 
     public List<User> findAllByGradStatusFalse(int offset, int limit, long userId) {
         return em.createNativeQuery(
-                        "SELECT * FROM User u WHERE u.userId NOT IN (SELECT b.userGetBlocked " +
+                        "SELECT * FROM User u WHERE u.userId NOT IN (SELECT b.userGetBlocked_userId " +
                                 "FROM Block b WHERE b.blockStatus = 'ACTIVE'" +
-                                "AND b.userGiveBlock =:userId )" +
+                                "AND b.userGiveBlock_userId =:userId )" +
                                 "AND u.gradeStatus = 'false' ", User.class)
                 .setParameter("userId" , userId)
                 .setFirstResult(offset)

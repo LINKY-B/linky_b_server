@@ -22,12 +22,12 @@ public class Block {
     @Column(name = "blockId")
     private Long blockId;
 
-    @OneToOne(fetch = LAZY,cascade = CascadeType.ALL)
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name="userGiveBlock")
     private User userGiveBlock;
 
-    @OneToOne(fetch = LAZY,cascade = CascadeType.ALL)
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name="userGetBlocked")
     private User userGetBlocked;
 
     @Enumerated(EnumType.STRING)
