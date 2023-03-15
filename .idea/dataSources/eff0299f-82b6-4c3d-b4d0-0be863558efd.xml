@@ -1026,7 +1026,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="297" parent="284" name="blockId">
-      <AutoIncrement>2</AutoIncrement>
+      <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1035,21 +1035,21 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="299" parent="284" name="userGetBlocked_userId">
+    <column id="299" parent="284" name="userGetBlocked">
       <DasType>bigint|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="300" parent="284" name="userGiveBlock_userId">
+    <column id="300" parent="284" name="userGiveBlock">
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="301" parent="284" name="FK83rmvbyn7uejc0ght4kapugtv">
-      <ColNames>userGetBlocked_userId</ColNames>
+    <foreign-key id="301" parent="284" name="FKe3gygvinti3ax1i2fmo8vorb8">
+      <ColNames>userGetBlocked</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="302" parent="284" name="FKkjtathxayw2gmrd1s2ypsnoqr">
-      <ColNames>userGiveBlock_userId</ColNames>
+    <foreign-key id="302" parent="284" name="FKogk7jyhbgomyn96vpomu8i6cu">
+      <ColNames>userGiveBlock</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
@@ -1058,12 +1058,12 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="304" parent="284" name="FK83rmvbyn7uejc0ght4kapugtv">
-      <ColNames>userGetBlocked_userId</ColNames>
+    <index id="304" parent="284" name="FKe3gygvinti3ax1i2fmo8vorb8">
+      <ColNames>userGetBlocked</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="305" parent="284" name="FKkjtathxayw2gmrd1s2ypsnoqr">
-      <ColNames>userGiveBlock_userId</ColNames>
+    <index id="305" parent="284" name="FKogk7jyhbgomyn96vpomu8i6cu">
+      <ColNames>userGiveBlock</ColNames>
       <Type>btree</Type>
     </index>
     <key id="306" parent="284" name="PRIMARY">
@@ -1210,7 +1210,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="336" parent="288" name="userInterestIdx">
-      <AutoIncrement>17</AutoIncrement>
+      <AutoIncrement>11</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1253,7 +1253,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="345" parent="289" name="likesId">
-      <AutoIncrement>2</AutoIncrement>
+      <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1262,21 +1262,21 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="347" parent="289" name="userGetLikes_userId">
+    <column id="347" parent="289" name="userGetLikes">
       <DasType>bigint|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="348" parent="289" name="userGiveLikes_userId">
+    <column id="348" parent="289" name="userGiveLikes">
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="349" parent="289" name="FKamhbptkaj4maivbtpq7tkp30h">
-      <ColNames>userGetLikes_userId</ColNames>
+    <foreign-key id="349" parent="289" name="FKidkur7fc4xt3gkyqqaejpa207">
+      <ColNames>userGetLikes</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="350" parent="289" name="FKe34woq5hhfbakhfiu318kuuxi">
-      <ColNames>userGiveLikes_userId</ColNames>
+    <foreign-key id="350" parent="289" name="FKhqlmhpt0ikb57e321tjnjux5r">
+      <ColNames>userGiveLikes</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
@@ -1285,12 +1285,12 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="352" parent="289" name="FKamhbptkaj4maivbtpq7tkp30h">
-      <ColNames>userGetLikes_userId</ColNames>
+    <index id="352" parent="289" name="FKidkur7fc4xt3gkyqqaejpa207">
+      <ColNames>userGetLikes</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="353" parent="289" name="FKe34woq5hhfbakhfiu318kuuxi">
-      <ColNames>userGiveLikes_userId</ColNames>
+    <index id="353" parent="289" name="FKhqlmhpt0ikb57e321tjnjux5r">
+      <ColNames>userGiveLikes</ColNames>
       <Type>btree</Type>
     </index>
     <key id="354" parent="289" name="PRIMARY">
@@ -1385,7 +1385,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="373" parent="292" name="userPersonalityIdx">
-      <AutoIncrement>17</AutoIncrement>
+      <AutoIncrement>11</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1457,7 +1457,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="388" parent="294" name="reportId">
-      <AutoIncrement>2</AutoIncrement>
+      <AutoIncrement>1</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1470,21 +1470,21 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="391" parent="294" name="userGetReported_userId">
+    <column id="391" parent="294" name="userGetReport">
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="392" parent="294" name="userReport_userId">
+    <column id="392" parent="294" name="userReport">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="393" parent="294" name="FKchgevcdjr8avacmwjx2q1yjq7">
-      <ColNames>userGetReported_userId</ColNames>
+    <foreign-key id="393" parent="294" name="FKfcubgtup4dk0ibffgriyaogw9">
+      <ColNames>userGetReport</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="394" parent="294" name="FKsyhmlycu7n3er6s2vhnm6dqgg">
-      <ColNames>userReport_userId</ColNames>
+    <foreign-key id="394" parent="294" name="FKpy5wm52xleeugci8tqpu22d5k">
+      <ColNames>userReport</ColNames>
       <RefColNames>userId</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
@@ -1493,12 +1493,12 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="396" parent="294" name="FKchgevcdjr8avacmwjx2q1yjq7">
-      <ColNames>userGetReported_userId</ColNames>
+    <index id="396" parent="294" name="FKfcubgtup4dk0ibffgriyaogw9">
+      <ColNames>userGetReport</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="397" parent="294" name="FKsyhmlycu7n3er6s2vhnm6dqgg">
-      <ColNames>userReport_userId</ColNames>
+    <index id="397" parent="294" name="FKpy5wm52xleeugci8tqpu22d5k">
+      <ColNames>userReport</ColNames>
       <Type>btree</Type>
     </index>
     <key id="398" parent="294" name="PRIMARY">
@@ -1507,7 +1507,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="399" parent="295" name="userId">
-      <AutoIncrement>8</AutoIncrement>
+      <AutoIncrement>6</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1613,7 +1613,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="423" parent="296" name="MatchId">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>3</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>

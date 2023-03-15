@@ -26,12 +26,12 @@ public class ChattingRoom extends BaseEntity {
     @Column(name = "ChattingRoomId")
     private Long chattingRoomId;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "fromUser")
+    @ManyToOne
+    @JoinColumn(name="fromUser")
     private User fromUser; // 매칭을 수락한 사람 (== 나)
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "toUser")
+    @ManyToOne
+    @JoinColumn(name="toUser")
     private User toUser; // 나에게 매칭을 시도한 사람
 
 

@@ -29,12 +29,12 @@ public class Match extends BaseEntity {
     @Column(name = "MatchId")
     private Long matchId;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userGetMatched")
+    @ManyToOne
+    @JoinColumn(name="userGetMatched")
     private User userGetMatched; // 연결을 당한 유저
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userMatching")
+    @ManyToOne
+    @JoinColumn(name="userMatching")
     private User userMatching; // 연결을 시도한 유저
 
     @JsonIgnore

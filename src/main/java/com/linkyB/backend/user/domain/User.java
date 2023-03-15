@@ -1,11 +1,16 @@
 package com.linkyB.backend.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.linkyB.backend.block.entity.Block;
+import com.linkyB.backend.chat.entity.ChattingRoom;
 import com.linkyB.backend.common.domain.BaseEntity;
 import com.linkyB.backend.filter.entity.GenderForFilter;
 import com.linkyB.backend.filter.entity.GradeForFilter;
 import com.linkyB.backend.filter.entity.MajorForFilter;
 import com.linkyB.backend.filter.entity.MbtiForFilter;
+import com.linkyB.backend.like.entity.UserLikes;
+import com.linkyB.backend.match.entity.Match;
+import com.linkyB.backend.report.entity.Report;
 import com.linkyB.backend.user.presentation.dto.PatchUserReq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -95,7 +100,45 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = LAZY, cascade = CascadeType.ALL)
     private List<GenderForFilter> userGenderForFilters;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "userReport", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<Report> report;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "userGetReported", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<Report> Getreported;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userGetLikes", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<UserLikes> userGetLikes;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userGiveLikes", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<UserLikes> userGiveLikes;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userGiveBlock", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<Block> userGiveBlock;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userGetBlocked", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<Block> userGetBlocked;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "fromUser", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<ChattingRoom> fromUser;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "toUser", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<ChattingRoom> toUser;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userGetMatched", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<Match> userGetMatched;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userMatching", fetch = LAZY, cascade = CascadeType.ALL)
+    private List<Match> userMatching;
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
     private Authority authority;
