@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmailDto {
-    @NotBlank
-    private String email;
+public class AuthCodeDto {
+    private String authCode;
 }
