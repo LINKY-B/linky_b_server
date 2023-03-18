@@ -10,6 +10,7 @@ import com.linkyB.backend.user.repository.UserPersonalityRepository;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,6 +49,7 @@ public class UserService {
         User users = userRepository.findById(userId)
                 .orElseThrow(() -> new LInkyBussinessException("해당하는 유저가 없습니다.", HttpStatus.BAD_REQUEST));
         UserDetailDto dto = UserMapper.INSTANCE.UserdetaildtoToEntity(users);
+
         return dto;
     }
 
