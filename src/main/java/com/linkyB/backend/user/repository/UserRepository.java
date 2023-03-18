@@ -13,6 +13,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUserEmail(String userEmail);
 
+    @Query("select u from User u where u.userEmail =:userEmail")
+    User findByMail(@Param("userEmail") String userEmail);
+
     boolean existsByUserEmail(String userEmail);
 
     @Query(value = "SELECT u FROM User u JOIN Match m ON m.userMatching.userId = u.userId " +

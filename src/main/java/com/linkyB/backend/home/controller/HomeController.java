@@ -5,6 +5,7 @@ import com.linkyB.backend.filter.dto.UserFilterDto;
 import com.linkyB.backend.filter.dto.PostFilterReq;
 import com.linkyB.backend.filter.service.FilterService;
 import com.linkyB.backend.home.service.HomeService;
+import com.linkyB.backend.user.application.AuthorizationService;
 import com.linkyB.backend.user.jwt.JwtTokenProvider;
 import com.linkyB.backend.user.presentation.dto.UserListDto;
 import com.linkyB.backend.user.util.SecurityUtil;
@@ -23,7 +24,7 @@ public class HomeController {
 
     private final HomeService homeService;
     private final FilterService filterService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final AuthorizationService authorizationService;
 
     /*
      * 재학생, 졸업생 유저 리스트 2개 조회
@@ -34,9 +35,9 @@ public class HomeController {
                                                                  @RequestParam(value = "limit", defaultValue = "20") int limit
                                                                    ) {
         Map<String, List<UserListDto>> response = new HashMap<>();
-        long TokenUser = jwtTokenProvider.getUser();
-        response.put("졸업생 유저 리스트", homeService.TrueList(offset, limit, TokenUser));
-        response.put("재학생 유저 리스트", homeService.FalseList(offset, limit, TokenUser));
+        response.put("졸업생 유저 리스트", homeService.TrueList(offset, limit, authorizationService.getUserId()));
+        response.put("재학생 유저 리스트", homeService.FalseList(offset, limit, authorizationService.getUserId()));
+
 
         return new BaseResponse<>(response);
     }
@@ -46,9 +47,8 @@ public class HomeController {
     public BaseResponse<Map<String, List<UserListDto>>> saveFilter(@RequestBody PostFilterReq dto) {
 
         Map<String, List<UserListDto>> response = new HashMap<>();
-        long TokenUser = jwtTokenProvider.getUser();
-        response.put("졸업생 유저 리스트", filterService.TrueList(TokenUser, dto));
-        response.put("재학생 유저 리스트", filterService.FalseList(TokenUser));
+        response.put("졸업생 유저 리스트", filterService.TrueList(authorizationService.getUserId(), dto));
+        response.put("재학생 유저 리스트", filterService.FalseList(authorizationService.getUserId()));
 
         return new BaseResponse<>(response);
     }
@@ -56,8 +56,7 @@ public class HomeController {
     // 기존에 지정한 필터 내용 조회
     @GetMapping("/filter")
     public BaseResponse<UserFilterDto> selectFilter() {
-        long TokenUser = jwtTokenProvider.getUser();
-        UserFilterDto response = filterService.selectFilter(TokenUser);
+        UserFilterDto response = filterService.selectFilter(authorizationService.getUserId());
         return new BaseResponse<>(response);
     }
 
