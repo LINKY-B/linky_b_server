@@ -4,24 +4,23 @@ import com.linkyB.backend.common.exception.ErrorCode;
 import com.linkyB.backend.common.exception.LinkyBusinessException;
 import com.linkyB.backend.common.result.ResultResponse;
 import com.linkyB.backend.common.util.SecurityUtils;
-import com.linkyB.backend.user.dto.LoginRequestDto;
-import com.linkyB.backend.user.dto.UserPasswordDto;
-import com.linkyB.backend.user.dto.UserSignupRequestDto;
-import com.linkyB.backend.user.dto.UserSignupResponseDto;
+import com.linkyB.backend.user.dto.*;
 import com.linkyB.backend.user.service.AuthService;
+import com.linkyB.backend.user.service.redis.EmailCodeService;
 import com.linkyB.backend.user.service.redis.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
-import static com.linkyB.backend.common.result.ResultCode.LOGOUT_SUCCESS;
-import static com.linkyB.backend.common.result.ResultCode.SIGNUP_SUCCESS;
+import static com.linkyB.backend.common.result.ResultCode.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,8 +28,14 @@ import static com.linkyB.backend.common.result.ResultCode.SIGNUP_SUCCESS;
 public class AuthController {
 
     private final AuthService authService;
+    private final EmailCodeService emailCodeService;
     private final RefreshTokenService refreshTokenService;
 
+    @PostMapping("/email/confirm")
+    public ResultResponse confirmEmail(@Valid @RequestBody EmailConfirmCodeRequestDto confirmEmailDto) throws MessagingException, UnsupportedEncodingException {
+        emailCodeService.sendCodeEmail(confirmEmailDto);
+        return ResultResponse.of(SEND_CONFIRM_EMAIL_SUCCESS);
+    }
 
     @PostMapping("/signup")
     public ResultResponse<UserSignupResponseDto> signup(

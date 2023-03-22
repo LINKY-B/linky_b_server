@@ -1,4 +1,4 @@
-package com.linkyB.backend.user.domain;
+package com.linkyB.backend.user.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
