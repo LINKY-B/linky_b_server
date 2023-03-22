@@ -1,6 +1,5 @@
 package com.linkyB.backend.user.dto;
 
-import com.linkyB.backend.user.domain.Authority;
 import com.linkyB.backend.user.domain.Interest;
 import com.linkyB.backend.user.domain.Personality;
 import com.linkyB.backend.user.domain.User;
@@ -31,6 +30,10 @@ public class UserSignupRequestDto {
 
     @NotBlank(message = "아이디는 필수입력입니다.")
     private String userName;
+
+    @NotBlank(message = "이메일 인증 코드는 필수입니다.")
+    private String authCode;
+
     @NotBlank(message = "닉네임은 필수입력입니다.")
     @Size(min = 2, max = 8, message = "닉네임의 길이는 2이상 8이하여야합니다.")
     private String userNickName;

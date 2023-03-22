@@ -37,7 +37,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import javax.validation.Validator;
 import java.util.*;
 
-import static com.linkyB.backend.user.domain.Authority.USER;
+import static com.linkyB.backend.user.domain.enums.Authority.USER;
 
 
 @Slf4j
@@ -72,7 +72,8 @@ public class SecurityConfiguration {
             "/swagger-ui/**", "/swagger-ui/index.html"
     };
     private static final String[] AUTH_WHITELIST = {
-            "/auth/login", "/auth/reissue", "/auth/signup"
+            "/auth/login", "/auth/reissue", "/auth/signup",
+            "/auth/email/confirm"
     };
 
     @Bean

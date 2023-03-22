@@ -36,9 +36,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Value("${jwt.refresh-token-validity-in-seconds}")
     private Integer REFRESH_TOKEN_VALIDATION_TIME_IN_SECONDS;
 
-    @Value("${jwt.cookie-domain}")
-    private String COOKIE_DOMAIN;
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         AuthenticationSuccessHandler.super.onAuthenticationSuccess(request, response, chain, authentication);
