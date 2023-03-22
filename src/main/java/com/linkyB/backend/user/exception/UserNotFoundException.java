@@ -1,15 +1,13 @@
 package com.linkyB.backend.user.exception;
 
-import com.linkyB.backend.common.exception.LInkyBussinessException;
-import org.springframework.http.HttpStatus;
+import com.linkyB.backend.common.exception.ErrorCode;
+import com.linkyB.backend.common.exception.LinkyBusinessException;
 
-public class UserNotFoundException extends LInkyBussinessException {
-    private static final String message = "유저가 존재하지 않습니다.";
-    private static final HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+public class UserNotFoundException extends LinkyBusinessException {
 
 
     public UserNotFoundException() {
-        super(message, httpStatus);
+        super(ErrorCode.USER_NOT_FOUND);
     }
 
 }

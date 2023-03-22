@@ -9,12 +9,12 @@ import com.linkyB.backend.filter.entity.MbtiForFilter;
 import com.linkyB.backend.user.domain.Interest;
 import com.linkyB.backend.user.domain.Personality;
 import com.linkyB.backend.user.domain.User;
-import com.linkyB.backend.user.presentation.dto.UserDetailDto;
-import com.linkyB.backend.user.presentation.dto.UserDetailDto.UserDetailDtoBuilder;
-import com.linkyB.backend.user.presentation.dto.UserDto;
-import com.linkyB.backend.user.presentation.dto.UserDto.UserDtoBuilder;
-import com.linkyB.backend.user.presentation.dto.UserListDto;
-import com.linkyB.backend.user.presentation.dto.UserListDto.UserListDtoBuilder;
+import com.linkyB.backend.user.dto.UserDetailDto;
+import com.linkyB.backend.user.dto.UserDetailDto.UserDetailDtoBuilder;
+import com.linkyB.backend.user.dto.UserDto;
+import com.linkyB.backend.user.dto.UserDto.UserDtoBuilder;
+import com.linkyB.backend.user.dto.UserListDto;
+import com.linkyB.backend.user.dto.UserListDto.UserListDtoBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-16T00:48:59+0900",
+    date = "2023-03-22T11:16:27+0900",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component

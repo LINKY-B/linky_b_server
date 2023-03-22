@@ -2,9 +2,9 @@ package com.linkyB.backend.user.mapper;
 
 import com.linkyB.backend.filter.dto.UserFilterDto;
 import com.linkyB.backend.user.domain.User;
-import com.linkyB.backend.user.presentation.dto.UserDetailDto;
-import com.linkyB.backend.user.presentation.dto.UserDto;
-import com.linkyB.backend.user.presentation.dto.UserListDto;
+import com.linkyB.backend.user.dto.UserDetailDto;
+import com.linkyB.backend.user.dto.UserDto;
+import com.linkyB.backend.user.dto.UserListDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
