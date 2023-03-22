@@ -1,7 +1,7 @@
 package com.linkyB.backend.filter.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.linkyB.backend.common.domain.BaseEntity;
+import com.linkyB.backend.common.entity.BaseEntity;
 import com.linkyB.backend.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

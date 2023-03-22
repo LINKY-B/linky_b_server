@@ -7,12 +7,12 @@ import com.linkyB.backend.block.entity.Block;
 import com.linkyB.backend.block.mapper.BlockMapper;
 import com.linkyB.backend.block.repository.BlockRepository;
 import com.linkyB.backend.user.domain.User;
+import com.linkyB.backend.user.exception.UserNotFoundException;
 import com.linkyB.backend.user.mapper.UserMapper;
-import com.linkyB.backend.user.presentation.dto.UserDto;
-import com.linkyB.backend.user.presentation.dto.UserListDto;
+import com.linkyB.backend.user.dto.UserDto;
+import com.linkyB.backend.user.dto.UserListDto;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,10 +31,8 @@ public class BlockService {
     @Transactional
     public BlockDto userBlock(long userId, long userGetBlocked) {
 
-        User Give = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
-        User Get = userRepository.findById(userGetBlocked)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+        User Give = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        User Get = userRepository.findById(userGetBlocked).orElseThrow(UserNotFoundException::new);
 
         Block entity = blockRepository.save(blockconverter.block(Give, Get));
         BlockDto dto = BlockMapper.INSTANCE.entityToDto(entity);
@@ -44,9 +42,8 @@ public class BlockService {
 
     // 차단 해제
     @Transactional
-    public UserDto cancleBlock(long userId, PatchBlockReq dto) {
-        User users = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+    public UserDto cancelBlock(long userId, PatchBlockReq dto) {
+        User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
 
         List<Long> blockList = dto.getBlockId();
@@ -60,10 +57,7 @@ public class BlockService {
 
     // 차단 리스트 조회
     public List<UserListDto> BlockList(long userId) {
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
-
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         List<User> users = userRepository.findAllByUserGiveBlock(userId);
         List<UserListDto> dto = UserMapper.INSTANCE.entityToDtoList(users);
         return dto;

@@ -1,6 +1,6 @@
 package com.linkyB.backend.chat.entity;
 
-import com.linkyB.backend.common.domain.BaseEntity;
+import com.linkyB.backend.common.entity.BaseEntity;
 import com.linkyB.backend.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @NoArgsConstructor

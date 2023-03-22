@@ -13,7 +13,7 @@ import com.linkyB.backend.filter.repository.MajorForFilterRepository;
 import com.linkyB.backend.filter.repository.MbtiForFilterRepository;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.mapper.UserMapper;
-import com.linkyB.backend.user.presentation.dto.UserListDto;
+import com.linkyB.backend.user.dto.UserListDto;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
