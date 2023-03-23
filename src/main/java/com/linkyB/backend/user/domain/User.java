@@ -30,37 +30,50 @@ import java.util.List;
 @Getter
 @Entity(name = "User")
 @DynamicInsert
-@Slf4j
 public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
     private Long userId;
+
     @Column(name = "userEmail", nullable = false, unique = true)
+
     private String userEmail;
-    @Column(name = "userName", nullable = false, unique = true)
+
+    @Column(name = "userName", nullable = false)
     private String userName;
+
     @Column(name = "userNickName", nullable = false)
     private String userNickName;
+
     @Column(name = "userBirth")
     private String userBirth;
+
     @Column(name = "userPassword", nullable = false)
     private String userPassword;
+
     @Column(name = "SchoolName")
     private String userSchoolName;
+
     @Column(name = "userMajorName")
     private String userMajorName;
+
     @Column(name = "userStudentNum")
     private String userStudentNum;
+
     @Column(name = "gradeStatus")
     private String gradStatus;
+
     @Column(name = "userProfileImg")
     private String userProfileImg;
+
     @Column(name = "userSchoolImg")
     private String userSchoolImg;
+
     @Column(name = "userSex")
     private String userSex;
+
     @Column(name = "userMBTI")
     private String userMBTI;
 
@@ -94,72 +107,60 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<GradeForFilter> userGradeForFilters = new ArrayList<>();
-    ;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MajorForFilter> userMajorForFilters = new ArrayList<>();
-    ;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MbtiForFilter> userMbtiForFilters = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<GenderForFilter> userGenderForFilters = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userReport", cascade = CascadeType.ALL)
     private List<Report> report = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userGetReported", cascade = CascadeType.ALL)
     private List<Report> Getreported = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userGetLikes", cascade = CascadeType.ALL)
     private List<UserLikes> userGetLikes = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userGiveLikes", cascade = CascadeType.ALL)
     private List<UserLikes> userGiveLikes = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userGiveBlock", cascade = CascadeType.ALL)
     private List<Block> userGiveBlock = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userGetBlocked", cascade = CascadeType.ALL)
     private List<Block> userGetBlocked = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.ALL)
     private List<ChattingRoom> fromUser = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.ALL)
     private List<ChattingRoom> toUser = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userGetMatched", cascade = CascadeType.ALL)
     private List<Match> userGetMatched = new ArrayList<>();
-    ;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userMatching", cascade = CascadeType.ALL)
     private List<Match> userMatching = new ArrayList<>();
-    ;
 
     // == 생성메서드
     @Builder
@@ -223,9 +224,6 @@ public class User extends BaseEntity {
     }
 
     public void addInterests(Interest interest) {
-        log.info("[USER ENTITY] interest: {}", interest);
-        log.info("[USER ENTITY] user interests list: {}", userInterest);
-
         this.userInterest.add(interest);
         interest.setUser(this);
     }
