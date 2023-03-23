@@ -156,11 +156,9 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(customUserDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder)
-                .and()
+                .authenticationProvider(daoAuthenticationProvider())
                 .authenticationProvider(jwtAuthenticationProvider)
                 .authenticationProvider(reissueAuthenticationProvider)
                 .build();
