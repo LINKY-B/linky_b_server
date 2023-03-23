@@ -3,6 +3,7 @@ package com.linkyB.backend.user.dto;
 import com.linkyB.backend.user.domain.Interest;
 import com.linkyB.backend.user.domain.Personality;
 import com.linkyB.backend.user.domain.User;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class UserSignupRequestDto {
     @NotBlank(message = "아이디는 필수입력입니다.")
     private String userName;
 
+    @ApiModelProperty(value = "이메일 인증코드", example = "3F23A6", required = true)
     @NotBlank(message = "이메일 인증 코드는 필수입니다.")
     private String authCode;
 
