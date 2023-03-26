@@ -49,6 +49,7 @@ public enum ErrorCode {
     PASSWORD_EQUAL_WITH_OLD(400, "U013", "기존 비밀번호와 동일하게 변경할 수 없습니다."),
     LOGOUT_BY_ANOTHER(401, "U014", "다른 기기에 의해 로그아웃되었습니다."),
     CONFIRM_CODE_NOT_VALID(401, "U015", "인증 코드가 만료되었거나 일치하지 않습니다."),
+    PROFILE_IMAGE_NOT_FOUND(404, "U016", "존재하지 않는 프로필 이미지입니다."),
 
     // Like
 

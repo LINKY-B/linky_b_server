@@ -51,6 +51,7 @@ public enum ResultCode {
     FREE_BLOCK_USER_SUCCESS(200, "M024", "사용자 차단 해제에 성공했습니다."),
     GET_BLOCK_USER_LIST_SUCCESS(200, "M025", "차단한 사용자 목록 조회에 성공했습니다."),
     DELETE_USER_SUCCESS(200, "M026", "탈퇴에 성공했습니다."),
+    GET_USER_PROFILE_IMAGE_LIST(200, "M027", "프로필 이미지 목록 조회에 성공했습니다."),
 
     // Home
     GET_HOME_LIST_SUCCESS(200, "H001", "홈 리스트 조회에 성공했습니다"),
