@@ -73,7 +73,7 @@ public class SecurityConfiguration {
     };
     private static final String[] AUTH_WHITELIST = {
             "/auth/login", "/auth/reissue", "/auth/signup",
-            "/auth/email/confirm", "/auth/s3"
+            "/auth/email/confirm",
     };
 
     @Bean
