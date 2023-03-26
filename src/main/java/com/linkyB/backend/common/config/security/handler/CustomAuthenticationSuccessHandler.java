@@ -52,7 +52,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         addRefreshTokenCookie(response, jwtDto.getRefreshToken());
         refreshTokenService.addRefreshToken(Long.valueOf(authentication.getName()), jwtDto.getRefreshToken());
 
-        HandlerUtility.writeResponse(request, response, ResponseEntity.ok(ResultResponse.of(getResultCode(request), jwtResponseDto)));
+        HandlerUtility.writeResponse(request, response, ResultResponse.of(getResultCode(request), jwtResponseDto));
     }
 
     private void addRefreshTokenCookie(HttpServletResponse response, String refreshToken){
