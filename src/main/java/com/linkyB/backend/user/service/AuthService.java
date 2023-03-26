@@ -4,6 +4,7 @@ import com.linkyB.backend.common.exception.ErrorCode;
 import com.linkyB.backend.common.exception.LinkyBusinessException;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.domain.redis.EmailCode;
+import com.linkyB.backend.user.dto.ProfileImgDto;
 import com.linkyB.backend.user.dto.UserPasswordDto;
 import com.linkyB.backend.user.dto.UserSignupRequestDto;
 import com.linkyB.backend.user.dto.UserSignupResponseDto;
@@ -51,6 +52,30 @@ public class AuthService {
         String userSchoolImg = s3Uploader.upload(schoolImg, "images/school/");
 
         User user = signupRequestDto.toEntity(passwordEncoder, userProfileImg, userSchoolImg);
+        userRepository.save(user);
+
+        return UserSignupResponseDto.of(user);
+    }
+
+    @Transactional
+    public UserSignupResponseDto signup(UserSignupRequestDto signupRequestDto, ProfileImgDto profileImg, MultipartFile schoolImg) throws IOException {
+        if (userRepository.existsByUserEmail(signupRequestDto.getUserEmail())) {
+            throw new LinkyBusinessException(ErrorCode.USERNAME_ALREADY_EXIST);
+        }
+
+        // 이메일 인증 코드 확인
+        EmailCode emailCode = emailCodeRepository
+                .findByEmailAndUserName(signupRequestDto.getUserEmail(), signupRequestDto.getUserName())
+                .orElseThrow(() -> new LinkyBusinessException(ErrorCode.EMAIL_NOT_CONFIRMED));
+
+        if (emailCode.getCode().equals(signupRequestDto.getAuthCode()) == false) {
+            throw new LinkyBusinessException(ErrorCode.CONFIRM_CODE_NOT_VALID);
+        }
+
+        String userProfileImg = s3Uploader.getProfleImg("images/profileImg/mental.svg");
+        String userSchoolImg = s3Uploader.upload(schoolImg, "images/school/");
+
+        User user = signupRequestDto.toEntity(passwordEncoder, userProfileImg,  userSchoolImg);
         userRepository.save(user);
 
         return UserSignupResponseDto.of(user);
