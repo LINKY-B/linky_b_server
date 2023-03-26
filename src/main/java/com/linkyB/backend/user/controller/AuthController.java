@@ -6,6 +6,7 @@ import com.linkyB.backend.common.result.ResultResponse;
 import com.linkyB.backend.common.util.SecurityUtils;
 import com.linkyB.backend.user.dto.*;
 import com.linkyB.backend.user.service.AuthService;
+import com.linkyB.backend.user.service.S3Uploader;
 import com.linkyB.backend.user.service.redis.EmailCodeService;
 import com.linkyB.backend.user.service.redis.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class AuthController {
     private final AuthService authService;
     private final EmailCodeService emailCodeService;
     private final RefreshTokenService refreshTokenService;
+    private final S3Uploader s3Uploader;
 
     @PostMapping("/email/confirm")
     public ResultResponse confirmEmail(@Valid @RequestBody EmailConfirmCodeRequestDto confirmEmailDto) throws MessagingException, UnsupportedEncodingException {
@@ -40,12 +42,13 @@ public class AuthController {
     @PostMapping("/signup")
     public ResultResponse<UserSignupResponseDto> signup(
             @Valid @RequestPart(value = "UserSignupReq") UserSignupRequestDto userSignupRequestDto,
-            @RequestPart(value = "profileImg") MultipartFile profileImg,
+            @RequestPart(value = "profileImg") ProfileImgDto profileImg,
             @RequestPart(value = "schoolImg") MultipartFile schoolImg
     ) throws IOException {
         UserSignupResponseDto response = authService.signup(userSignupRequestDto, profileImg, schoolImg);
         return ResultResponse.of(SIGNUP_SUCCESS, response);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<ResultResponse> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
@@ -85,5 +88,11 @@ public class AuthController {
     @PostMapping("/password")
     public ResponseEntity<UserPasswordDto> updatePassword(@RequestBody UserPasswordDto passwordRequestDto) {
         return ResponseEntity.ok(authService.updatePassword(passwordRequestDto));
+    }
+
+    @PostMapping("/s3")
+    public ResponseEntity<?> uploadImage(@RequestPart(value = "profileImg") MultipartFile profileImg) throws IOException {
+        String uploadUrl = s3Uploader.upload(profileImg, "images/profileImg/");
+        return ResponseEntity.ok(uploadUrl);
     }
 }
