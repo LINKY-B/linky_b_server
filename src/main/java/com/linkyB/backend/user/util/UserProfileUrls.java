@@ -15,4 +15,8 @@ final public class UserProfileUrls {
             "https://linkyb-bucket.s3.ap-northeast-2.amazonaws.com/images/profileImg/W3.svg",
             "https://linkyb-bucket.s3.ap-northeast-2.amazonaws.com/images/profileImg/W41.svg"
     ));
+
+    public static boolean isValidProfileImageUrl(String url){
+        return PROFILE_IMAGE_URLS.contains(url);
+    }
 }

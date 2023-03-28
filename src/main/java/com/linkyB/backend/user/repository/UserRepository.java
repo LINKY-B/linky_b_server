@@ -19,6 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByUserEmail(String userEmail);
 
+    boolean existsByUserNickName(String nickName);
+
     @Query(value = "SELECT u FROM User u JOIN Match m ON m.userMatching.userId = u.userId " +
             "WHERE m.userGetMatched.userId = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE'")
     List<User> findAllByUserGetMatched(@Param("userId") long userId);

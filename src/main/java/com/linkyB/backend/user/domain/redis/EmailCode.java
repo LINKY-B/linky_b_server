@@ -25,7 +25,7 @@ public class EmailCode {
     private String email;
 
     @Indexed
-    private String userName;
+    private String userNickName;
 
     private String code;
 
@@ -35,8 +35,8 @@ public class EmailCode {
     private Long timeout = 2L;
 
     @Builder
-    public EmailCode(String userName, String email, String code) {
-        this.userName = userName;
+    public EmailCode(String userNickName, String email, String code) {
+        this.userNickName = userNickName;
         this.email = email;
         this.code = code;
         this.lastUpdateDate = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
