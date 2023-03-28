@@ -99,7 +99,7 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Interest> userInterest = new ArrayList<>();
-    ;
+
 
     @Column(name = "userSelfIntroduction")
     private String userSelfIntroduction;

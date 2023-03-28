@@ -3,7 +3,6 @@ package com.linkyB.backend.like.service;
 import com.linkyB.backend.like.converter.LikeConverter;
 import com.linkyB.backend.like.dto.LikeDto;
 import com.linkyB.backend.like.entity.UserLikes;
-import com.linkyB.backend.like.mapper.LikeMapper;
 import com.linkyB.backend.like.repository.LikeRepository;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.exception.UserNotFoundException;
@@ -29,8 +28,7 @@ public class LikeService {
         Get.increaseLikeCount();
 
         UserLikes entity = likeRepository.save(likeConverter.userLikes(Give, Get));
-        LikeDto dto = LikeMapper.INSTANCE.entityToDto(entity);
 
-        return dto;
+        return LikeDto.of(entity);
     }
 }

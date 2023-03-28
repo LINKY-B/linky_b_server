@@ -7,11 +7,10 @@ import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.domain.enums.UserNotification;
 import com.linkyB.backend.user.domain.enums.UserStatusForMyInfo;
 import com.linkyB.backend.user.dto.PatchUserReq;
-import com.linkyB.backend.user.dto.UserDetailDto;
-import com.linkyB.backend.user.dto.UserDto;
+import com.linkyB.backend.user.dto.UserDetailResponseDto;
+import com.linkyB.backend.user.dto.UserResponseDto;
 import com.linkyB.backend.user.dto.UserSignupResponseDto;
 import com.linkyB.backend.user.exception.UserNotFoundException;
-import com.linkyB.backend.user.mapper.UserMapper;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,60 +41,54 @@ public class UserService {
     }
 
     // 유저 정보 상세 조회
-    public UserDetailDto findUser(Long userId) {
+    public UserDetailResponseDto findUser(Long userId) {
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        UserDetailDto dto = UserMapper.INSTANCE.UserdetaildtoToEntity(users);
 
-        return dto;
+        return UserDetailResponseDto.of(users);
+
     }
 
     @Transactional
     // 알림 활성화
-    public UserDto activeAlarm(long userId) {
+    public UserResponseDto activeAlarm(long userId) {
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-
         users.updateUserNotification(UserNotification.ACTIVE);
-        UserDto dto = UserMapper.INSTANCE.entityToDto(users);
 
-        return dto;
+        return UserResponseDto.of(users);
     }
 
     @Transactional
     // 알림 비활성화
-    public UserDto inactiveAlarm(long userId) {
+    public UserResponseDto inactiveAlarm(long userId) {
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-
         users.updateUserNotification(UserNotification.INACTIVE);
-        UserDto dto = UserMapper.INSTANCE.entityToDto(users);
 
-        return dto;
+        return UserResponseDto.of(users);
     }
 
     // 정보 활성화
     @Transactional
-    public UserDto activeUser(long userId) {
+    public UserResponseDto activeUser(long userId) {
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         users.updateStatusForMyInfo(UserStatusForMyInfo.ACTIVE);
-        UserDto dto = UserMapper.INSTANCE.entityToDto(users);
 
-        return dto;
+        return UserResponseDto.of(users);
     }
 
     // 정보 비활성화
     @Transactional
-    public UserDto inactiveUser(long userId) {
+    public UserResponseDto inactiveUser(long userId) {
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         users.updateStatusForMyInfo(UserStatusForMyInfo.INACTIVE);
-        UserDto dto = UserMapper.INSTANCE.entityToDto(users);
 
-        return dto;
+        return UserResponseDto.of(users);
     }
 
     // 유저 프로필 수정
     @Transactional
-    public UserDto modifyProfile(PatchUserReq dto, MultipartFile multipartFile) throws IOException {
+    public UserResponseDto modifyProfile(PatchUserReq dto, MultipartFile multipartFile) throws IOException {
         Long userId = SecurityUtils.getCurrentUserId();
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
@@ -105,22 +98,19 @@ public class UserService {
         }
         user.updateInfo(dto);
 
-        UserDto res = UserMapper.INSTANCE.entityToDto(user);
-
-        return res;
+        return UserResponseDto.of(user);
 
     }
 
     // 유저 탈퇴
     @Transactional
-    public UserDto deleteUser(long TokenUser, long userId) {
+    public UserResponseDto deleteUser(long TokenUser, long userId) {
 
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         if (users.getUserId() == TokenUser) {
             userRepository.delete(users);
-            UserDto dto = UserMapper.INSTANCE.entityToDto(users);
-            return dto;
+            return UserResponseDto.of(users);
         } else
             throw new LinkyBusinessException("탈퇴 권한이 없습니다.", ErrorCode.AUTHORITY_INVALID);
     }

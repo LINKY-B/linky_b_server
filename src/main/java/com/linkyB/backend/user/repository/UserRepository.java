@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u FROM User u JOIN Match m ON m.userMatching.userId = u.userId " +
             "WHERE m.userGetMatched.userId = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE'")
     List<User> findAllByUserGetMatched(@Param("userId") long userId);
+
 
     @Query(value = "SELECT u FROM User u JOIN Match m ON m.userGetMatched.userId = u.userId " +
             "WHERE m.userMatching.userId = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE'")
@@ -60,4 +62,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findFilterByUserId(@Param("userId")long userId);
 
     List<User> findByuserNickNameContaining(String nickName);
+
 }
