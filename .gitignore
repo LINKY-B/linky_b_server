@@ -3,6 +3,7 @@
 /build/classes/java/main/
 
 #User-specific
+.idea
 .idea/**/workspace.xml
 
 

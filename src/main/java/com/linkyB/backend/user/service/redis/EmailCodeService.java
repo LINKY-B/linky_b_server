@@ -1,8 +1,11 @@
 package com.linkyB.backend.user.service.redis;
 
+import com.linkyB.backend.common.exception.LinkyBusinessException;
+import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.domain.redis.EmailCode;
-import com.linkyB.backend.user.dto.EmailConfirmCodeRequestDto;
-import com.linkyB.backend.user.exception.UserNameAlreadyExistException;
+import com.linkyB.backend.user.dto.EmailSendConfirmCodeRequestDto;
+import com.linkyB.backend.user.exception.EmailAlreadyExistException;
+import com.linkyB.backend.user.exception.UserNotFoundException;
 import com.linkyB.backend.user.repository.UserRepository;
 import com.linkyB.backend.user.repository.redis.EmailCodeRepository;
 import com.linkyB.backend.user.service.EmailService;
@@ -12,21 +15,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Random;
+
+import static com.linkyB.backend.common.exception.ErrorCode.EMAIL_NOT_CONFIRMED;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class EmailCodeService {
 
     private final UserRepository userRepository;
     private final EmailCodeRepository emailCodeRepository;
     private final EmailService emailService;
 
+    public EmailCode getEmailCode(String email, String userNickName) {
+        return emailCodeRepository
+                .findByEmailAndUserNickName(email, userNickName)
+                .orElseThrow(() -> new LinkyBusinessException(EMAIL_NOT_CONFIRMED));
+    }
+
     @Transactional
-    public EmailCode addEmailCode(String userName, String email) {
+    public EmailCode addEmailCode(String nickName, String email) {
         String authCode = createCode();
         EmailCode emailCode = EmailCode.builder()
-                .userName(userName)
+                .userNickName(nickName)
                 .email(email)
                 .code(authCode)
                 .build();
@@ -35,16 +48,33 @@ public class EmailCodeService {
     }
 
     @Transactional
-    public void sendCodeEmail(EmailConfirmCodeRequestDto confirmCodeRequestDto) throws MessagingException, UnsupportedEncodingException {
-        final String userName = confirmCodeRequestDto.getUserName();
+    public void sendCodeEmail(EmailSendConfirmCodeRequestDto confirmCodeRequestDto) throws MessagingException, UnsupportedEncodingException {
+        final String userNickName = confirmCodeRequestDto.getUserNickName();
         final String email = confirmCodeRequestDto.getEmail();
 
         if (userRepository.findByUserEmail(email).isPresent()) {
-            throw new UserNameAlreadyExistException();
+            throw new EmailAlreadyExistException();
         }
 
-        EmailCode emailCode = addEmailCode(userName, email);
+        EmailCode emailCode = addEmailCode(userNickName, email);
         emailService.sendEmail(emailCode);
+    }
+
+    @Transactional
+    public void sendCodeEmail(String email) throws MessagingException, UnsupportedEncodingException {
+        User user = userRepository.findByUserEmail(email).orElseThrow(UserNotFoundException::new);
+        final String nickName = user.getUserNickName();
+
+        removeCode(email, nickName); // for case with duplicated code due to signup
+
+        EmailCode emailCode = addEmailCode(nickName, email);
+        emailService.sendEmail(emailCode);
+    }
+
+    @Transactional
+    public void removeCode(String email, String nickName) {
+        List<EmailCode> codes = emailCodeRepository.findAllByEmailAndUserNickName(email, nickName);
+        emailCodeRepository.deleteAll(codes);
     }
 
     private String createCode() {

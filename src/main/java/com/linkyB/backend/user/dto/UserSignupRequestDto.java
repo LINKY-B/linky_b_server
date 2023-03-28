@@ -57,6 +57,8 @@ public class UserSignupRequestDto {
     @ApiModelProperty(value = "전공 이름", example = "소프트웨어학부", required = true)
     @NotBlank(message = "전공이름은 필수입력입니다.")
     private String userMajorName;
+
+    @ApiModelProperty(value = "입학년도", example = "20", required = true)
     @NotBlank(message = "입학년도는 필수입력입니다.")
     private String userStudentNum;
 

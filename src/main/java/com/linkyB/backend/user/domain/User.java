@@ -44,7 +44,7 @@ public class User extends BaseEntity {
     @Column(name = "userName", nullable = false)
     private String userName;
 
-    @Column(name = "userNickName", nullable = false)
+    @Column(name = "userNickName", nullable = false, unique = true)
     private String userNickName;
 
     @Column(name = "userBirth")

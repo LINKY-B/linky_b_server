@@ -92,7 +92,7 @@ public class UserService {
         Long userId = SecurityUtils.getCurrentUserId();
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        if(multipartFile != null){
+        if (multipartFile != null) {
             String storedFileName = s3Uploader.upload(multipartFile, "images/");
             user.updateProfileImage(storedFileName);
         }

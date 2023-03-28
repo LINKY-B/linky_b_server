@@ -72,8 +72,10 @@ public class SecurityConfiguration {
             "/swagger-ui/**", "/swagger-ui/index.html"
     };
     private static final String[] AUTH_WHITELIST = {
-            "/auth/login", "/auth/reissue", "/auth/signup",
-            "/auth/email/confirm",
+            "/auth/login", "/auth/reissue",
+            "/auth/signup", "/auth/signup/confirm-email", "/auth/signup/send-email",
+            "/auth/check-nickname", "/auth/profile-images",
+            "/auth/reset-password", "/auth/reset-password/send-email",
     };
 
     @Bean

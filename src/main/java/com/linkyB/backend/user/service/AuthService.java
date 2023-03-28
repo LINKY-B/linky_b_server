@@ -1,15 +1,17 @@
 package com.linkyB.backend.user.service;
 
-import com.linkyB.backend.common.exception.ErrorCode;
 import com.linkyB.backend.common.exception.LinkyBusinessException;
+import com.linkyB.backend.common.result.ResultCode;
+import com.linkyB.backend.common.result.ResultResponse;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.domain.redis.EmailCode;
-import com.linkyB.backend.user.dto.UserPasswordDto;
+import com.linkyB.backend.user.dto.EmailConfirmCodeRequestDto;
+import com.linkyB.backend.user.dto.ResetPasswordRequestDto;
 import com.linkyB.backend.user.dto.UserSignupRequestDto;
 import com.linkyB.backend.user.dto.UserSignupResponseDto;
 import com.linkyB.backend.user.exception.UserNotFoundException;
 import com.linkyB.backend.user.repository.UserRepository;
-import com.linkyB.backend.user.repository.redis.EmailCodeRepository;
+import com.linkyB.backend.user.service.redis.EmailCodeService;
 import com.linkyB.backend.user.util.UserProfileUrls;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,67 +22,101 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@Slf4j
+import static com.linkyB.backend.common.exception.ErrorCode.*;
+import static com.linkyB.backend.common.exception.ErrorCode.EMAIL_ALREADY_EXIST;
+import static com.linkyB.backend.common.exception.ErrorCode.NICKNAME_ALREADY_EXIST;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final EmailCodeRepository emailCodeRepository;
+    private final EmailCodeService emailCodeService;
     private final PasswordEncoder passwordEncoder;
     private final S3Uploader s3Uploader;
 
+    public boolean isUniqueNickName(String nickName) {
+        return !userRepository.existsByUserNickName(nickName);
+    }
+
     @Transactional
     public UserSignupResponseDto signup(UserSignupRequestDto signupRequestDto, MultipartFile schoolImg) throws IOException {
-        if (userRepository.existsByUserEmail(signupRequestDto.getUserEmail())) {
-            throw new LinkyBusinessException(ErrorCode.USERNAME_ALREADY_EXIST);
+        final String email = signupRequestDto.getUserEmail();
+        final String authCode = signupRequestDto.getAuthCode();
+        final String nickName = signupRequestDto.getUserNickName();
+        final String profileImg = signupRequestDto.getProfileImg();
+
+        if (userRepository.existsByUserEmail(email)) {
+            throw new LinkyBusinessException(EMAIL_ALREADY_EXIST);
         }
 
-        // 존재하는 프로필 이미지인지 확인
-        final String userProfileImg = signupRequestDto.getProfileImg();
-        if(!UserProfileUrls.PROFILE_IMAGE_URLS.contains(userProfileImg)){
-            throw new LinkyBusinessException(ErrorCode.PROFILE_IMAGE_NOT_FOUND);
+        if (!isUniqueNickName(nickName)) {
+            throw new LinkyBusinessException(NICKNAME_ALREADY_EXIST);
         }
 
-        // 이메일 인증 코드 확인
-        EmailCode emailCode = emailCodeRepository
-                .findByEmailAndUserName(signupRequestDto.getUserEmail(), signupRequestDto.getUserName())
-                .orElseThrow(() -> new LinkyBusinessException(ErrorCode.EMAIL_NOT_CONFIRMED));
+        if (!UserProfileUrls.isValidProfileImageUrl(profileImg)) {
+            throw new LinkyBusinessException(PROFILE_IMAGE_NOT_FOUND);
+        }
 
-        if (!emailCode.getCode().equals(signupRequestDto.getAuthCode())) {
-            throw new LinkyBusinessException(ErrorCode.CONFIRM_CODE_NOT_VALID);
+        if (!isValidEmailToken(email, nickName, authCode)) {
+            throw new LinkyBusinessException(CONFIRM_CODE_NOT_VALID);
         }
 
         final String userSchoolImg = s3Uploader.upload(schoolImg, "images/school/");
 
-        User user = signupRequestDto.toEntity(passwordEncoder, userProfileImg, userSchoolImg);
+        User user = signupRequestDto.toEntity(passwordEncoder, profileImg, userSchoolImg);
         userRepository.save(user);
 
         return UserSignupResponseDto.of(user);
     }
 
 
-    // 로그아웃
     @Transactional
-    public UserPasswordDto updatePassword(UserPasswordDto passwordRequestDto) {
-        if (!userRepository.existsByUserEmail(passwordRequestDto.getEmail())) {
-            throw new UserNotFoundException();
+    public void updatePassword(ResetPasswordRequestDto passwordRequestDto) {
+        final String email = passwordRequestDto.getEmail();
+        final String authCode = passwordRequestDto.getAuthCode();
+        final String newPassword = passwordRequestDto.getPassword();
+
+        User user = userRepository.findByUserEmail(email).orElseThrow(UserNotFoundException::new);
+        final String currentPassword = user.getUserPassword();
+        final String nickName = user.getUserNickName();
+
+        if (!isValidEmailToken(email, nickName, authCode)) {
+            throw new LinkyBusinessException(CONFIRM_CODE_NOT_VALID);
         }
 
-        User findPhone = userRepository.findByUserEmail(passwordRequestDto.getEmail()).get();
-
-        //기존 비밀번호와 같은지 확인하기
-        if (passwordEncoder.matches(passwordRequestDto.getPassword(), findPhone.getUserPassword())) {
-            throw new LinkyBusinessException(ErrorCode.UPDATE_PASSWORD_FAILED);
+        if (passwordEncoder.matches(newPassword, currentPassword)) {
+            throw new LinkyBusinessException(UPDATE_PASSWORD_FAILED);
         }
 
-        //비밀번호 변경후 db에 저장
-        findPhone.updatePassword(passwordEncoder.encode(passwordRequestDto.getPassword()));
-        userRepository.save(findPhone);
-
-        return passwordRequestDto;
+        user.updatePassword(passwordEncoder.encode(newPassword));
+        emailCodeService.removeCode(email, nickName);
     }
 
+
+    public ResultResponse isValidEmailToken(EmailConfirmCodeRequestDto emailConfirmDto) {
+        final String email = emailConfirmDto.getEmail();
+        final String nickName = emailConfirmDto.getUserNickName();
+        final String authCode = emailConfirmDto.getAuthCode();
+
+        if(!isValidEmailToken(email, nickName, authCode)){
+            throw new LinkyBusinessException(CONFIRM_CODE_NOT_VALID);
+        }
+
+        return ResultResponse.of(ResultCode.CONFIRM_EMAIL_SUCCESS);
+    }
+
+
+    private boolean isValidEmailToken(String email, String nickName, String authCode) {
+        final EmailCode emailCode = emailCodeService.getEmailCode(email, nickName);
+
+        if (emailCode.getCode().equals(authCode)) {
+            return true;
+        }
+
+        return false;
+    }
 
 }
