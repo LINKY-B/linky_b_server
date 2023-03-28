@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BlockConverter {
-    public Block block(User userGetMatched, User userMatcing) {
+    public Block block(User userGetMatched, User userMatching) {
         return Block.builder()
                 .userGiveBlock(userGetMatched)
-                .userGetBlocked(userMatcing)
+                .userGetBlocked(userMatching)
                 .blockStatus(BlockStatus.ACTIVE)
                 .build();
     }

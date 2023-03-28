@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -43,8 +42,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M004 - 회원 프로필을 조회하였습니다."),
     })
     @GetMapping
-    public ResultResponse<UserDetailDto> findUserById() {
-        UserDetailDto response = userService.findUser(securityUtils.getCurrentUserId());
+    public ResultResponse<UserDetailResponseDto> findUserById() {
+        UserDetailResponseDto response = userService.findUser(securityUtils.getCurrentUserId());
         return new ResultResponse<>(GET_USER_PROFILE_SUCCESS, response);
     }
 
@@ -55,8 +54,8 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "U001 - 존재 하지 않는 사용자입니다."),
     })
     @GetMapping("/{userId}")
-    public ResultResponse<UserDetailDto> findUserById(@PathVariable Long userId) {
-        UserDetailDto response = userService.findUser(userId);
+    public ResultResponse<UserDetailResponseDto> findUserById(@PathVariable Long userId) {
+        UserDetailResponseDto response = userService.findUser(userId);
         return new ResultResponse<>(GET_USER_PROFILE_SUCCESS, response);
     }
 
@@ -90,8 +89,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M019 - 알람을 활성화하는데 성공했습니다."),
     })
     @PatchMapping("/alarm")
-    public ResultResponse<UserDto> activeAlarm() {
-        UserDto response = userService.activeAlarm(securityUtils.getCurrentUserId());
+    public ResultResponse<UserResponseDto> activeAlarm() {
+        UserResponseDto response = userService.activeAlarm(securityUtils.getCurrentUserId());
         return new ResultResponse<>(ACTIVATE_ALARM_SUCCESS, response);
     }
 
@@ -101,8 +100,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M020 - 알람을 비활성화하는데 성공했습니다."),
     })
     @PatchMapping("/alarm/inactive")
-    public ResultResponse<UserDto> inactiveAlarm() {
-        UserDto response = userService.inactiveAlarm(securityUtils.getCurrentUserId());
+    public ResultResponse<UserResponseDto> inactiveAlarm() {
+        UserResponseDto response = userService.inactiveAlarm(securityUtils.getCurrentUserId());
         return new ResultResponse<>(DEACTIVATE_ALARM_SUCCESS, response);
     }
 
@@ -112,8 +111,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M021 - 사용자 정보 활성화에 성공했습니다."),
     })
     @PatchMapping("/active")
-    public ResultResponse<UserDto> activeUser() {
-        UserDto response = userService.activeUser(securityUtils.getCurrentUserId());
+    public ResultResponse<UserResponseDto> activeUser() {
+        UserResponseDto response = userService.activeUser(securityUtils.getCurrentUserId());
         return new ResultResponse<>(ACTIVATE_USERINFO_SUCCESS, response);
     }
 
@@ -123,8 +122,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M022 - 사용자 정보 비활성화에 성공했습니다."),
     })
     @PatchMapping("/inactive")
-    public ResultResponse<UserDto> inactive() {
-        UserDto response = userService.inactiveUser(securityUtils.getCurrentUserId());
+    public ResultResponse<UserResponseDto> inactive() {
+        UserResponseDto response = userService.inactiveUser(securityUtils.getCurrentUserId());
         return new ResultResponse<>(DEACTIVATE_USERINFO_SUCCESS, response);
     }
 
@@ -139,13 +138,13 @@ public class UserController {
     }
 
 
-    @Operation(summary = "사용자 차단 해제", description = "")
+    @Operation(summary = "사용자 차단 해제", description = "차단 해제할 내역의 인덱스를 배열로 요청")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "M024 - 사용자 차단 해제에 성공했습니다."),
     })
     @PatchMapping("/block")
-    public ResultResponse<UserDto> cancelBlock(@RequestBody PatchBlockReq dto) {
-        UserDto response = blockService.cancelBlock(securityUtils.getCurrentUserId(), dto);
+    public ResultResponse<UserResponseDto> cancelBlock(@RequestBody PatchBlockReq dto) {
+        UserResponseDto response = blockService.cancelBlock(securityUtils.getCurrentUserId(), dto);
         return new ResultResponse<>(FREE_BLOCK_USER_SUCCESS, response);
     }
 
@@ -155,8 +154,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M025 - 차단한 사용자 목록 조회에 성공했습니다."),
     })
     @GetMapping("/block")
-    public ResultResponse<List<UserListDto>> getBlockedList() {
-        List<UserListDto> response = blockService.BlockList(securityUtils.getCurrentUserId());
+    public ResultResponse<List<UserListResponseDto>> getBlockedList() {
+        List<UserListResponseDto> response = blockService.BlockList(securityUtils.getCurrentUserId());
         return new ResultResponse<>(GET_BLOCK_USER_LIST_SUCCESS, response);
     }
 
@@ -166,12 +165,12 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M009 - 회원 프로필을 수정하였습니다."),
     })
     @PatchMapping("/modifyProfile")
-    public ResultResponse<UserDto> modifyProfile(
+    public ResultResponse<UserResponseDto> modifyProfile(
             @RequestPart(value = "PatchUserReq") PatchUserReq dto,
             @RequestPart(value = "profileImg", required = false) MultipartFile multipartFile
     ) throws IOException {
         log.info("[USER Controller] PathUserReq : {}", dto);
-        UserDto response = userService.modifyProfile(dto, multipartFile);
+        UserResponseDto response = userService.modifyProfile(dto, multipartFile);
         return new ResultResponse<>(EDIT_PROFILE_SUCCESS, response);
     }
 
@@ -181,8 +180,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M026 - 탈퇴에 성공했습니다."),
     })
     @DeleteMapping("/{userId}")
-    public ResultResponse<UserDto> deleteUser(@PathVariable("userId") int userId) {
-        UserDto response = userService.deleteUser(securityUtils.getCurrentUserId(), userId);
+    public ResultResponse<UserResponseDto> deleteUser(@PathVariable("userId") int userId) {
+        UserResponseDto response = userService.deleteUser(securityUtils.getCurrentUserId(), userId);
         return new ResultResponse<>(DELETE_USER_SUCCESS, response);
     }
 }

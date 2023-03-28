@@ -22,11 +22,11 @@ public class Block {
     @Column(name = "blockId")
     private Long blockId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userGiveBlock")
     private User userGiveBlock;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userGetBlocked")
     private User userGetBlocked;
 

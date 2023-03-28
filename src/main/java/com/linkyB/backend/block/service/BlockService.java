@@ -4,19 +4,18 @@ import com.linkyB.backend.block.converter.BlockConverter;
 import com.linkyB.backend.block.dto.BlockDto;
 import com.linkyB.backend.block.dto.PatchBlockReq;
 import com.linkyB.backend.block.entity.Block;
-import com.linkyB.backend.block.mapper.BlockMapper;
 import com.linkyB.backend.block.repository.BlockRepository;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.exception.UserNotFoundException;
-import com.linkyB.backend.user.mapper.UserMapper;
-import com.linkyB.backend.user.dto.UserDto;
-import com.linkyB.backend.user.dto.UserListDto;
+import com.linkyB.backend.user.dto.UserResponseDto;
+import com.linkyB.backend.user.dto.UserListResponseDto;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,14 +34,13 @@ public class BlockService {
         User Get = userRepository.findById(userGetBlocked).orElseThrow(UserNotFoundException::new);
 
         Block entity = blockRepository.save(blockconverter.block(Give, Get));
-        BlockDto dto = BlockMapper.INSTANCE.entityToDto(entity);
 
-        return dto;
+        return BlockDto.of(entity);
     }
 
     // 차단 해제
     @Transactional
-    public UserDto cancelBlock(long userId, PatchBlockReq dto) {
+    public UserResponseDto cancelBlock(long userId, PatchBlockReq dto) {
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
 
@@ -50,16 +48,12 @@ public class BlockService {
         for (Long blockId : blockList)
             blockRepository.updateStatus(blockId);
 
-        UserDto response = UserMapper.INSTANCE.entityToDto(users);
-        return response;
+        return UserResponseDto.of(users);
 
     }
 
     // 차단 리스트 조회
-    public List<UserListDto> BlockList(long userId) {
-        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        List<User> users = userRepository.findAllByUserGiveBlock(userId);
-        List<UserListDto> dto = UserMapper.INSTANCE.entityToDtoList(users);
-        return dto;
+    public List<UserListResponseDto> BlockList(long userId) {
+        return userRepository.findAllByUserGiveBlock(userId).stream().map(UserListResponseDto::new).collect(Collectors.toList());
     }
 }

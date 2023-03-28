@@ -23,11 +23,11 @@ public class Report {
     @Column(name = "reportId")
     private Long reportId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userReport")
     private User userReport;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userGetReport")
     private User userGetReported;
 
