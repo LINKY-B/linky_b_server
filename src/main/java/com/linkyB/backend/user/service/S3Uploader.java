@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Slf4j
-@RequiredArgsConstructor    // final 멤버변수가 있으면 생성자 항목에 포함시킴
+@RequiredArgsConstructor
 @Service
 public class S3Uploader {
 
@@ -65,6 +65,10 @@ public class S3Uploader {
             return Optional.of(convertFile);
         }
         return Optional.empty();
+    }
+
+    public String getProfleImg(String fileName) {
+        return amazonS3Client.getUrl(bucket,fileName).toString();
     }
 
 }

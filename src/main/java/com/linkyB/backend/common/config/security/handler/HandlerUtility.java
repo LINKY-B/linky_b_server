@@ -3,6 +3,7 @@ package com.linkyB.backend.common.config.security.handler;
 import com.linkyB.backend.common.exception.ErrorCode;
 import com.linkyB.backend.common.exception.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linkyB.backend.common.result.ResultResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -24,13 +25,13 @@ public class HandlerUtility {
         }
     }
 
-    public static void writeResponse(HttpServletRequest request, HttpServletResponse response, ResponseEntity responseEntity) throws IOException, ServletException{
-        response.setStatus(responseEntity.getStatusCodeValue());
+    public static void writeResponse(HttpServletRequest request, HttpServletResponse response, ResultResponse resultResponse) throws IOException, ServletException{
+        response.setStatus(resultResponse.getStatus());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         try(OutputStream os = response.getOutputStream()){
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(os, responseEntity);
+            objectMapper.writeValue(os, resultResponse);
             os.flush();
         }
     }
