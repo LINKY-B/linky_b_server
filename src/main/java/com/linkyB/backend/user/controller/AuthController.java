@@ -67,7 +67,7 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "M027 - 프로필 이미지 목록 조회에 성공했습니다."),
     })
     @GetMapping("/profile-images")
-    public ResultResponse<List<String>> signup() {
+    public ResultResponse<List<String>> getProfileImagesList() {
         List<String> profileUrls = UserProfileUrls.PROFILE_IMAGE_URLS.stream().collect(Collectors.toList());
         return ResultResponse.of(GET_USER_PROFILE_IMAGE_LIST, profileUrls);
     }
@@ -79,8 +79,7 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "M012 - 사용 불가능한 닉네임입니다."),
     })
     @PostMapping("/check-nickname")
-    public ResultResponse checkUniqueNickName(@Valid CheckUserNickNameRequestDto nickNameRequestDto) {
-        log.info("is unique? target : {}", nickNameRequestDto.getNickName());
+    public ResultResponse checkUniqueNickName(@Valid @RequestBody CheckUserNickNameRequestDto nickNameRequestDto) {
         boolean isUnique = authService.isUniqueNickName(nickNameRequestDto.getNickName());
         if (isUnique) {
             return ResultResponse.of(CHECK_USER_NICKNAME_GOOD);
@@ -143,7 +142,7 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "A005 - 비밀번호 재설정 이메일을 전송했습니다."),
     })
     @PostMapping("/reset-password/send-email")
-    public ResultResponse confirmEmailForPassword(@Valid ResetPasswordSendEmailRequestDto dto) throws MessagingException, UnsupportedEncodingException {
+    public ResultResponse confirmEmailForPassword(@Valid @RequestBody ResetPasswordSendEmailRequestDto dto) throws MessagingException, UnsupportedEncodingException {
         emailCodeService.sendCodeEmail(dto.getEmail());
         return ResultResponse.of(SEND_RESET_PASSWORD_EMAIL_SUCCESS);
     }
