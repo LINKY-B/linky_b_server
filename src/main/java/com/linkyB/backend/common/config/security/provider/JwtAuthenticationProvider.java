@@ -3,6 +3,7 @@ package com.linkyB.backend.common.config.security.provider;
 import com.linkyB.backend.common.config.security.token.JwtAuthenticationToken;
 import com.linkyB.backend.common.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class JwtAuthenticationProvider implements AuthenticationProvider {
     private final JwtUtil jwtUtil;
 
