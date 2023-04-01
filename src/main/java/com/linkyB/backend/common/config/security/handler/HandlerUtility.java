@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 public class HandlerUtility {
     public static void writeResponse(HttpServletRequest request, HttpServletResponse response, ErrorCode errorCode) throws IOException, ServletException{
@@ -21,6 +22,17 @@ public class HandlerUtility {
         try(OutputStream os = response.getOutputStream()){
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(os, ErrorResponse.of(errorCode));
+            os.flush();
+        }
+    }
+
+    public static void writeResponse(HttpServletRequest request, HttpServletResponse response, ErrorCode errorCode, List<ErrorResponse.FieldError> errorList) throws IOException, ServletException{
+        response.setStatus(errorCode.getStatus());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        try(OutputStream os = response.getOutputStream()){
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writeValue(os, ErrorResponse.of(errorCode, errorList));
             os.flush();
         }
     }

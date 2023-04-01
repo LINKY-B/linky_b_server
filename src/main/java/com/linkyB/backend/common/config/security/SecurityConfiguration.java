@@ -23,7 +23,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,7 +33,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.validation.Validator;
 import java.util.*;
 
 import static com.linkyB.backend.user.domain.enums.Authority.USER;
@@ -47,8 +45,6 @@ import static com.linkyB.backend.user.domain.enums.Authority.USER;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final JwtUtil jwtUtil;
-
-    private final Validator validator;
 
     // handlers
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
@@ -83,7 +79,6 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
@@ -92,9 +87,8 @@ public class SecurityConfiguration {
         return daoAuthenticationProvider;
     }
 
-    @Bean
-    public CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter(AuthenticationManager authenticationManager) throws Exception {
-        final CustomUsernamePasswordAuthenticationFilter filter = new CustomUsernamePasswordAuthenticationFilter(validator);
+    public CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
+        final CustomUsernamePasswordAuthenticationFilter filter = new CustomUsernamePasswordAuthenticationFilter();
         filter.setAuthenticationManager(authenticationManager);
         filter.setAuthenticationSuccessHandler(customAuthenticationSuccessHandler);
         filter.setAuthenticationFailureHandler(customAuthenticationFailureHandler);
@@ -102,8 +96,7 @@ public class SecurityConfiguration {
         return filter;
     }
 
-    @Bean
-    JwtAuthenticationFilter jwtAuthenticationFilter(AuthenticationManager authenticationManager) throws Exception {
+    JwtAuthenticationFilter jwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         final List<String> skipPaths = new ArrayList<>();
         skipPaths.addAll(Arrays.asList(AUTH_WHITELIST));
         skipPaths.addAll(Arrays.asList(AUTH_WHITELIST_STATIC));
@@ -116,8 +109,7 @@ public class SecurityConfiguration {
         return filter;
     }
 
-    @Bean
-    ReissueAuthenticationFilter reissueAuthenticationFilter(AuthenticationManager authenticationManager) throws Exception {
+    ReissueAuthenticationFilter reissueAuthenticationFilter(AuthenticationManager authenticationManager) {
         final ReissueAuthenticationFilter filter = new ReissueAuthenticationFilter(jwtUtil);
         filter.setAuthenticationManager(authenticationManager);
         filter.setAuthenticationSuccessHandler(customAuthenticationSuccessHandler);
@@ -142,29 +134,20 @@ public class SecurityConfiguration {
         return source;
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .antMatchers(AUTH_WHITELIST_SWAGGER)
-                .antMatchers(AUTH_WHITELIST_STATIC);
-    }
-
     private void configureCustomBeans() {
         final Map<String, ResultCode> map = new HashMap<>();
         map.put("/auth/login", ResultCode.LOGIN_SUCCESS);
         map.put("/auth/reissue", ResultCode.REISSUE_SUCCESS);
-        map.put("/auth/login/recovery", ResultCode.LOGIN_WITH_CODE_SUCCESS);
         customAuthenticationSuccessHandler.setResultCodeMap(map);
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        // below order is very important
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(customUserDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder)
-                .and()
-                .authenticationProvider(jwtAuthenticationProvider)
                 .authenticationProvider(reissueAuthenticationProvider)
+                .authenticationProvider(jwtAuthenticationProvider)
+                .authenticationProvider(daoAuthenticationProvider())
                 .build();
     }
 
@@ -193,14 +176,18 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest)
                 .permitAll()
+                .antMatchers(AUTH_WHITELIST_STATIC)
+                .permitAll()
+                .antMatchers(AUTH_WHITELIST_SWAGGER)
+                .permitAll()
                 .antMatchers(AUTH_WHITELIST)
                 .permitAll()
                 .anyRequest().hasAuthority(USER.toString());
 
-        http.addFilterBefore(jwtAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(customExceptionHandleFilter, JwtAuthenticationFilter.class);
-        http.addFilterBefore(customUsernamePasswordAuthenticationFilter(authenticationManager), JwtAuthenticationFilter.class);
+        http.addFilterBefore(customUsernamePasswordAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(authenticationManager), CustomUsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(reissueAuthenticationFilter(authenticationManager), JwtAuthenticationFilter.class);
+        http.addFilterBefore(customExceptionHandleFilter, ReissueAuthenticationFilter.class);
 
         return http.build();
     }
