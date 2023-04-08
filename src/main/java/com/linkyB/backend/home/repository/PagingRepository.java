@@ -13,25 +13,29 @@ import java.util.List;
 public class PagingRepository {
     private final EntityManager em;
 
-    public List<User> findAllByGradStatusTrue(int offset, int limit, long userId) {
+    public List<User> findAllByGradStatusTrue(int offset, int limit, long userId, String schoolName) {
         return em.createNativeQuery(
-                        "SELECT * FROM User u WHERE u.userId NOT IN (SELECT b.userGetBlocked " +
-                                "FROM Block b WHERE b.blockStatus = 'ACTIVE'" +
-                                "AND b.userGiveBlock =:userId )" +
-                                "AND u.gradeStatus = 'true' ", User.class)
+                        "SELECT * FROM User u WHERE u.userId NOT IN (SELECT b.userGetBlocked\n" +
+                                "                                FROM Block b WHERE b.blockStatus = 'ACTIVE'\n" +
+                                "                                AND b.userGiveBlock =:userId)\n" +
+                                "                                and u.gradeStatus = 'true' and u.SchoolName = :schoolName\n" +
+                                "and userId != u.userId", User.class)
                 .setParameter("userId", userId)
+                .setParameter("schoolName", schoolName)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();
     }
 
-    public List<User> findAllByGradStatusFalse(int offset, int limit, long userId) {
+    public List<User> findAllByGradStatusFalse(int offset, int limit, long userId, String schoolName) {
         return em.createNativeQuery(
-                        "SELECT * FROM User u WHERE u.userId NOT IN (SELECT b.userGetBlocked " +
-                                "FROM Block b WHERE b.blockStatus = 'ACTIVE'" +
-                                "AND b.userGiveBlock =:userId )" +
-                                "AND u.gradeStatus = 'false' ", User.class)
+                        "SELECT * FROM User u WHERE u.userId NOT IN (SELECT b.userGetBlocked\n" +
+                                "                                FROM Block b WHERE b.blockStatus = 'ACTIVE'\n" +
+                                "                                AND b.userGiveBlock =:userId)\n" +
+                                "                                and u.gradeStatus = 'false' and u.SchoolName = :schoolName\n" +
+                                "and userId != u.userId", User.class)
                 .setParameter("userId" , userId)
+                .setParameter("schoolName", schoolName)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();
