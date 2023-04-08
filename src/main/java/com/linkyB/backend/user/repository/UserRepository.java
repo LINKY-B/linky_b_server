@@ -65,4 +65,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByuserNickNameContaining(String nickName);
 
+    User findSchoolNameByUserId(long userId);
+
 }
