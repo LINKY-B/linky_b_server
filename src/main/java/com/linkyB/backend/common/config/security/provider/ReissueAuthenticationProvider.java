@@ -27,15 +27,11 @@ public class ReissueAuthenticationProvider implements AuthenticationProvider {
         final String refreshTokenString = (String) authentication.getPrincipal();
         final String accessTokenString = (String) authentication.getCredentials();
 
-        // reissue accessToken 검증. 만료된 경우에만 발급받을 수 있도록 함.
+        // reissue accessToken 검증. 만료되지 않은 경우에도 발급받을 수 있도록 함.
         try {
             jwtUtil.getAuthentication(accessTokenString);
-            throw new JwtNotExpiredException();
         } catch (JwtExpiredException jee) {
             log.info("만료된 인증토큰! reissue 에 알맞음.");
-        } catch (JwtNotExpiredException e) {
-            log.info("만료되지 않은 인증토큰!");
-            throw new JwtNotExpiredException();
         } catch (Exception e) {
             log.info("잘못된 인증토큰! {}", e);
             throw new JwtInvalidException();
