@@ -40,7 +40,6 @@ public class FilterService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다. "));
 
-        // 기존에 설정한 필터가 있다면 삭제 후 새로운 필터 적용
         if (!genderForFilterRepository.findAllByUser(userId).isEmpty()) {
             genderForFilterRepository.deleteAllByUserId(userId);
         }
