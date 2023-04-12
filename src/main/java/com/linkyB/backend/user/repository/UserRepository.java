@@ -46,15 +46,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "                       AND userStudentNum IN (SELECT ugff.Grade FROM GradeForFilter ugff )\n" +
             "                       AND userMBTI NOT IN(SELECT umff2.blockedMbti FROM MbtiForFilter umff2)\n" +
             "                       AND userSex IN (SELECT uf.Gender FROM GenderForFilter uf)\n" +
-            "                       AND u.gradeStatus = 'true'", nativeQuery = true)
-    List<User> findTrueStudentByFilter(@Param("userId") long userId);
+            "                       AND u.gradeStatus = 'true' and u.SchoolName = ?", nativeQuery = true)
+    List<User> findTrueStudentByFilter(@Param("userId") long userId, @Param("SchoolName")String SchoolName);
 
     @Query(value = "SELECT * FROM User u WHERE userMajorName NOT IN (SELECT umff.blockedMajor FROM MajorForFilter umff WHERE umff.userId = ?)\n" +
             "                       AND userStudentNum IN (SELECT ugff.Grade FROM GradeForFilter ugff )\n" +
             "                       AND userMBTI NOT IN(SELECT umff2.blockedMbti FROM MbtiForFilter umff2)\n" +
             "                       AND userSex IN (SELECT uf.Gender FROM GenderForFilter uf)\n" +
-            "                       AND u.gradeStatus = 'false'", nativeQuery = true)
-    List<User> findFalseStudentByFilter(@Param("userId") long userId);
+            "                       AND u.gradeStatus = 'false' and u.SchoolName =? ", nativeQuery = true)
+    List<User> findFalseStudentByFilter(@Param("userId") long userId, @Param("SchoolName")String SchoolName);
 
     @Query(value = "select u from User u left join GenderForFilter g on g.user.userId = u.userId\n" +
             "left join GradeForFilter GFF ON u.userId = GFF.user.userId\n" +
