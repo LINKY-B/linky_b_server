@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +41,6 @@ public class FilterService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다. "));
 
-        // 기존에 설정한 필터가 있다면 삭제 후 새로운 필터 적용
         if (!genderForFilterRepository.findAllByUser(userId).isEmpty()) {
             genderForFilterRepository.deleteAllByUserId(userId);
         }
@@ -69,9 +69,9 @@ public class FilterService {
         for (GradeForFilter k : gradeBlockedList)
             gradeForFilterRepository.save(filterConverter.gradeFiltersave(user, k));
 
-        List<User> userList = userRepository.findTrueStudentByFilter(userId);
+        List<User> userList = userRepository.findTrueStudentByFilter(userId, user.getUserSchoolName());
 
-        return userRepository.findTrueStudentByFilter(userId)
+        return userRepository.findTrueStudentByFilter(userId, user.getUserSchoolName())
                 .stream()
                 .map(UserListResponseDto::new)
                 .collect(Collectors.toList());
@@ -80,7 +80,9 @@ public class FilterService {
 
     // 필터 저장 후 필터 적용된 재학생 리스트 반환
     public List<UserListResponseDto> FalseList(long userId) {
-        return userRepository.findFalseStudentByFilter(userId)
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저가 존재하지 않습니다."));
+        return userRepository.findFalseStudentByFilter(userId, user.getUserSchoolName())
                 .stream()
                 .map(UserListResponseDto::new)
                 .collect(Collectors.toList());

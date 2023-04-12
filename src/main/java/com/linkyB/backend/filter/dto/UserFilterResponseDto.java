@@ -1,10 +1,5 @@
 package com.linkyB.backend.filter.dto;
 
-
-import com.linkyB.backend.filter.entity.GenderForFilter;
-import com.linkyB.backend.filter.entity.GradeForFilter;
-import com.linkyB.backend.filter.entity.MajorForFilter;
-import com.linkyB.backend.filter.entity.MbtiForFilter;
 import com.linkyB.backend.user.domain.User;
 import lombok.*;
 
@@ -12,9 +7,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
+
 public class UserFilterResponseDto {
     private List<String> userGenderForFilters;
     private List<String> userGradeForFilters;
@@ -22,10 +19,11 @@ public class UserFilterResponseDto {
     private List<String> userMbtiForFilters;
 
     public static UserFilterResponseDto of(User user) {
+        UserFilterResponseDto dto = new UserFilterResponseDto();
         return UserFilterResponseDto.builder()
                 .userGenderForFilters(user.getUserGenderForFilters().stream().map(list -> {
-                    return list.getGender();
-                }).collect(Collectors.toList()))
+                        return list.getGender();
+            }).collect(Collectors.toList()))
                 .userGradeForFilters(user.getUserGradeForFilters().stream().map(list -> {
                     return list.getGrade();
                 }).collect(Collectors.toList()))
@@ -37,7 +35,5 @@ public class UserFilterResponseDto {
                 }).collect(Collectors.toList()))
                 .build();
     }
-
-
 
 }

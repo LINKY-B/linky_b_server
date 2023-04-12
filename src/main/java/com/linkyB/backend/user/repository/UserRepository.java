@@ -30,12 +30,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "WHERE m.userMatching.userId = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE'")
     List<User> findAllByUserMatching(@Param("userId") long userId);
 
-    @Query(value = "SELECT u FROM User u JOIN Match m ON m.userMatching.userId = u.userId " +
-            "WHERE m.userGetMatched.userId = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE'")
+    @Query(value = "SELECT * FROM User u JOIN UserMatch m ON m.userMatching = u.userId " +
+            "WHERE m.userGetMatched = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE' limit 4", nativeQuery = true)
     List<User> findTop4ByUserGetMatched(@Param("userId") long userId);
 
-    @Query(value = "SELECT u FROM User u JOIN Match m ON m.userGetMatched.userId = u.userId " +
-            "WHERE m.userMatching.userId = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE'")
+    @Query(value= "SELECT * FROM User u JOIN UserMatch m ON m.userGetMatched = u.userId\n" +
+            "            WHERE m.userMatching = :userId AND m.status = 'ACTIVE' AND m.userMatchStatus = 'INACTIVE' limit 4", nativeQuery = true)
     List<User> findTop4ByUserMatching(@Param("userId") long userId);
 
     @Query(value = "SELECT u FROM User u JOIN Block b ON b.userGetBlocked.userId = u.userId " +
@@ -46,20 +46,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "                       AND userStudentNum IN (SELECT ugff.Grade FROM GradeForFilter ugff )\n" +
             "                       AND userMBTI NOT IN(SELECT umff2.blockedMbti FROM MbtiForFilter umff2)\n" +
             "                       AND userSex IN (SELECT uf.Gender FROM GenderForFilter uf)\n" +
-            "                       AND u.gradeStatus = 'true'", nativeQuery = true)
-    List<User> findTrueStudentByFilter(@Param("userId") long userId);
+            "                       AND u.gradeStatus = 'true' and u.SchoolName = ?", nativeQuery = true)
+    List<User> findTrueStudentByFilter(@Param("userId") long userId, @Param("SchoolName")String SchoolName);
 
     @Query(value = "SELECT * FROM User u WHERE userMajorName NOT IN (SELECT umff.blockedMajor FROM MajorForFilter umff WHERE umff.userId = ?)\n" +
             "                       AND userStudentNum IN (SELECT ugff.Grade FROM GradeForFilter ugff )\n" +
             "                       AND userMBTI NOT IN(SELECT umff2.blockedMbti FROM MbtiForFilter umff2)\n" +
             "                       AND userSex IN (SELECT uf.Gender FROM GenderForFilter uf)\n" +
-            "                       AND u.gradeStatus = 'false'", nativeQuery = true)
-    List<User> findFalseStudentByFilter(@Param("userId") long userId);
+            "                       AND u.gradeStatus = 'false' and u.SchoolName =? ", nativeQuery = true)
+    List<User> findFalseStudentByFilter(@Param("userId") long userId, @Param("SchoolName")String SchoolName);
 
-    @Query(value = "select u from User u join GenderForFilter g on g.user.userId = u.userId\n" +
-            "join GradeForFilter GFF ON u.userId = GFF.user.userId\n" +
-            "join MajorForFilter MFF ON u.userId = MFF.user.userId\n" +
-            "join MbtiForFilter M ON u.userId = M.user.userId\n" +
+    @Query(value = "select u from User u left join GenderForFilter g on g.user.userId = u.userId\n" +
+            "left join GradeForFilter GFF ON u.userId = GFF.user.userId\n" +
+            "left join MajorForFilter MFF ON u.userId = MFF.user.userId\n" +
+            "left join MbtiForFilter M ON u.userId = M.user.userId\n" +
             "where u.userId= :userId")
     User findFilterByUserId(@Param("userId")long userId);
 
