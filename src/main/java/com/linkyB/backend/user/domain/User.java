@@ -186,7 +186,7 @@ public class User extends BaseEntity {
     }
 
 
-    // == 연관관계 메서드 ==
+    // == 상태 변경 메서드 ==
     public void increaseLikeCount() {
         this.userLikeCount++;
     }
@@ -207,22 +207,19 @@ public class User extends BaseEntity {
         this.userNotification = userNotification;
     }
 
-    public void updateProfileImage(String profileImageUrl) {
-        this.userProfileImg = profileImageUrl;
-    }
-
     public void updateInfo(PatchUserReq dto) {
-        this.userMajorName = dto.getUserMajorName();
         this.userMBTI = dto.getUserMbti();
         this.userSelfIntroduction = dto.getUserSelfIntroduction();
+        this.userProfileImg = dto.getProfileImg();
 
+        // 기존 interest, personality 다 날리고 새로 저장.
         this.userInterest.clear();
         this.userPersonality.clear();
-
         dto.getUserInterests().stream().map(Interest::new).forEach(i -> this.addInterests(i));
         dto.getUserPersonalities().stream().map(Personality::new).forEach(p -> this.addPersonality(p));
     }
 
+    // == 연관관계 메서드 ==
     public void addInterests(Interest interest) {
         this.userInterest.add(interest);
         interest.setUser(this);

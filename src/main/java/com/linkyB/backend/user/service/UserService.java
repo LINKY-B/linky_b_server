@@ -12,12 +12,15 @@ import com.linkyB.backend.user.dto.UserResponseDto;
 import com.linkyB.backend.user.dto.UserSignupResponseDto;
 import com.linkyB.backend.user.exception.UserNotFoundException;
 import com.linkyB.backend.user.repository.UserRepository;
+import com.linkyB.backend.user.util.UserProfileUrls;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+
+import static com.linkyB.backend.common.exception.ErrorCode.PROFILE_IMAGE_NOT_FOUND;
 
 @Service
 @Transactional
@@ -88,14 +91,14 @@ public class UserService {
 
     // 유저 프로필 수정
     @Transactional
-    public UserResponseDto modifyProfile(PatchUserReq dto, MultipartFile multipartFile) throws IOException {
+    public UserResponseDto modifyProfile(PatchUserReq dto) {
         Long userId = SecurityUtils.getCurrentUserId();
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        if (multipartFile != null) {
-            String storedFileName = s3Uploader.upload(multipartFile, "images/");
-            user.updateProfileImage(storedFileName);
+        if (!UserProfileUrls.isValidProfileImageUrl(dto.getProfileImg())) {
+            throw new LinkyBusinessException(PROFILE_IMAGE_NOT_FOUND);
         }
+
         user.updateInfo(dto);
 
         return UserResponseDto.of(user);
@@ -105,7 +108,6 @@ public class UserService {
     // 유저 탈퇴
     @Transactional
     public UserResponseDto deleteUser(long TokenUser, long userId) {
-
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         if (users.getUserId() == TokenUser) {

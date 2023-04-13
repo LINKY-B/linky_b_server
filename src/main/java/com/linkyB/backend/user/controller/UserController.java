@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -66,8 +67,7 @@ public class UserController {
     @PostMapping("/report/{userGetReported}")
     public ResultResponse<ReportDto> reportUser(
             @PathVariable("userGetReported") long userGetReported,
-            @RequestBody PostReportReq dto)
-    {
+            @RequestBody PostReportReq dto) {
         ReportDto response = reportService.reportUser(userGetReported, securityUtils.getCurrentUserId(), dto);
         return new ResultResponse<>(POST_REPORT_SUCCESS, response);
     }
@@ -165,12 +165,9 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "M009 - 회원 프로필을 수정하였습니다."),
     })
     @PatchMapping("/modifyProfile")
-    public ResultResponse<UserResponseDto> modifyProfile(
-            @RequestPart(value = "PatchUserReq") PatchUserReq dto,
-            @RequestPart(value = "profileImg", required = false) MultipartFile multipartFile
-    ) throws IOException {
+    public ResultResponse<UserResponseDto> modifyProfile(@Valid @RequestBody PatchUserReq dto) {
         log.info("[USER Controller] PathUserReq : {}", dto);
-        UserResponseDto response = userService.modifyProfile(dto, multipartFile);
+        UserResponseDto response = userService.modifyProfile(dto);
         return new ResultResponse<>(EDIT_PROFILE_SUCCESS, response);
     }
 
