@@ -18,7 +18,6 @@ import com.linkyB.backend.user.dto.PatchUserReq;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -63,7 +62,7 @@ public class User extends BaseEntity {
     private String userStudentNum;
 
     @Column(name = "gradeStatus")
-    private String gradStatus;
+    private String gradeStatus;
 
     @Column(name = "userProfileImg")
     private String userProfileImg;
@@ -166,7 +165,7 @@ public class User extends BaseEntity {
     @Builder
     public User(String userEmail, String userPassword, String userName, String userNickName,
                 String userBirth, String userSchoolName, String userMajorName, String userProfileImg,
-                String userSchoolImg, String gradStatus, String userMBTI, String userStudentNum,
+                String userSchoolImg, String gradeStatus, String userMBTI, String userStudentNum,
                 String userSelfIntroduction, String userSex) {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
@@ -177,7 +176,7 @@ public class User extends BaseEntity {
         this.userMajorName = userMajorName;
         this.userProfileImg = userProfileImg;
         this.userSchoolImg = userSchoolImg;
-        this.gradStatus = gradStatus;
+        this.gradeStatus = gradeStatus;
         this.userMBTI = userMBTI;
         this.userStudentNum = userStudentNum;
         this.userSelfIntroduction = userSelfIntroduction;

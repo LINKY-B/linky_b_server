@@ -104,7 +104,7 @@ public class UserSignupRequestDto {
                 .userSex(userSex)
                 .userProfileImg(profileImg)
                 .userSchoolImg(schoolImg)
-                .gradStatus(gradeStatus)
+                .gradeStatus(gradeStatus)
                 .userMBTI(userMBTI)
                 .userStudentNum(userStudentNum)
                 .userSelfIntroduction(userSelfIntroduction)
