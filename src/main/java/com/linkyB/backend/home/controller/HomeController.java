@@ -36,8 +36,8 @@ public class HomeController {
     public ResultResponse<Map<String, List<UserListResponseDto>>> HomeList(@RequestParam(value = "offset", defaultValue = "0") int offset,
                                                                            @RequestParam(value = "limit", defaultValue = "20") int limit) {
         Map<String, List<UserListResponseDto>> response = new HashMap<>();
-        response.put("졸업생 유저 리스트", homeService.TrueList(offset, limit, securityUtils.getCurrentUserId()));
-        response.put("재학생 유저 리스트", homeService.FalseList(offset, limit, securityUtils.getCurrentUserId()));
+        response.put("졸업생 유저 리스트", homeService.getUserLists(offset, limit, securityUtils.getCurrentUserId(), true));
+        response.put("재학생 유저 리스트", homeService.getUserLists(offset, limit, securityUtils.getCurrentUserId(), false));
 
         return new ResultResponse<>(GET_HOME_LIST_SUCCESS, response);
     }

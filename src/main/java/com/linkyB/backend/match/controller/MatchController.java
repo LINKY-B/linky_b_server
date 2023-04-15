@@ -75,8 +75,8 @@ public class MatchController {
             @ApiResponse(responseCode = "403", description = "U004 - 삭제 권한이 없습니다."),
     })
     @PostMapping("/block/{userGetMatched}")
-    public ResultResponse<BlockDto> matchBlock(@PathVariable("userGetMatched") long userGetMatched) {
-        BlockDto response = matchService.blockMatch(securityUtils.getCurrentUserId(), userGetMatched);
+    public ResultResponse<MatchDto> matchBlock(@PathVariable("userGetMatched") long userGetMatched) {
+        MatchDto response = matchService.blockMatch(securityUtils.getCurrentUserId(), userGetMatched);
         return new ResultResponse<>(DELETE_MATCH_HISTORY_SUCCESS, response);
     }
 

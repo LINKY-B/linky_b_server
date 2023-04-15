@@ -15,7 +15,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name = "UserMatch")
+@Table(name = "UserMatch",
+        uniqueConstraints = @UniqueConstraint(name = "user_match_unique", columnNames = {"userGetMatched", "userMatching"})
+)
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Match extends BaseEntity {
@@ -26,11 +28,11 @@ public class Match extends BaseEntity {
     private Long matchId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="userGetMatched")
+    @JoinColumn(name = "userGetMatched")
     private User userGetMatched; // 연결을 당한 유저
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="userMatching")
+    @JoinColumn(name = "userMatching")
     private User userMatching; // 연결을 시도한 유저
 
     @JsonIgnore
@@ -42,10 +44,24 @@ public class Match extends BaseEntity {
     private status status; // 매칭 테이블 컬럼 상태 [INACTIVE, ACTIVE]
 
     public void update(MatchStatus userMatchStatus) {
-
         this.userMatchStatus = userMatchStatus;
     }
-    public void updateMatch(status status) {
-        this.status = status;
+
+    // 연결 수락 / 거절
+    public void approve(){
+        this.userMatchStatus = MatchStatus.ACTIVE;
+    }
+
+    public void refuse(){
+        this.userMatchStatus = MatchStatus.INACTIVE;
+    }
+
+    // 연결 삭제 / 활성화
+    public void deleteMatch() {
+        this.status = com.linkyB.backend.match.entity.status.INACTIVE;
+    }
+
+    public void activateMatch() {
+        this.status = com.linkyB.backend.match.entity.status.ACTIVE;
     }
 }

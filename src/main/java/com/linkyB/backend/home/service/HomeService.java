@@ -1,8 +1,10 @@
 package com.linkyB.backend.home.service;
 
 import com.linkyB.backend.home.repository.PagingRepository;
+import com.linkyB.backend.match.entity.status;
 import com.linkyB.backend.user.domain.User;
 import com.linkyB.backend.user.dto.UserListResponseDto;
+import com.linkyB.backend.user.exception.UserNotFoundException;
 import com.linkyB.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,19 +21,12 @@ public class HomeService {
     private final PagingRepository pagingRepository;
     private final UserRepository userRepository;
 
-    // 졸업생 유저 리스트 조회
-    public List<UserListResponseDto> TrueList(int offset, int limit, long userId) {
-        User user = userRepository.findSchoolNameByUserId(userId);
-        return pagingRepository.findAllByGradStatusTrue(offset, limit, userId, user.getUserSchoolName())
-                .stream()
-                .map(UserListResponseDto::new)
-                .collect(Collectors.toList());
-    }
+    // 유저 리스트 조회
+    public List<UserListResponseDto> getUserLists(int offset, int limit, long userId, boolean isGraduate) {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        final String schoolName = user.getUserSchoolName();
 
-    // 재학생 유저 리스트 조회
-    public List<UserListResponseDto> FalseList(int offset, int limit, long userId) {
-        User user = userRepository.findSchoolNameByUserId(userId);
-        return pagingRepository.findAllByGradStatusFalse(offset, limit, userId, user.getUserSchoolName())
+        return pagingRepository.findAll(offset, limit, userId, schoolName, isGraduate)
                 .stream()
                 .map(UserListResponseDto::new)
                 .collect(Collectors.toList());
