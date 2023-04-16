@@ -8,6 +8,7 @@ import com.linkyB.backend.common.result.ResultResponse;
 import com.linkyB.backend.common.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -56,12 +57,16 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     }
 
     private void addRefreshTokenCookie(HttpServletResponse response, String refreshToken){
-        final Cookie cookie = new Cookie("refreshToken", refreshToken);
-        cookie.setMaxAge(REFRESH_TOKEN_VALIDATION_TIME_IN_SECONDS);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
+        // Todo: 쿠키 samesite나 secure 관련 추후 보안 수정 필요
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
+                .path("/")
+                .sameSite("None")
+                .httpOnly(true)
+                .secure(false)
+                .maxAge(REFRESH_TOKEN_VALIDATION_TIME_IN_SECONDS)
+                .build();
 
-        response.addCookie(cookie);
+        response.addHeader("Set-Cookie", cookie.toString());
     }
 
     public void setResultCodeMap(Map<String, ResultCode> resultCodeMap) {
