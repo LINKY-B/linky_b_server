@@ -62,7 +62,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 .path("/")
                 .sameSite("None")
                 .httpOnly(true)
-                .secure(true)
+                .secure(false)
                 .maxAge(REFRESH_TOKEN_VALIDATION_TIME_IN_SECONDS)
                 .build();
 
