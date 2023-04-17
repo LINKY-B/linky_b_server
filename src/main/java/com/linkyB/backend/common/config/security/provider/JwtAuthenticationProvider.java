@@ -17,6 +17,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        log.info("jwt authentication provider!!");
         final String jwt = (String) authentication.getPrincipal();
         return jwtUtil.getAuthentication(jwt);
     }

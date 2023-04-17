@@ -24,6 +24,7 @@ public class ReissueAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        log.info("reissue authentication provider!!");
         final String refreshTokenString = (String) authentication.getPrincipal();
         final String accessTokenString = (String) authentication.getCredentials();
 
@@ -45,6 +46,8 @@ public class ReissueAuthenticationProvider implements AuthenticationProvider {
         // 사용할 수 있는(저장된) 토큰인지 확인
         final RefreshToken refreshToken = refreshTokenService.findRefreshToken(Long.valueOf(memberId),
                 refreshTokenString).orElseThrow(LogoutByAnotherException::new);
+
+        log.info("사용 가능한 refresh 토큰!: {}", refreshToken.getValue());
 
         this.deleteRefreshToken(refreshToken);
 

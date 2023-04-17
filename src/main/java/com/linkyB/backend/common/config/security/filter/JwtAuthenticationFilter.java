@@ -26,6 +26,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        log.info("jwt authentication!");
         final String jwt = jwtUtil.extractJwt(request);
         final JwtAuthenticationToken authenticationToken = JwtAuthenticationToken.of(jwt);
 
