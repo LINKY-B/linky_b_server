@@ -72,6 +72,8 @@ public class SecurityConfiguration {
             "/auth/signup", "/auth/signup/confirm-email", "/auth/signup/send-email",
             "/auth/check-nickname", "/auth/profile-images",
             "/auth/reset-password", "/auth/reset-password/send-email",
+            "/chat/**", "/ws-stomp"
+
     };
 
     @Bean
