@@ -57,7 +57,7 @@ public class JwtUtil implements InitializingBean {
         JWT_KEY = Keys.hmacShaKeyFor(key);
     }
 
-    private Claims parseClaims(String token) {
+    public Claims parseClaims(String token) {
         try {
             JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(JWT_KEY).build();
             return jwtParser.parseClaimsJws(token).getBody();
