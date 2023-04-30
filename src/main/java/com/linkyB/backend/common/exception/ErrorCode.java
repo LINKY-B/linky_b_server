@@ -56,6 +56,11 @@ public enum ErrorCode {
 
     // Match
     MATCH_NOT_FOUND(404, "M001", "해당 연결내역이 존재하지 않습니다."),
+
+    //Chat
+    EMPTY_FIELD_FOUND(422 , "C001", "메세지에 비어있는 필드가 존재합니다."),
+    MESSAGE_HANDLE_FAIL(500, "C002", "채팅 메세지 처리에 실패했습니다."),
+    MESSAGE_SAVE_FAIL(500, "C003", "채팅 메세지 저장에 실패했습니다."),
     ;
 
     private final int status;
