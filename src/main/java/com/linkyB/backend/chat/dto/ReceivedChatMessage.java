@@ -7,10 +7,9 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class ChatMessage {
+public class ReceivedChatMessage {
 
     private String roomId;
-    private String sender;
     private String message;
     private String sendingTime;
 }

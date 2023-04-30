@@ -67,6 +67,9 @@ public enum ResultCode {
     GET_TRY_MATCH_TO_ME_SUCCESS(200, "MA006", "나에게 매칭 시도한 유저 전체 조회에 성공했습니다."),
     GET_TRY_MATCH_TO_OTHER_SUCCESS(200, "MA007", "내가 매칭 시도한 유저 전체 조회에 성공했습니다."),
     GET_MATCH_HOME_SUCCESS(200, "MA008", "매칭 홈 조회에 성공했습니다."),
+
+    // Chat
+    MESSAGE_HANDLING_SUCCESS(200, "C001", "매세지 처리를 성공했습니다."),
     ;
 
 
