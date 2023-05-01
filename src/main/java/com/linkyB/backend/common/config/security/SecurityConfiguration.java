@@ -1,17 +1,16 @@
 package com.linkyB.backend.common.config.security;
 
-import com.linkyB.backend.common.config.security.filter.CustomExceptionHandleFilter;
-import com.linkyB.backend.common.config.security.filter.CustomUsernamePasswordAuthenticationFilter;
-import com.linkyB.backend.common.config.security.filter.JwtAuthenticationFilter;
-import com.linkyB.backend.common.config.security.filter.ReissueAuthenticationFilter;
+import com.linkyB.backend.common.config.security.filter.*;
 import com.linkyB.backend.common.config.security.handler.CustomAccessDeniedHandler;
 import com.linkyB.backend.common.config.security.handler.CustomAuthenticationEntryPoint;
 import com.linkyB.backend.common.config.security.handler.CustomAuthenticationFailureHandler;
 import com.linkyB.backend.common.config.security.handler.CustomAuthenticationSuccessHandler;
+import com.linkyB.backend.common.config.security.provider.DeleteUserAuthenticationProvider;
 import com.linkyB.backend.common.config.security.provider.JwtAuthenticationProvider;
 import com.linkyB.backend.common.config.security.provider.ReissueAuthenticationProvider;
 import com.linkyB.backend.common.result.ResultCode;
 import com.linkyB.backend.common.util.JwtUtil;
+import com.linkyB.backend.user.repository.UserRepository;
 import com.linkyB.backend.user.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +44,7 @@ import static com.linkyB.backend.user.domain.enums.Authority.USER;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
 
     // handlers
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
@@ -81,6 +81,7 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    // providers
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
@@ -89,6 +90,13 @@ public class SecurityConfiguration {
         return daoAuthenticationProvider;
     }
 
+    public DeleteUserAuthenticationProvider deleteUserAuthenticationProvider() {
+        DeleteUserAuthenticationProvider provider = new DeleteUserAuthenticationProvider(jwtUtil, userRepository, bCryptPasswordEncoder());
+        return provider;
+    }
+
+
+    // filters
     public CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
         final CustomUsernamePasswordAuthenticationFilter filter = new CustomUsernamePasswordAuthenticationFilter();
         filter.setAuthenticationManager(authenticationManager);
@@ -120,6 +128,14 @@ public class SecurityConfiguration {
         return filter;
     }
 
+    DeleteUserAuthenticationFilter deleteUserAuthenticationFilter(AuthenticationManager authenticationManager) {
+        final DeleteUserAuthenticationFilter filter = new DeleteUserAuthenticationFilter(jwtUtil, userRepository);
+        filter.setAuthenticationManager(authenticationManager);
+        filter.setAuthenticationFailureHandler(customAuthenticationFailureHandler);
+
+        return filter;
+    }
+
     @Bean
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -145,10 +161,13 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        // below order is very important
+        // ** Below order is very important
+        // reissue filter -> jwt filter -> delete user filter -> login filter
+        // this sequence must be equal with below "filterChain" method
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .authenticationProvider(reissueAuthenticationProvider)
                 .authenticationProvider(jwtAuthenticationProvider)
+                .authenticationProvider(deleteUserAuthenticationProvider())
                 .authenticationProvider(daoAuthenticationProvider())
                 .build();
     }
@@ -186,8 +205,13 @@ public class SecurityConfiguration {
                 .permitAll()
                 .anyRequest().hasAuthority(USER.toString());
 
+
+        // ** Below order is very important
+        // reissue filter -> jwt filter -> delete user filter -> login filter
+        // this sequence must be equal with providers sequence of upper "authenticationManager" method
         http.addFilterBefore(customUsernamePasswordAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(jwtAuthenticationFilter(authenticationManager), CustomUsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(deleteUserAuthenticationFilter(authenticationManager), CustomUsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(authenticationManager), DeleteUserAuthenticationFilter.class);
         http.addFilterBefore(reissueAuthenticationFilter(authenticationManager), JwtAuthenticationFilter.class);
         http.addFilterBefore(customExceptionHandleFilter, ReissueAuthenticationFilter.class);
 

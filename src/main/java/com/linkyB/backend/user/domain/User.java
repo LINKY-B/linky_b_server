@@ -11,6 +11,7 @@ import com.linkyB.backend.filter.entity.MbtiForFilter;
 import com.linkyB.backend.like.entity.UserLikes;
 import com.linkyB.backend.match.entity.Match;
 import com.linkyB.backend.report.entity.Report;
+import com.linkyB.backend.user.domain.enums.ActiveStatus;
 import com.linkyB.backend.user.domain.enums.Authority;
 import com.linkyB.backend.user.domain.enums.UserNotification;
 import com.linkyB.backend.user.domain.enums.UserStatusForMyInfo;
@@ -91,6 +92,11 @@ public class User extends BaseEntity {
     @ColumnDefault("'ACTIVE'")
     private UserStatusForMyInfo userStatusForMyInfo; // 유저 정보 활성화 상태 [INACTIVE, ACTIVE]
 
+    @Enumerated(EnumType.STRING)
+    @ColumnDefault("'ACTIVE'")
+    private ActiveStatus isActive; // 유저 삭제 여부
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Personality> userPersonality = new ArrayList<>();
@@ -102,6 +108,7 @@ public class User extends BaseEntity {
 
     @Column(name = "userSelfIntroduction")
     private String userSelfIntroduction;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -216,6 +223,14 @@ public class User extends BaseEntity {
         this.userPersonality.clear();
         dto.getUserInterests().stream().map(Interest::new).forEach(i -> this.addInterests(i));
         dto.getUserPersonalities().stream().map(Personality::new).forEach(p -> this.addPersonality(p));
+    }
+
+    public void deleteUser() {
+        this.isActive = ActiveStatus.INACTIVE;
+    }
+
+    public void restoreUser(){
+        this.isActive = ActiveStatus.ACTIVE;
     }
 
     // == 연관관계 메서드 ==

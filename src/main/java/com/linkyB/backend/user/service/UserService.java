@@ -46,7 +46,6 @@ public class UserService {
     // 유저 정보 상세 조회
     public UserDetailResponseDto findUser(Long userId) {
         User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-
         return UserDetailResponseDto.of(users);
 
     }
@@ -103,17 +102,5 @@ public class UserService {
 
         return UserResponseDto.of(user);
 
-    }
-
-    // 유저 탈퇴
-    @Transactional
-    public UserResponseDto deleteUser(long TokenUser, long userId) {
-        User users = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-
-        if (users.getUserId() == TokenUser) {
-            userRepository.delete(users);
-            return UserResponseDto.of(users);
-        } else
-            throw new LinkyBusinessException("탈퇴 권한이 없습니다.", ErrorCode.AUTHORITY_INVALID);
     }
 }

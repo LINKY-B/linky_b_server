@@ -60,9 +60,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         // Todo: 쿠키 samesite나 secure 관련 추후 보안 수정 필요
         ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
                 .path("/")
-                .sameSite("None")
+//                .sameSite("None")
+//                .secure(false)
                 .httpOnly(true)
-                .secure(true)
                 .maxAge(REFRESH_TOKEN_VALIDATION_TIME_IN_SECONDS)
                 .build();
 

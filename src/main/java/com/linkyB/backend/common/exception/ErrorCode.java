@@ -35,7 +35,7 @@ public enum ErrorCode {
     UPDATE_PASSWORD_FAILED(400, "A005", "비밀번호 변경에 실패했습니다. 이전 비밀번호와 동일합니다."),
     CONFIRM_CODE_NOT_VALID(401, "A006", "인증 코드가 만료되었거나 일치하지 않습니다."),
     AUTHENTICATION_FAIL(401, "A007", "로그인이 필요한 화면입니다."),
-    AUTHORITY_INVALID(403, "A008", "권한이 없습니다."),
+    AUTHORITY_INVALID(403, "A008", "비밀번호가 일치하지 않거나 권한이 없습니다."),
     EMAIL_NOT_CONFIRMED(400, "A009", "인증 이메일 전송을 먼저 해야합니다."),
     PASSWORD_RESET_FAIL(400, "A010", "잘못되거나 만료된 코드입니다."),
 

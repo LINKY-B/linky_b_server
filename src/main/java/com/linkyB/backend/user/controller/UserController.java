@@ -3,6 +3,8 @@ package com.linkyB.backend.user.controller;
 import com.linkyB.backend.block.dto.BlockDto;
 import com.linkyB.backend.block.dto.PatchBlockReq;
 import com.linkyB.backend.block.service.BlockService;
+import com.linkyB.backend.common.exception.ErrorCode;
+import com.linkyB.backend.common.exception.LinkyBusinessException;
 import com.linkyB.backend.common.result.ResultResponse;
 import com.linkyB.backend.like.dto.LikeDto;
 import com.linkyB.backend.like.service.LikeService;
@@ -176,9 +178,8 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "M026 - 탈퇴에 성공했습니다."),
     })
-    @DeleteMapping("/{userId}")
-    public ResultResponse<UserResponseDto> deleteUser(@PathVariable("userId") int userId) {
-        UserResponseDto response = userService.deleteUser(securityUtils.getCurrentUserId(), userId);
-        return new ResultResponse<>(DELETE_USER_SUCCESS, response);
+    @DeleteMapping()
+    public ResultResponse<UserResponseDto> deleteUser(DeleteUserRequestDto deleteUserRequestDto) {
+        throw new LinkyBusinessException(ErrorCode.FILTER_MUST_RESPOND);
     }
 }
