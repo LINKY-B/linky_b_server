@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -32,5 +33,11 @@ public class ChattingRoom extends BaseEntity {
     @JoinColumn(name="toUser")
     private User toUser; // 나에게 매칭을 시도한 사람
 
+    @Enumerated(EnumType.STRING)
+    @ColumnDefault("'ACTIVE'")
+    private Status status; // 매칭 테이블 컬럼 상태 [INACTIVE, ACTIVE]
 
+    public void updateChatRoomStatus(Status status) {
+        this.status = status;
+    }
 }

@@ -8,14 +8,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+import static com.linkyB.backend.common.result.ResultCode.GET_MESSAGE_LIST_SUCCESS;
 import static com.linkyB.backend.common.result.ResultCode.MESSAGE_HANDLING_SUCCESS;
 
-@RequiredArgsConstructor
-@Controller
 @Slf4j
+@RestController
+@RequiredArgsConstructor
 public class ChatController {
 
     private final ChatService chatService;
@@ -30,4 +32,14 @@ public class ChatController {
         SavedChatMessage savedChatMessage = chatService.handleMessage(receivedChatMessage, Authorization);
         return new ResultResponse<>(MESSAGE_HANDLING_SUCCESS, savedChatMessage);
     }
+
+    @GetMapping("/messages")
+    public ResultResponse<List<SavedChatMessage>> getChatMessages(@RequestParam String roomId,
+                                                  @RequestParam(defaultValue = "0") int pageNumber,
+                                                  @RequestParam(defaultValue = "20") int pageSize) {
+
+        List<SavedChatMessage> response = chatService.getChatMessagesByRoomId(roomId, pageNumber, pageSize);
+        return new ResultResponse<>(GET_MESSAGE_LIST_SUCCESS, response);
+    }
+
 }

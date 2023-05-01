@@ -61,6 +61,7 @@ public enum ErrorCode {
     EMPTY_FIELD_FOUND(422 , "C001", "메세지에 비어있는 필드가 존재합니다."),
     MESSAGE_HANDLE_FAIL(500, "C002", "채팅 메세지 처리에 실패했습니다."),
     MESSAGE_SAVE_FAIL(500, "C003", "채팅 메세지 저장에 실패했습니다."),
+    CHATROOM_ACCESS_NOT_ALLOW(403 , "C004", "해당 채팅방에 속한 사용자가 아닙니다."),
     ;
 
     private final int status;
