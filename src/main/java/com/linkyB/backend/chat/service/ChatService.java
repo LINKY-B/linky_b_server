@@ -5,13 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkyB.backend.chat.dto.ReceivedChatMessage;
 import com.linkyB.backend.chat.dto.SavedChatMessage;
 import com.linkyB.backend.chat.repository.ChatRepository;
+import com.linkyB.backend.chat.repository.ChattingRoomRepository;
 import com.linkyB.backend.common.exception.ErrorCode;
 import com.linkyB.backend.common.exception.LinkyBusinessException;
 import com.linkyB.backend.common.util.JwtUtil;
+import com.linkyB.backend.common.util.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -19,7 +23,9 @@ import org.springframework.stereotype.Service;
 public class ChatService {
 
     private final JwtUtil jwtUtil;
+    private final SecurityUtils securityUtils;
     private final ChatRepository chatRepository;
+    private final ChattingRoomRepository chattingRoomRepository;
     private final SimpMessageSendingOperations messagingTemplate;
 
     public void saveMessage(String roomId, SavedChatMessage message) throws JsonProcessingException {
@@ -67,5 +73,16 @@ public class ChatService {
         }
 
         return savedChatMessage;
+    }
+
+    public List<SavedChatMessage> getChatMessagesByRoomId(String roomId, int pageNumber, int pageSize) {
+        Long currentUserId = securityUtils.getCurrentUserId();
+        List<List<Long>> usersInActiveChatRoom = chattingRoomRepository.findUsersInActiveChatRoom(Long.parseLong(roomId));
+
+        if (!usersInActiveChatRoom.get(0).contains(currentUserId)) {
+            throw new LinkyBusinessException(ErrorCode.CHATROOM_ACCESS_NOT_ALLOW);
+        }
+
+        return chatRepository.getChatMessagesByRoomId(roomId, pageNumber, pageSize);
     }
 }
