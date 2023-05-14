@@ -33,6 +33,9 @@ public class ChatController {
         return new ResultResponse<>(MESSAGE_HANDLING_SUCCESS, savedChatMessage);
     }
 
+    /**
+     * 채팅방 대화 내용 출력
+     */
     @GetMapping("/messages")
     public ResultResponse<List<SavedChatMessage>> getChatMessages(@RequestParam String roomId,
                                                   @RequestParam(defaultValue = "0") int pageNumber,

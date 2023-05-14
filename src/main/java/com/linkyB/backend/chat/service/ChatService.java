@@ -58,6 +58,9 @@ public class ChatService {
         return (String) memberId;
     }
 
+    /**
+     * 메세지 처리(채팅 내용 저장 성공 시 채팅 내용 전달)
+     */
     public SavedChatMessage handleMessage(ReceivedChatMessage receivedChatMessage, String authorization) {
         String roomId = receivedChatMessage.getRoomId();
         String memberId = findUserId(authorization);
