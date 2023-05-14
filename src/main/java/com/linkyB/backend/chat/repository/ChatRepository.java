@@ -1,5 +1,6 @@
 package com.linkyB.backend.chat.repository;
 
+import com.linkyB.backend.chat.dto.RecentMessage;
 import com.linkyB.backend.chat.dto.SavedChatMessage;
 import com.linkyB.backend.common.exception.ErrorCode;
 import com.linkyB.backend.common.exception.LinkyBusinessException;
@@ -37,5 +38,13 @@ public class ChatRepository {
         List<SavedChatMessage> chatMessages = mongoTemplate.find(query, SavedChatMessage.class, roomId);
 
         return chatMessages;
+    }
+
+    public List<RecentMessage> getMessagesInfo(String roomId) {
+        Query query = new Query();
+        query.limit(1);
+        query.with(Sort.by(Sort.Direction.DESC,"sendingTime"));
+
+        return mongoTemplate.find(query, RecentMessage.class, roomId);
     }
 }

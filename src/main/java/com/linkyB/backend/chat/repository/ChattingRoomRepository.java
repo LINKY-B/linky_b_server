@@ -13,4 +13,7 @@ public interface ChattingRoomRepository extends JpaRepository<ChattingRoom, Long
 
     @Query(value = "SELECT c.fromUser.userId, c.toUser.userId FROM ChattingRoom c WHERE c.chattingRoomId = :ChattingRoomId AND c.status = 'ACTIVE'")
     List<List<Long>> findUsersInActiveChatRoom(@Param("ChattingRoomId") Long ChattingRoomId);
+
+    @Query(value = "SELECT c.chattingRoomId FROM ChattingRoom c WHERE c.fromUser.userId = :userId OR c.toUser.userId = :userId AND c.status = 'ACTIVE'")
+    List<Integer> findAllActiveChatRoomByUserId(@Param("userId") long userId);
 }
