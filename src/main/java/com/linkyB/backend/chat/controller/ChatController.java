@@ -1,9 +1,11 @@
 package com.linkyB.backend.chat.controller;
 
 import com.linkyB.backend.chat.dto.ReceivedChatMessage;
+import com.linkyB.backend.chat.dto.RecentMessage;
 import com.linkyB.backend.chat.dto.SavedChatMessage;
 import com.linkyB.backend.chat.service.ChatService;
 import com.linkyB.backend.common.result.ResultResponse;
+import com.linkyB.backend.common.util.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.Header;
@@ -12,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.linkyB.backend.common.result.ResultCode.GET_MESSAGE_LIST_SUCCESS;
-import static com.linkyB.backend.common.result.ResultCode.MESSAGE_HANDLING_SUCCESS;
+import static com.linkyB.backend.common.result.ResultCode.*;
 
 @Slf4j
 @RestController
@@ -43,6 +44,17 @@ public class ChatController {
 
         List<SavedChatMessage> response = chatService.getChatMessagesByRoomId(roomId, pageNumber, pageSize);
         return new ResultResponse<>(GET_MESSAGE_LIST_SUCCESS, response);
+    }
+
+    /**
+     * 사용자별 대화 중인 채팅방 리스트 조회
+     */
+    @GetMapping("/message-info")
+    public ResultResponse<List<RecentMessage>> getMessagesInfo() {
+
+        List<Integer> values = chatService.getChatRooms(SecurityUtils.getCurrentUserId());
+        List<RecentMessage> response = chatService.getMessagesInfo(values); // 포멧 수정 필요
+        return new ResultResponse<>(GET_MESSAGE_INFO_LIST_SUCCESS, response);
     }
 
 }

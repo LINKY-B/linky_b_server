@@ -71,6 +71,7 @@ public enum ResultCode {
     // Chat
     MESSAGE_HANDLING_SUCCESS(200, "C001", "매세지 처리를 성공했습니다."),
     GET_MESSAGE_LIST_SUCCESS(200, "C002", "채팅 내용 조회에 성공했습니다."),
+    GET_MESSAGE_INFO_LIST_SUCCESS(200, "C003", "채팅방 리스트 조회에 성공했습니다."),
     ;
 
 
