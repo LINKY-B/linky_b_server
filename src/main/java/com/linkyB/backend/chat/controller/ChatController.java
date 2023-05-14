@@ -57,4 +57,13 @@ public class ChatController {
         return new ResultResponse<>(GET_MESSAGE_INFO_LIST_SUCCESS, response);
     }
 
+    /**
+     * 대화 중인 채팅방 나가기
+     */
+    @PutMapping("/rooms/{roomId}/exit")
+    public ResultResponse exitChatRoom(@PathVariable("roomId") long roomId) {
+        chatService.exit(roomId);
+        return ResultResponse.of(EXIT_ROOM_SUCCESS);
+    }
+
 }

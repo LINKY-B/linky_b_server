@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkyB.backend.chat.dto.ReceivedChatMessage;
 import com.linkyB.backend.chat.dto.RecentMessage;
 import com.linkyB.backend.chat.dto.SavedChatMessage;
+import com.linkyB.backend.chat.entity.ChattingRoom;
+import com.linkyB.backend.chat.entity.Status;
 import com.linkyB.backend.chat.repository.ChatRepository;
 import com.linkyB.backend.chat.repository.ChattingRoomRepository;
 import com.linkyB.backend.common.exception.ErrorCode;
@@ -139,5 +141,16 @@ public class ChatService {
             recentMessages.add(recntMessage);
         }
         return recentMessages;
+    }
+
+    public void exit(long roomId) {
+        Optional<ChattingRoom> optionalChattingRoom = chattingRoomRepository.findById(roomId);
+        if (optionalChattingRoom.isPresent()) {
+            ChattingRoom chattingRoom = optionalChattingRoom.get();
+            chattingRoom.updateChatRoomStatus(Status.INACTIVE);
+            chattingRoomRepository.save(chattingRoom);
+        } else {
+            throw new LinkyBusinessException(ErrorCode.CHATROOM_NOT_FOUND);
+        }
     }
 }

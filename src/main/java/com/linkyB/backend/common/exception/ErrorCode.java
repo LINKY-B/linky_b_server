@@ -62,6 +62,7 @@ public enum ErrorCode {
     MESSAGE_HANDLE_FAIL(500, "C002", "채팅 메세지 처리에 실패했습니다."),
     MESSAGE_SAVE_FAIL(500, "C003", "채팅 메세지 저장에 실패했습니다."),
     CHATROOM_ACCESS_NOT_ALLOW(403 , "C004", "해당 채팅방에 속한 사용자가 아닙니다."),
+    CHATROOM_NOT_FOUND(404 , "C005", "존재하지 않는 채팅방입니다."),
     ;
 
     private final int status;
